@@ -11,7 +11,7 @@ const typeDefs = gql`
 
   type Auth {
     token: ID!
-    profile: Profile
+    reader: Reader
   }
 
   type Query {
