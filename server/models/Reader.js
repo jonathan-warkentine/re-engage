@@ -2,6 +2,10 @@ const {Schema, model} = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const readerSchema = new Schema({
+  readerId: {
+    type: Number,
+    unique: true,
+  },
   name: {
     type: String,
     required: true,
@@ -19,6 +23,23 @@ const readerSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  screenName: {
+    type: String,
+    required: true,
+    minlength: 3,
+  },
+  passages: [
+    {
+      passageId: {
+        type: Schema.Types.ObjectId,
+        ref: "Passage",
+      },
+      resumeAt: {
+        type: Number,
+        default: 0
+      }
+    }
+  ],
 });
 
 // set up pre-save middleware to create password
