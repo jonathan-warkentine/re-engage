@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "101",
+    "passageId": "101",
+    "title": "Preamble to the Constitution",
+    "providedBy": "001",
+    "fullBody": "We the People of the United States, in order to form a more perfect union, establish justice, insure domestic tranquility, provide for the common defense, promote the general welfare, and secure the blessings of liberty to ourselves and our posterity, do ordain and establish this Constitution for the United States of America.",
+    "splitBody": [
+      "We the People of the United States, in order to form a more perfect union, establish justice, insure domestic tranquility, provide for the common defense,",
+
+      "promote the general welfare, and secure the blessings of liberty to ourselves and our posterity, do ordain and establish this Constitution for the United States of America."
+    ]
+  },
+  {
+    "_id": "102",
+    "passageId": "102",
+    "title": "John 3:1-8",
+    "providedBy": "001",
+    "fullBody": "Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews. 2 This man came to Jesus[a] by night and said to him, “Rabbi, we know that you are a teacher come from God, for no one can do these signs that you do unless God is with him.” 3 Jesus answered him, “Truly, truly, I say to you, unless one is born again[b] he cannot see the kingdom of God.” 4 Nicodemus said to him, “How can a man be born when he is old? Can he enter a second time into his mother's womb and be born?” 5 Jesus answered, “Truly, truly, I say to you, unless one is born of water and the Spirit, he cannot enter the kingdom of God. 6 That which is born of the flesh is flesh, and that which is born of the Spirit is spirit.[c] 7 Do not marvel that I said to you, ‘You[d] must be born again.’ 8 The wind[e] blows where it wishes, and you hear its sound, but you do not know where it comes from or where it goes. So it is with everyone who is born of the Spirit."
+  },
+  {
+    "_id": "103",
+    "passageId": "103",
+    "title": "'Road to Hell', excerpt from 'Screwtape Letters'",
+    "providedBy": "002",
+    "fullBody": "You can make him do nothing at all for long periods. You can keep him up late at night, not roistering, but staring at a dead fire in a cold room. All the healthy and outgoing activities which we want him to avoid can be inhibited and nothing given in return, so that at last he may say, as one of my own patients said on his arrival down here, “I now see that I spent most of my life in doing neither what I ought nor what I liked”. The Christians describe the Enemy as one “without whom Nothing is strong”. And Nothing is very strong: strong enough to steal away a man’s best years not in sweet sins but in a dreary flickering of the mind over it knows not what and knows not why, in the gratification of curiosities so feeble that the man is only half aware of them, in drumming of fingers and kicking of heels, in whistling tunes that he does not like, or in the long, dim labyrinth of reveries that have not even lust or ambition to give them a relish, but which, once chance association has started them, the creature is too weak and fuddled to shake off. \n You will say that these are very small sins; and doubtless, like all young tempters, you are anxious to be able to report spectacular wickedness. But do remember, the only thing that matters is the extent to which you separate the man from the Enemy. It does not matter how small the sins are provided that their cumulative effect is to edge the man away from the Light and out into the Nothing. Murder is no better than cards if cards can do the trick. Indeed the safest road to Hell is the gradual one—the gentle slope, soft underfoot, without sudden turnings, without milestones, without signposts, \nYour affectionate uncle\nScrewtape"
+  }
+]

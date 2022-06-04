@@ -1,3 +1,4 @@
 const Reader = require('./Reader');
+const Passage = require('./Passage');
 
-module.exports = { Reader };
+module.exports = { Reader, Passage };
