@@ -7,7 +7,6 @@ const typeDefs = gql`
     email: String
     password: String
     screenName: String!
-    passages: 
   }
 
   type Auth {
