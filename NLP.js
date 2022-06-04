@@ -11,39 +11,36 @@ const client = new NLPCloudClient('en_core_web_lg','4dbf7d91e72a84f9e3eeeabdf829
 
 async function findPartsOfSpeech (passage) {
   
-  // before submitting for NLP, remove duplicative punctuation
 
   // hardcoding for now
-  try {
-    const response = await client.dependencies(passage);
-  } catch (error) {
-    console.error(error.response.status);
-    console.error(error.response.data.detail);
-    return error;
-  }
+  // try {
+  //   const response = await client.dependencies(passage);
+  // } catch (error) {
+  //   console.error(error.response.status);
+  //   console.error(error.response.data.detail);
+  //   return error;
+  // }
   
-  const words = response.data.words;
+  // const words = response.data.words;
 
-  // const words = [
-  //   { text: 'this', tag: 'DT' },
-  //   { text: 'is', tag: 'VBZ' },
-  //   { text: '.', tag: '.' },
-  //   { text: 'a', tag: 'DT' },
-  //   { text: 'test', tag: 'NN' },
-  //   { text: '.', tag: '.' },
-  //   { text: 'you', tag: 'PRP' },
-  //   { text: 'know', tag: 'VBP' },
-  //   { text: '?', tag: '.' },
-  //   { text: '!', tag: '.' },
-  //   { text: '?', tag: '.' },
-  //   { text: 'a', tag: 'DT' },
-  //   { text: 'great', tag: 'JJ' },
-  //   { text: 'test', tag: 'NN' },
-  //   { text: '.', tag: '.' },
-  //   { text: 'The', tag: 'DT' },
-  //   { text: 'greatest', tag: 'JJS' },
-  //   { text: '!', tag: '.' }
-  // ];
+  const words = [
+    { text: 'this', tag: 'DT' },
+    { text: 'is', tag: 'VBZ' },
+    { text: ',', tag: '.' },
+    { text: 'a', tag: 'DT' },
+    { text: 'test', tag: 'NN' },
+    { text: '.', tag: '.' },
+    { text: 'you', tag: 'PRP' },
+    { text: 'know', tag: 'VBP' },
+    { text: '?', tag: '.' },
+    { text: 'a', tag: 'DT' },
+    { text: 'great', tag: 'JJ' },
+    { text: 'test', tag: 'NN' },
+    { text: '.', tag: '.' },
+    { text: 'The', tag: 'DT' },
+    { text: 'greatest', tag: 'JJS' },
+    { text: '!', tag: '.' }
+  ];
 
   // TODO: group by sentence
   
@@ -52,7 +49,7 @@ async function findPartsOfSpeech (passage) {
   let sentenceIterator = 0;
   words.forEach( (word, index) => {
     sentences[sentenceIterator].push(word);
-    if (word.tag == ".") {
+    if (word.text.match(/[.!?\\-]/)) {
       sentenceIterator++;
       sentences.push([]); 
     }
