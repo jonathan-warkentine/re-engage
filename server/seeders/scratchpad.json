@@ -1,0 +1,33 @@
+{
+  "readerId": "002",
+  "name": "Jonny Warkentine",
+  "email": "jonny@mail.com",
+  "password": "password1",
+  "screenName": "Jonny",
+  "passages": [{
+    "passageId": 103,
+    "resumeAt": "0"
+  }]
+},
+{
+  "readerId": "003",
+  "name": "Ross McWey",
+  "email": "ross@mail.com",
+  "password": "password1",
+  "screenName": "Ross",
+  "passages": [{
+    "passageId": "",
+    "resumeAt": "0"
+  }]
+},
+{
+  "readerId": "004",
+  "name": "Mitch Wachtel",
+  "email": "mitch@mail.com",
+  "password": "password1",
+  "screenName": "Mitch",
+  "passages": [{
+    "passageId": "",
+    "resumeAt": "0"
+  }]
+}

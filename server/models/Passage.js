@@ -20,7 +20,7 @@ const passageSchema = new Schema({
   fullBody: {
     type: String,
     required: true,
-    maxlength: 500,
+    // maxlength: 500,
   },
   splitBody: {
     type: Array,

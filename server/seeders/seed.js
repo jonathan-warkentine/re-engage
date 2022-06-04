@@ -5,10 +5,10 @@ const passageSeeds = require('./passageSeeds.json');
 
 db.once('open', async () => {
   try {
-    await Passage.deleteMany({});
-    await Passage.create(passageSeeds);
     await Reader.deleteMany({});
     await Reader.create(readerSeeds);
+    await Passage.deleteMany({});
+    await Passage.create(passageSeeds);
 
     console.log('all done!');
     process.exit(0);
