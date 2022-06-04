@@ -4,7 +4,12 @@
     "passageId": "101",
     "title": "Preamble to the Constitution",
     "providedBy": "001",
-    "fullBody": "We the People of the United States, in order to form a more perfect union, establish justice, insure domestic tranquility, provide for the common defense, promote the general welfare, and secure the blessings of liberty to ourselves and our posterity, do ordain and establish this Constitution for the United States of America."
+    "fullBody": "We the People of the United States, in order to form a more perfect union, establish justice, insure domestic tranquility, provide for the common defense, promote the general welfare, and secure the blessings of liberty to ourselves and our posterity, do ordain and establish this Constitution for the United States of America.",
+    "splitBody": [
+      "We the People of the United States, in order to form a more perfect union, establish justice, insure domestic tranquility, provide for the common defense,",
+
+      "promote the general welfare, and secure the blessings of liberty to ourselves and our posterity, do ordain and establish this Constitution for the United States of America."
+    ]
   },
   {
     "_id": "102",
