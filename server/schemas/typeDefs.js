@@ -30,7 +30,7 @@ const typeDefs = gql`
     passages: [Passage]
     passage(passageId: ID!): Passage
     myPassages: [Passage]
-    usersPassages(providedBy: ID!): [Passage]
+    singleUsersPassages(providedBy: ID!): [Passage]
   }
 
   type Mutation {

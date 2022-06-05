@@ -1,5 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Reader} = require("../models");
+const {Reader, Passage} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
@@ -17,6 +17,25 @@ const resolvers = {
         return Reader.findOne({_id: context.user._id});
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+
+    passages: async () => {
+      return Passage.find();
+    },
+
+    passage: async (parent, {passageId}) => {
+      return Passage.findOne({_id: passageId});
+    },
+
+    myPassages: async (parent, args, context) => {
+      if (context.user) {
+        return Passages.find({providedBy: context.user._id});
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    
+    singleUsersPassages: async (parent, {readerId}) => {
+      return Passage.find({providedBy: readerId});
     },
   },
 
