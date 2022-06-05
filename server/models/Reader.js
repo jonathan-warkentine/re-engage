@@ -25,7 +25,7 @@ const readerSchema = new Schema({
   },
   screenName: {
     type: String,
-    required: true,
+   // required: true,
     minlength: 3,
   },
   passages: [

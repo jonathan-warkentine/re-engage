@@ -6,7 +6,16 @@ const typeDefs = gql`
     name: String
     email: String
     password: String
-    screenName: String!
+    screenName: String
+    passages: Array
+  }
+
+  type Passage {
+    _id: ID
+    title: String
+    providedBy: Reader
+    fullBody: String
+    splitBody: Array
   }
 
   type Auth {
@@ -18,6 +27,10 @@ const typeDefs = gql`
     readers: [Reader]!
     reader(readerId: ID!): Reader
     me: Reader
+    passages: [Passage]
+    passage(passageId: ID!): Passage
+    myPassages: [Passage]
+    usersPassages(providedBy: ID!): [Passage]
   }
 
   type Mutation {
