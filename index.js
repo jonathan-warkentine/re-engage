@@ -18,8 +18,31 @@ async function processPassage (passage) {
         
     });
 
-    return sentenceDetailSplit;    
+    return populateBlanks(sentenceDetailSplit);    
 }
+
+function populateBlanks (sentences) {
+    const blankRate = 8; // for every ~8 words, 1 blank
+    const blankedSentences = sentences.map ( sentence => {
+        // if (sentence.length > blankRate) {
+        //     // TODO: separate alogorithm for longer sentences? can probably consolidate in the future
+        // }
+
+        let blankCount = 0;
+        return sentence.map( word => {
+            if ( word.POS.match(/vb/i) ) { // set all verbs to display 'false'
+                blankCount++;
+                word.display = false;
+            }
+            return word;
+        });
+    });
+
+    return blankedSentences;
+}
+
+
 
 processPassage('this is, a test. you know?!? a great test. The greatest!')
     .then(res => console.log(res))
+

@@ -3,6 +3,7 @@ const NLPCloudClient = require('nlpcloud');
 const client = new NLPCloudClient('en_core_web_lg','4dbf7d91e72a84f9e3eeeabdf829985539a05fd0')
 
 // https://nlpcloud.io/nlp-part-of-speech-pos-tagging-api.html
+// glossary of abbreviations: https://github.com/explosion/spaCy/blob/master/spacy/glossary.py#L16
 // Returns an Axios promise with the results.
 // In case of success, results are contained in `response.data`. 
 // In case of failure, you can retrieve the status code in `err.response.status` 
@@ -42,9 +43,7 @@ async function findPartsOfSpeech (passage) {
     { text: '!', tag: '.' }
   ];
 
-  // TODO: group by sentence
-  
-
+  // grouping output by sentences
   let sentences = [[]];
   let sentenceIterator = 0;
   words.forEach( (word, index) => {
