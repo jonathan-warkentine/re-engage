@@ -1,11 +1,11 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Reader} = require("../models");
+const {Reader, Passage} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
   Query: {
     readers: async () => {
-      return Reader.find();
+      return Reader.find().populate('passages');
     },
 
     reader: async (parent, {readerId}) => {
@@ -17,6 +17,25 @@ const resolvers = {
         return Reader.findOne({_id: context.user._id});
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+
+    passages: async () => {
+      return Passage.find().populate('providedBy');
+    },
+
+    passage: async (parent, {passageId}) => {
+      return Passage.findOne({_id: passageId}).populate('providedBy');
+    },
+
+    myPassages: async (parent, args, context) => {
+      if (context.user) {
+        return Passages.find({providedBy: context.user._id}).populate('providedBy');
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    
+    singleUsersPassages: async (parent, {readerId}) => {
+      return Passage.find({providedBy: readerId}).populate('providedBy');
     },
   },
 
@@ -49,6 +68,10 @@ const resolvers = {
         return Reader.findOneAndDelete({_id: context.user._id});
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+
+    addPassage: async (parent, {title, providedBy, fullBody}) => {
+      return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
     },
   },
 };

@@ -1,6 +1,7 @@
 const {Schema, model} = require("mongoose");
 const bcrypt = require("bcrypt");
 
+
 const readerSchema = new Schema({
   readerId: {
     type: Number,
@@ -25,7 +26,7 @@ const readerSchema = new Schema({
   },
   screenName: {
     type: String,
-    required: true,
+    // required: true,
     minlength: 3,
   },
   passages: [
@@ -36,9 +37,9 @@ const readerSchema = new Schema({
       },
       resumeAt: {
         type: Number,
-        default: 0
-      }
-    }
+        default: 0,
+      },
+    },
   ],
 });
 
