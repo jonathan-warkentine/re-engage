@@ -7,7 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     screenName: String
-    passages: Array
+    passages: [String]
   }
 
   type Passage {
@@ -15,7 +15,7 @@ const typeDefs = gql`
     title: String
     providedBy: Reader
     fullBody: String
-    splitBody: Array
+    splitBody: [String]
   }
 
   type Auth {
@@ -37,6 +37,7 @@ const typeDefs = gql`
     addReader(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     removeReader: Reader
+    addPassage(title: String, providedBy: ID, fullBody: String): Passage
   }
 `;
 

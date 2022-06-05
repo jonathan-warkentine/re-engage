@@ -20,11 +20,11 @@ const resolvers = {
     },
 
     passages: async () => {
-      return Passage.find();
+      return Passage.find().populate('providedBy');
     },
 
     passage: async (parent, {passageId}) => {
-      return Passage.findOne({_id: passageId});
+      return Passage.findOne({_id: passageId}).populate('providedBy');
     },
 
     myPassages: async (parent, args, context) => {
@@ -68,6 +68,11 @@ const resolvers = {
         return Reader.findOneAndDelete({_id: context.user._id});
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+
+    addPassage: async (parent, {title, providedBy, fullBody}) => {
+      const passage = await Passage.create({title, providedBy, fullBody});
+      return passage;
     },
   },
 };
