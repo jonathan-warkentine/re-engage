@@ -71,8 +71,7 @@ const resolvers = {
     },
 
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      const passage = await Passage.create({title, providedBy, fullBody}, {new: true});
-      return passage;
+      return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
     },
   },
 };
