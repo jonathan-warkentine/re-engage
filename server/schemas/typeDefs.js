@@ -1,13 +1,18 @@
 const {gql} = require("apollo-server-express");
 
 const typeDefs = gql`
+  type singleReading {
+    passageId: Passage
+    resumeAt: Int
+  }
+
   type Reader {
     _id: ID
     name: String
     email: String
     password: String
     screenName: String
-    passages: [String]
+    passages: [singleReading]
   }
 
   type Passage {

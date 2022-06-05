@@ -5,7 +5,7 @@ const {signToken} = require("../utils/auth");
 const resolvers = {
   Query: {
     readers: async () => {
-      return Reader.find();
+      return Reader.find().populate('passages');
     },
 
     reader: async (parent, {readerId}) => {
@@ -29,13 +29,13 @@ const resolvers = {
 
     myPassages: async (parent, args, context) => {
       if (context.user) {
-        return Passages.find({providedBy: context.user._id});
+        return Passages.find({providedBy: context.user._id}).populate('providedBy');
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     
     singleUsersPassages: async (parent, {readerId}) => {
-      return Passage.find({providedBy: readerId});
+      return Passage.find({providedBy: readerId}).populate('providedBy');
     },
   },
 
@@ -71,7 +71,7 @@ const resolvers = {
     },
 
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      const passage = await Passage.create({title, providedBy, fullBody});
+      const passage = await Passage.create({title, providedBy, fullBody}, {new: true});
       return passage;
     },
   },
