@@ -1,41 +1,65 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Reader, Passage} = require("../models");
+const {Reader, Passage, SingleReading} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
   Query: {
     readers: async () => {
-      return await Reader.find({}).populate('passages');
+      return await Reader.find({})
+        .populate({
+          path: "passages",
+          populate: "passage",
+        })
+        .populate({
+          path: "passages.passage",
+          populate: "providedBy",
+        });
     },
 
     reader: async (parent, {readerId}) => {
-      return Reader.findOne({_id: readerId});
+      return Reader.findOne({_id: readerId}).populate({
+        path: "passages",
+        populate: "passage",
+      })
+      .populate({
+        path: "passages.passage",
+        populate: "providedBy",
+      });;
     },
 
     me: async (parent, args, context) => {
       if (context.user) {
-        return Reader.findOne({_id: context.user._id});
+        return Reader.findOne({_id: context.user._id}).populate({
+          path: "passages",
+          populate: "passage",
+        })
+        .populate({
+          path: "passages.passage",
+          populate: "providedBy",
+        });;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
 
     passages: async () => {
-      return Passage.find().populate('providedBy');
+      return Passage.find().populate("providedBy");
     },
 
     passage: async (parent, {passageId}) => {
-      return Passage.findOne({_id: passageId}).populate('providedBy');
+      return Passage.findOne({_id: passageId}).populate("providedBy");
     },
 
     myPassages: async (parent, args, context) => {
       if (context.user) {
-        return Passages.find({providedBy: context.user._id}).populate('providedBy');
+        return Passages.find({providedBy: context.user._id}).populate(
+          "providedBy"
+        );
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    
+
     singleUsersPassages: async (parent, {readerId}) => {
-      return await Passage.find({providedBy: readerId}).populate('providedBy');
+      return await Passage.find({providedBy: readerId}).populate("providedBy");
     },
   },
 
@@ -69,48 +93,58 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    
+
     // THIS METHOD DOES WORK, without the "if context"
     updateReader: async (parent, args, context) => {
       if (context.user) {
-
         return Reader.findOneAndUpdate(
           // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
           {_id: args._id},
-          {$set: {
+          {
+            $set: {
               name: args.name,
               email: args.email,
               password: args.password,
-              screenName: args.screenName
-          }},
+              screenName: args.screenName,
+            },
+          },
           {returnDocument: "after"}
-          );
+        );
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    
+
     // THIS METHOD DOES WORK, without the "if context"
     updatePassage: async (parent, args, context) => {
       if (context.user) {
-
         return await Passage.findOneAndUpdate(
           // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
           {_id: args._id},
-          {$set: {
+          {
+            $set: {
               title: args.title,
-              fullBody: args.fullBody
-          }},
+              fullBody: args.fullBody,
+            },
+          },
           {returnDocument: "after"}
-          );
+        );
       }
       throw new AuthenticationError("You need to be logged in!");
     },
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
+      const newPassage = await Passage.create({
+        title: title,
+        providedBy: providedBy,
+        fullBody: fullBody,
+      });
+      console.log(newPassage);
+      await Reader.findByIdAndUpdate(providedBy, {
+        $push: {passages: {passage: newPassage._id}},
+      });
     },
-    
+
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     deletePassage: async (parent, {_id}) => {
       return await Passage.deleteOne({_id: _id});
