@@ -1,5 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Reader, Passage} = require("../models");
+const {Reader, Passage, SingleReading} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
@@ -71,8 +71,16 @@ const resolvers = {
     },
 
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
+      
+      const newPassage = await Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
+console.log(newPassage);
+      await Reader.findByIdAndUpdate(providedBy, {
+        $push: { passages: {passageId: newPassage._id} },
+      });
+
     },
+
+    
   },
 };
 
