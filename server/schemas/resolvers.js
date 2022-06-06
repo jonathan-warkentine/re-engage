@@ -5,7 +5,10 @@ const {signToken} = require("../utils/auth");
 const resolvers = {
   Query: {
     readers: async () => {
-      return await Reader.find({}).populate("passages");
+      return await Reader.find({}).populate({
+        path: "passages",
+        populate: "passageId",
+      });
     },
 
     reader: async (parent, {readerId}) => {
