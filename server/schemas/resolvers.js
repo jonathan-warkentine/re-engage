@@ -8,10 +8,10 @@ const resolvers = {
       return await Reader.find({})
         .populate({
           path: "passages",
-          populate: "passageId",
+          populate: "passage",
         })
         .populate({
-          path: "passages.passageId",
+          path: "passages.passage",
           populate: "providedBy",
         });
     },
@@ -19,10 +19,10 @@ const resolvers = {
     reader: async (parent, {readerId}) => {
       return Reader.findOne({_id: readerId}).populate({
         path: "passages",
-        populate: "passageId",
+        populate: "passage",
       })
       .populate({
-        path: "passages.passageId",
+        path: "passages.passage",
         populate: "providedBy",
       });;
     },
@@ -31,10 +31,10 @@ const resolvers = {
       if (context.user) {
         return Reader.findOne({_id: context.user._id}).populate({
           path: "passages",
-          populate: "passageId",
+          populate: "passage",
         })
         .populate({
-          path: "passages.passageId",
+          path: "passages.passage",
           populate: "providedBy",
         });;
       }
@@ -141,7 +141,7 @@ const resolvers = {
       });
       console.log(newPassage);
       await Reader.findByIdAndUpdate(providedBy, {
-        $push: {passages: {passageId: newPassage._id}},
+        $push: {passages: {passage: newPassage._id}},
       });
     },
 

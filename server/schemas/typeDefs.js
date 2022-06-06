@@ -2,7 +2,7 @@ const {gql} = require("apollo-server-express");
 
 const typeDefs = gql`
   type singleReading {
-    passageId: Passage
+    passage: Passage
     resumeAt: Int
   }
 

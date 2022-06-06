@@ -1,7 +1,7 @@
 const {Schema, model} = require("mongoose");
 
 const singleReadingSchema = new Schema({
-  passageId: {
+  passage: {
     type: Schema.Types.ObjectId,
     ref: "Passage",
   },

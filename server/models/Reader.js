@@ -2,10 +2,6 @@ const {Schema, model} = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const readerSchema = new Schema({
-  readerId: {
-    type: Number,
-    unique: true,
-  },
   name: {
     type: String,
     required: true,
@@ -29,7 +25,7 @@ const readerSchema = new Schema({
     minlength: 3,
   },
   passages: [{
-    passageId: {
+    passage: {
       type: Schema.Types.ObjectId,
       ref: "Passage",
     },
