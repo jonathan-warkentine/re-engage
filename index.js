@@ -6,4 +6,4 @@ The true light that gives light to everyone was coming into the world. He was in
 
 const passage = new Passage(text);
 passage.build()
-.then(()=> console.log(passage.passage));
+.then(()=> console.log());

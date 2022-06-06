@@ -2,70 +2,75 @@ const NLPCloudClient = require('nlpcloud');
 const Word = require('./Word');
 const Sentence = require('./Sentence');
 
-export default class Passage {
+module.exports = class Passage {
 
-    constructor (text) {
+    constructor ( text, nlpCloudClientKey = null ) {
         this.text = text;
-        this.nlpCloudClient = new NLPCloudClient('en_core_web_lg','4dbf7d91e72a84f9e3eeeabdf829985539a05fd0');
-        this.passage; // undefined until .build() method is called
+        this.words;
+        this.passage = []; // unpopulated until .build() method is called
+        this.nlpCloudClientKey = nlpCloudClientKey || '4dbf7d91e72a84f9e3eeeabdf829985539a05fd0';
+        this.nlpCloudClient = new NLPCloudClient('en_core_web_lg', this.nlpCloudClientKey);
     }
 
-    async build (text = this.text) {
+    async build ( text = this.text ) {
 
         // TODO: before submitting for NLP, remove duplicative punctuation
         // TODO:  combine consecutive sentences if they are both short ? 
         
-        // submit passage for NLP analysis
-        const nlpResults = await findPartsOfSpeech( text );
+        // submit passage for NLP analysis, get list of words
+        const nlpResults = await this.processNLP( text );
 
-        // layer additional data into the results, including s
-        const sentences = ( nlpResults );
-    
-        // this.passage = populateBlanks( sentenceDetailSplit );
-        return this.passage;    
+        // create a scaffold for each word for future manipulation of 'display = true/false' and key values 
+        this.buildWords( nlpResults );
+        
+        // arrange words according to sentences
+        this.buildSentences(this.words);
+        this.populateBlanks();
     }
 
-    async findPartsOfSpeech (passage = this.passage, nlpCloudClient = this.nlpCloudClient) {
+    async processNLP ( text = this.text, nlpCloudClient = this.nlpCloudClient ) {
         
         // https://nlpcloud.io/nlp-part-of-speech-pos-tagging-api.html
         // glossary of abbreviations: https://github.com/explosion/spaCy/blob/master/spacy/glossary.py#L16  
-        let words;
         try {
-          const response = await nlpCloudClient.dependencies(passage);
-          words = response.data.words;
+          const response = await nlpCloudClient.dependencies(text);
+          return response.data.words;
         } catch (error) {
           console.error(error.response.status);
           console.error(error.response.data.detail);
           return error;
         }
-      
-        return sentences;
     }
 
-    groupBySentence () {
-        // grouping output by sentences
-        let sentences = [[]];
-        let sentenceIterator = 0;
-        words.forEach( (word, index) => {
-          sentences[sentenceIterator].push(word);
-          if (word.text.match(/[.!?\\-]/)) {
-            sentenceIterator++;
-            sentences.push([]); 
-          }
+    buildWords ( nlpResults = nlpResults ) {
+        this.words = nlpResults.map( word => new Word( word.text, word.tag ) );
+    }
+
+    buildSentences ( words = this.words ) {
+
+        let currentSentence = new Sentence( null, 0 );
+
+        words.forEach( word => {
+            currentSentence.pushWord( word );
+
+            // if the word/char is sentence-ending punctuation
+            // trigger new sentence iteration
+            if (word.text.match(/[.!?\\-]/)) {
+                this.passage.push(currentSentence);
+                currentSentence = new Sentence( null, this.passage.length );
+            }
         }); 
     }
 
-    
-    populateBlanks (sentences) {
-        const blankRate = 8; // for every ~8 words, 1 blank
+    populateBlanks ( sentences = this.passage, blankrate = 8 ) { // blankrate is the ratio of words/blanks to generate
         const blankedSentences = sentences.map ( sentence => {
             // if (sentence.length > blankRate) {
             //     // TODO: separate alogorithm for longer sentences? can probably consolidate in the future
             // }
     
             let blankCount = 0;
-            return sentence.map( word => {
-                if ( word.POS.match(/vb/i) ) { // set all verbs to display 'false'
+            return sentence.words.map( word => {
+                if ( word.partOfSpeech.match(/vb/i) ) { // set all verbs to display 'false'
                     blankCount++;
                     word.display = false;
                 }
@@ -73,7 +78,7 @@ export default class Passage {
             });
         });
     
-        return blankedSentences;
+        console.log(blankedSentences) 
     }
     
 }
