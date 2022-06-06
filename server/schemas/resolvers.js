@@ -5,19 +5,38 @@ const {signToken} = require("../utils/auth");
 const resolvers = {
   Query: {
     readers: async () => {
-      return await Reader.find({}).populate({
-        path: "passages",
-        populate: "passageId",
-      });
+      return await Reader.find({})
+        .populate({
+          path: "passages",
+          populate: "passageId",
+        })
+        .populate({
+          path: "passages.passageId",
+          populate: "providedBy",
+        });
     },
 
     reader: async (parent, {readerId}) => {
-      return Reader.findOne({_id: readerId});
+      return Reader.findOne({_id: readerId}).populate({
+        path: "passages",
+        populate: "passageId",
+      })
+      .populate({
+        path: "passages.passageId",
+        populate: "providedBy",
+      });;
     },
 
     me: async (parent, args, context) => {
       if (context.user) {
-        return Reader.findOne({_id: context.user._id});
+        return Reader.findOne({_id: context.user._id}).populate({
+          path: "passages",
+          populate: "passageId",
+        })
+        .populate({
+          path: "passages.passageId",
+          populate: "providedBy",
+        });;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
