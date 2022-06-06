@@ -110,6 +110,11 @@ const resolvers = {
     addPassage: async (parent, {title, providedBy, fullBody}) => {
       return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
     },
+    
+    // 'providedBy' below could/should be from the 'context._id', when that's ready to go
+    deletePassage: async (parent, {_id}) => {
+      return await Passage.deleteOne({_id: _id});
+    },
   },
 };
 

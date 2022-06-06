@@ -45,6 +45,7 @@ const typeDefs = gql`
     updateReader(_id: ID!, name: String, email: String, password: String, screenName: String): Reader
     updatePassage(_id: ID!, title: String, fullBody: String): Passage
     addPassage(title: String, providedBy: ID, fullBody: String): Passage
+    deletePassage(_id: ID!): Passage
   }
 `;
 
