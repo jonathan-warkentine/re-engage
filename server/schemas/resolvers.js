@@ -5,7 +5,7 @@ const {signToken} = require("../utils/auth");
 const resolvers = {
   Query: {
     readers: async () => {
-      return Reader.find().populate('passages');
+      return await Reader.find({}).populate('passages');
     },
 
     reader: async (parent, {readerId}) => {
@@ -35,7 +35,7 @@ const resolvers = {
     },
     
     singleUsersPassages: async (parent, {readerId}) => {
-      return Passage.find({providedBy: readerId}).populate('providedBy');
+      return await Passage.find({providedBy: readerId}).populate('providedBy');
     },
   },
 
@@ -69,7 +69,44 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    
+    // THIS METHOD DOES WORK, without the "if context"
+    updateReader: async (parent, args, context) => {
+      if (context.user) {
 
+        return Reader.findOneAndUpdate(
+          // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
+          {_id: args._id},
+          {$set: {
+              name: args.name,
+              email: args.email,
+              password: args.password,
+              screenName: args.screenName
+          }},
+          {returnDocument: "after"}
+          );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    
+    // THIS METHOD DOES WORK, without the "if context"
+    updatePassage: async (parent, args, context) => {
+      if (context.user) {
+
+        return await Passage.findOneAndUpdate(
+          // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
+          {_id: args._id},
+          {$set: {
+              title: args.title,
+              fullBody: args.fullBody
+          }},
+          {returnDocument: "after"}
+          );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
       return Passage.create({title: title, providedBy: providedBy, fullBody: fullBody});
     },
