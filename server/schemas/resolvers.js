@@ -65,18 +65,10 @@ const resolvers = {
     },
 
     mySpecificReading: async (parent, {singleReadingId}) => {
-      const reading = await SingleReading.findOne({
+      return await SingleReading.findOne({
         _id: singleReadingId
-      }).populate({
-        path: "passage",
-        populate: "providedBy",
-      });
-      console.log(reading);
-      // const passagesArr = reader.passages;
-      // const specificReading = passagesArr.filter(passage=> passage._id = `new ObjectID("${passageId}")`)
-      // console.log(specificReading);
-      // return reader;
-      return reading;
+      }).populate('passage');
+      
     },
   },
 
@@ -170,8 +162,13 @@ const resolvers = {
         fullBody: fullBody,
       });
       console.log(newPassage);
-      await Reader.findByIdAndUpdate(providedBy, {
-        $push: {passages: {passage: newPassage._id}},
+      
+      const newSingleReading = await SingleReading.create({
+        passage: newPassage._id
+      })
+
+      return await Reader.findByIdAndUpdate(providedBy, {
+        $push: {passages: newSingleReading},
       });
     },
 
