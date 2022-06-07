@@ -7,7 +7,9 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { NextUIProvider } from '@nextui-org/react';
 
+import LandingPage from './pages/LandingPage';
 import Bucket from './pages/Bucket';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -39,32 +41,38 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div >
-          <Header />
+      <NextUIProvider>
+        <Router>
           <div >
-            <Routes>
-              <Route 
-                path="/" 
-                element={<Bucket />}
-              />
-              <Route 
-                path="/login" 
-                element={<Login />}
-              />
-              <Route 
-                path="/signup" 
-                element={<Signup />}
-              />
-              <Route 
-                path="/dashboard" 
-                element={<Dashboard />}
-              />
-            </Routes>
+            <Header />
+            <div >
+              <Routes>
+                <Route 
+                  path="/" 
+                  element={<LandingPage />}
+                />
+                <Route 
+                  path="/bucket" 
+                  element={<Bucket />}
+                />
+                <Route 
+                  path="/login" 
+                  element={<Login />}
+                />
+                <Route 
+                  path="/signup" 
+                  element={<Signup />}
+                />
+                <Route 
+                  path="/dashboard" 
+                  element={<Dashboard />}
+                />
+              </Routes>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </Router>
+        </Router>
+      </NextUIProvider>
     </ApolloProvider>
   );
 }
