@@ -17,26 +17,28 @@ const resolvers = {
     },
 
     reader: async (parent, {readerId}) => {
-      return Reader.findOne({_id: readerId}).populate({
-        path: "passages",
-        populate: "passage",
-      })
-      .populate({
-        path: "passages.passage",
-        populate: "providedBy",
-      });;
-    },
-
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return Reader.findOne({_id: context.user._id}).populate({
+      return Reader.findOne({_id: readerId})
+        .populate({
           path: "passages",
           populate: "passage",
         })
         .populate({
           path: "passages.passage",
           populate: "providedBy",
-        });;
+        });
+    },
+
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Reader.findOne({_id: context.user._id})
+          .populate({
+            path: "passages",
+            populate: "passage",
+          })
+          .populate({
+            path: "passages.passage",
+            populate: "providedBy",
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -92,6 +94,19 @@ const resolvers = {
         return Reader.findOneAndDelete({_id: context.user._id});
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+
+    incrementResumeAt: async (parent, {readerId, passageId}) => {
+      await Reader.findByIdAndUpdate(
+        {_id: readerId},
+        {
+          $set: {"passages.$[el].resumeAt": 10298321},
+        },
+        {
+          arrayFilters: [{"el.passage": passageId}],
+          new: true,
+        }
+      );
     },
 
     // THIS METHOD DOES WORK, without the "if context"
