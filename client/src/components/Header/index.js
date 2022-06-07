@@ -1,7 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
 import Auth from "../../utils/auth";
+import { Container, Text, Button } from '@nextui-org/react';
+import '../../styles/Header.css'
 
 const Header = () => {
   const logout = (event) => {
@@ -10,26 +11,28 @@ const Header = () => {
   };
   return (
     <header>
-      <div>
-        <Link to="/">
-          <h1>Re-Engage</h1>
-        </Link>
-        <p>Slow down and engage with what you read</p>
-        <div>
+      <Container className="header" css={{ marginBottom: "40px" }}>
+        <div className="title-and-subtitle">
+          <Link to="/">
+            <h1>Re-Engage</h1>
+          </Link>
+          <h4>Slow down... Engage with what you read.</h4>
+        </div>
+        <div className="nav-buttons">
           {Auth.loggedIn() ? (
             <>
               <button onClick={logout}>Logout</button>
             </>
           ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-              <Link to="/bucket">Bucket</Link>
-              <Link to="/dashboard">Dashboard</Link>
-            </>
+            <Button.Group color="gradient">
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/login');}}>Login</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/signup');}}>Signup</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/bucket');}}>Bucket</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/dashboard');}}>Dashboard</Button>
+            </Button.Group>
           )}
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

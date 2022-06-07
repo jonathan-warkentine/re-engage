@@ -1,17 +1,26 @@
 import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import { Container, Text, Button } from '@nextui-org/react';
+import '../../styles/Footer.css'
 
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   return (
     <footer>
-      <div>
+      <Container className="footer">
         {location.pathname !== "/" && (
-          <button onClick={() => navigate(-1)}>&larr; Go Back</button>
+          <Button color="secondary" ghost className="footer-back-button" size="xs" onClick={() => navigate(-1)}>&larr; Go Back</Button>
         )}
-        <h4>&copy; {new Date().getFullYear()} - ReEngage</h4>
-      </div>
+        <Text h4 css={{
+          textGradient: "45deg, $blue600 -20%, $red600 50%",
+        }}
+        weight="bold">&copy; {new Date().getFullYear()} - ReEngage</Text>
+        <Text h5 css={{
+          textGradient: "45deg, $red600 -20%, $yellow600 50%",
+        }}
+        weight="bold">brought to you by WWHAMM!</Text>
+      </Container>
     </footer>
   );
 };

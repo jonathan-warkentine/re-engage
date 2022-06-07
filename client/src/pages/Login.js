@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_READER } from '../utils/mutations';
+import { Container, Text, Input, Button } from '@nextui-org/react';
+import '../styles/LoginAndSignup.css';
 
 import Auth from '../utils/auth';
 
@@ -41,10 +43,10 @@ const Login = (props) => {
   };
 
   return (
-    <main >
+    <Container>
       <div >
         <div >
-          <h4 >Login</h4>
+          <h2 >Login</h2>
           <div >
             {data ? (
               <p>
@@ -53,26 +55,30 @@ const Login = (props) => {
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
-                <input
+                <Input
+                  underlined
+                  secondary
                   placeholder="Your email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <input
+                <Input
+                  underlined
                   placeholder="******"
                   name="password"
                   type="password"
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <button
+                <Button
+                  flat
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
                   Submit
-                </button>
+                </Button>
               </form>
             )}
 
@@ -84,7 +90,7 @@ const Login = (props) => {
           </div>
         </div>
       </div>
-    </main>
+    </Container>
   );
 };
 
