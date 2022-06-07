@@ -1,5 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Reader, Passage, SingleReading} = require("../models");
+const {Reader, Passage, Word, Sentence, SingleReading} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
@@ -134,15 +134,24 @@ const resolvers = {
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      const newPassage = await Passage.create({
-        title: title,
-        providedBy: providedBy,
-        fullBody: fullBody,
-      });
-      console.log(newPassage);
+      const splitBody = new Passage({title, providedBy, fullBody});
+      await splitBody.build(fullBody);
+
+      const newPassage = await splitBody.save();
+      
       await Reader.findByIdAndUpdate(providedBy, {
         $push: {passages: {passage: newPassage._id}},
       });
+
+      return newPassage;
+    },
+
+    addSplitBody: async (_, args) => {
+      const newPassage = await Passage.create(args);
+      await Reader.findByIdAndUpdate(args.providedBy, {
+        $push: {passages: {passage: newPassage._id}},
+      });
+      return newPassage;
     },
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
