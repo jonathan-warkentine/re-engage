@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Text } from '@nextui-org/react';
+import { Container, Text, Textarea, Button } from '@nextui-org/react';
 
 function Dashboard(props) {
   return (
@@ -11,8 +11,14 @@ function Dashboard(props) {
       <h3>My Current Engagments</h3>
         <div></div>
       <h3>Submit New Passage</h3>
-        <textarea></textarea>
-        <button>Submit New Passage</button>
+        <Textarea
+          fullWidth="true"
+          minRows={3}
+          maxRows={15}
+          bordered
+          color="success"
+          placeholder="You can type or paste-in your passage text here."></Textarea>
+        <Button color="success">Submit New Passage</Button>
   </Container>
   )
 };

@@ -24,7 +24,7 @@ const Header = () => {
               <button onClick={logout}>Logout</button>
             </>
           ) : (
-            <Button.Group>
+            <Button.Group color="gradient">
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/login');}}>Login</Button>
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/signup');}}>Signup</Button>
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/bucket');}}>Bucket</Button>
