@@ -134,10 +134,13 @@ const resolvers = {
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
+      // TODO: use fullBody to generate splitBody via utils
+      
       const newPassage = await Passage.create({
         title: title,
         providedBy: providedBy,
         fullBody: fullBody,
+        splitBody: splitBody
       });
       console.log(newPassage);
       await Reader.findByIdAndUpdate(providedBy, {
