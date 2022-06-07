@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-
 import {useMutation} from "@apollo/client";
 import {ADD_READER} from "../utils/mutations";
-
 import Auth from "../utils/auth";
+import { Container, Text, Input, Button } from '@nextui-org/react';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -42,7 +41,7 @@ const Signup = () => {
 
   return (
     <main>
-      <div>
+      <Container>
         <div>
           <h4>Sign Up</h4>
           <div>
@@ -53,37 +52,43 @@ const Signup = () => {
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
-                <input
+                <Input
+                  underlined
+                  success
                   placeholder="Your username"
                   name="name"
                   type="text"
                   value={formState.name}
                   onChange={handleChange}
                 />
-                <input
+                <Input
+                  underlined
+                  secondary
                   placeholder="Your email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <input
+                <Input
+                  underlined
+                  warning
                   placeholder="******"
                   name="password"
                   type="password"
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <button style={{cursor: "pointer"}} type="submit">
+                <Button style={{cursor: "pointer"}} type="submit">
                   Submit
-                </button>
+                </Button>
               </form>
             )}
 
             {error && <div>{error.message}</div>}
           </div>
         </div>
-      </div>
+      </Container>
     </main>
   );
 };

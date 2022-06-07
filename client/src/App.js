@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { NextUIProvider } from '@nextui-org/react';
+import { createTheme, NextUIProvider } from '@nextui-org/react';
 
 import LandingPage from './pages/LandingPage';
 import Bucket from './pages/Bucket';
@@ -39,9 +39,25 @@ const client = new ApolloClient({
 });
 
 function App() {
+
+  // 2. Call `createTheme` and pass your custom values
+  const lightTheme = createTheme({
+    type: 'light',
+    /* theme: {
+      colors: {},
+    } */
+  })
+
+  const darkTheme = createTheme({
+    type: 'dark',
+    /* theme: {
+      colors: {},
+    } */
+  })
+
   return (
     <ApolloProvider client={client}>
-      <NextUIProvider>
+      <NextUIProvider theme={darkTheme}>
         <Router>
           <div >
             <Header />

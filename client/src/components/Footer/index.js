@@ -1,17 +1,18 @@
 import React from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import { Container, Text, Button } from '@nextui-org/react';
 
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   return (
     <footer>
-      <div>
+      <Container css={{ marginTop: "30px" }}>
         {location.pathname !== "/" && (
-          <button onClick={() => navigate(-1)}>&larr; Go Back</button>
+          <Button onClick={() => navigate(-1)}>&larr; Go Back</Button>
         )}
         <h4>&copy; {new Date().getFullYear()} - ReEngage</h4>
-      </div>
+      </Container>
     </footer>
   );
 };
