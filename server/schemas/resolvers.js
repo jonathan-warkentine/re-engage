@@ -116,7 +116,7 @@ const resolvers = {
           },
         },
         {returnDocument: "after"}
-      ).populate('passage');
+      ).populate("passage");
     },
 
     // incrementResumeAt: async (parent, {readerId, passageId}) => {
@@ -185,7 +185,7 @@ const resolvers = {
         $push: {passages: newSingleReading},
       });
 
-      return newPassage;
+      return newPassage.populate("providedBy");
     },
 
     addSplitBody: async (_, args) => {
@@ -199,6 +199,20 @@ const resolvers = {
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     deletePassage: async (parent, {_id}) => {
       return await Passage.deleteOne({_id: _id});
+    },
+
+    addToCurrentReadings: async (parent, {readerId, passageId}, context) => {
+      // ONCE FRONT END IS SETUP, USE CONTEXT, AND TAKE OUT READER_ID
+      const newSingleReading = await SingleReading.create({
+        passage: passageId,
+      });
+
+      const updatedReader = await Reader.findByIdAndUpdate(readerId, {
+        $push: {passages: newSingleReading},
+      });
+
+      return updatedReader
+
     },
   },
 };

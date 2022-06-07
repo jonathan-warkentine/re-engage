@@ -76,6 +76,7 @@ const typeDefs = gql`
     addPassage(title: String, providedBy: ID, fullBody: String): Passage
     addSplitBody(title: String, providedBy: ID, fullBody: String, splitBody: [SentenceInput]): Passage
     deletePassage(_id: ID!): Passage
+    addToCurrentReadings(readerId: ID!, passageId: ID!): SingleReading
   }
 `;
 
