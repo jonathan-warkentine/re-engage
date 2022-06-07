@@ -15,12 +15,38 @@ const typeDefs = gql`
     passages: [singleReading]
   }
 
+  type Word {
+    key: Int
+    partOfSpeech: String
+    text: String
+    display: Boolean
+  }
+
+  type Sentence {
+    key: Int
+    words: [Word]
+    text: String
+  }
+  
+  input WordInput {
+    key: Int
+    partOfSpeech: String
+    text: String
+    display: Boolean
+  }
+
+  input SentenceInput {
+    key: Int
+    words: [WordInput]
+    text: String
+  }
+
   type Passage {
     _id: ID
     title: String
     providedBy: Reader
     fullBody: String
-    splitBody: [String]
+    splitBody: [Sentence]
   }
 
   type Auth {
@@ -45,6 +71,7 @@ const typeDefs = gql`
     updateReader(_id: ID!, name: String, email: String, password: String, screenName: String): Reader
     updatePassage(_id: ID!, title: String, fullBody: String): Passage
     addPassage(title: String, providedBy: ID, fullBody: String): Passage
+    addSplitBody(title: String, providedBy: ID, fullBody: String, splitBody: [SentenceInput]): Passage
     deletePassage(_id: ID!): Passage
   }
 `;
