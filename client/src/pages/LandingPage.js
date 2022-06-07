@@ -3,6 +3,7 @@ import { Container, Text, Card, Col, Row, Button } from '@nextui-org/react';
 import bluebook from '../images/blue-book2.webp';
 import bookandgrass from '../images/bookandgrass.jpg';
 import ladyreading from '../images/ladyreading2.jpg';
+import ribbon from '../images/blueribbon.png';
 
 function LandingPage(props) {
   return (
@@ -45,7 +46,7 @@ function LandingPage(props) {
           <Row>
             <Col span={3}>
               <Card.Image
-                src="https://nextui.org/images/breathing-app-icon.jpeg"
+                src={ribbon}
                 css={{ bg: "black", br: "50%" }}
                 height={40}
                 width={40}
@@ -54,10 +55,10 @@ function LandingPage(props) {
             </Col>
             <Col>
               <Text color="#d1d1d1" size={12}>
-                Breathing App
+                Winner of the APPY Awards 2022
               </Text>
               <Text color="#d1d1d1" size={12}>
-                Get a good night's sleep.
+                for "Most Useful" and "Most Likely to Make Jeff Cringe"!
               </Text>
             </Col>
           </Row>
@@ -76,7 +77,7 @@ function LandingPage(props) {
                 weight="bold"
                 transform="uppercase"
               >
-                Get App
+                Login / Signup
               </Text>
             </Button>
           </Row>
