@@ -66,9 +66,8 @@ const resolvers = {
 
     mySpecificReading: async (parent, {singleReadingId}) => {
       return await SingleReading.findOne({
-        _id: singleReadingId
-      }).populate('passage');
-      
+        _id: singleReadingId,
+      }).populate("passage");
     },
   },
 
@@ -103,18 +102,35 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    incrementResumeAt: async (parent, {readerId, passageId}) => {
-      await Reader.findByIdAndUpdate(
-        {_id: readerId},
+    incrementResumeAt: async (parent, {singleReadingId}) => {
+      const singleReading = await SingleReading.findOne({
+        _id: singleReadingId,
+      }).populate("passage");
+      const prevResume = singleReading.resumeAt;
+      const newResumeAt = prevResume + 2;
+      return await SingleReading.findByIdAndUpdate(
+        {_id: singleReadingId},
         {
-          $set: {"passages.$[el].resumeAt": 3},
+          $set: {
+            resumeAt: newResumeAt,
+          },
         },
-        {
-          arrayFilters: [{"el.passage": passageId}],
-          new: true,
-        }
-      );
+        {returnDocument: "after"}
+      ).populate('passage');
     },
+
+    // incrementResumeAt: async (parent, {readerId, passageId}) => {
+    //   await Reader.findByIdAndUpdate(
+    //     {_id: readerId},
+    //     {
+    //       $set: {"passages.$[el].resumeAt": 3},
+    //     },
+    //     {
+    //       arrayFilters: [{"el.passage": passageId}],
+    //       new: true,
+    //     }
+    //   );
+    // },
 
     // THIS METHOD DOES WORK, without the "if context"
     updateReader: async (parent, args, context) => {
@@ -156,21 +172,20 @@ const resolvers = {
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      
       const splitBody = new Passage({title, providedBy, fullBody});
       await splitBody.build(fullBody);
 
       const newPassage = await splitBody.save();
-      
+
       const newSingleReading = await SingleReading.create({
-        passage: newPassage._id
-      })
+        passage: newPassage._id,
+      });
 
       await Reader.findByIdAndUpdate(providedBy, {
         $push: {passages: newSingleReading},
       });
 
-      return newPassage
+      return newPassage;
     },
 
     addSplitBody: async (_, args) => {
