@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title-and-subtitle {
+
+}
+
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items:flex-end;
+}

@@ -1,0 +1,20 @@
+.the-bucket-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+
+
+.submit-title-and-paste-button {
+  display: flex;
+  flex-direction: row;
+}
+
+.paste-button {
+  width: 40px;
+}
+
+.my-contributions-box .current-engagements-box {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
