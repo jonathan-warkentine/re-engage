@@ -1,7 +1,8 @@
 const {gql} = require("apollo-server-express");
 
 const typeDefs = gql`
-  type singleReading {
+  type SingleReading {
+    _id: ID
     passage: Passage
     resumeAt: Int
   }
@@ -12,7 +13,7 @@ const typeDefs = gql`
     email: String
     password: String
     screenName: String
-    passages: [singleReading]
+    passages: [SingleReading]
   }
 
   type Passage {
@@ -36,6 +37,7 @@ const typeDefs = gql`
     passage(passageId: ID!): Passage
     myPassages: [Passage]
     singleUsersPassages(providedBy: ID!): [Passage]
+    mySpecificReading(singleReadingId: ID!): SingleReading
   }
 
   type Mutation {

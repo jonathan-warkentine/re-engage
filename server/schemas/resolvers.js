@@ -63,6 +63,21 @@ const resolvers = {
     singleUsersPassages: async (parent, {readerId}) => {
       return await Passage.find({providedBy: readerId}).populate("providedBy");
     },
+
+    mySpecificReading: async (parent, {singleReadingId}) => {
+      const reading = await SingleReading.findOne({
+        _id: singleReadingId
+      }).populate({
+        path: "passage",
+        populate: "providedBy",
+      });
+      console.log(reading);
+      // const passagesArr = reader.passages;
+      // const specificReading = passagesArr.filter(passage=> passage._id = `new ObjectID("${passageId}")`)
+      // console.log(specificReading);
+      // return reader;
+      return reading;
+    },
   },
 
   Mutation: {
@@ -100,7 +115,7 @@ const resolvers = {
       await Reader.findByIdAndUpdate(
         {_id: readerId},
         {
-          $set: {"passages.$[el].resumeAt": 10298321},
+          $set: {"passages.$[el].resumeAt": 3},
         },
         {
           arrayFilters: [{"el.passage": passageId}],
