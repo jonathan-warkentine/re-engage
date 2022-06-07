@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_READER } from '../utils/mutations';
 import { Container, Text, Input, Button } from '@nextui-org/react';
+import '../styles/LoginAndSignup.css';
 
 import Auth from '../utils/auth';
 
@@ -45,7 +46,7 @@ const Login = (props) => {
     <Container>
       <div >
         <div >
-          <h4 >Login</h4>
+          <h2 >Login</h2>
           <div >
             {data ? (
               <p>
@@ -72,6 +73,7 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 <Button
+                  flat
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >

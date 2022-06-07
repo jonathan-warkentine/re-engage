@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 import {useMutation} from "@apollo/client";
 import {ADD_READER} from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Container, Text, Input, Button } from '@nextui-org/react';
+import { Container, Text, Input, Button, Spacer } from '@nextui-org/react';
+import '../styles/LoginAndSignup.css';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -43,7 +44,7 @@ const Signup = () => {
     <main>
       <Container>
         <div>
-          <h4>Sign Up</h4>
+          <h2>Sign Up</h2>
           <div>
             {data ? (
               <p>
@@ -79,13 +80,19 @@ const Signup = () => {
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <Button style={{cursor: "pointer"}} type="submit">
+                <Spacer y={1} />
+                <Button
+                  flat
+                  style={{cursor: "pointer"}}
+                  type="submit">
                   Submit
                 </Button>
               </form>
             )}
 
-            {error && <div>{error.message}</div>}
+            <Spacer y={3} />
+
+            {error && <Text blockquote color="error" className="error-message">{error.message}</Text>}
           </div>
         </div>
       </Container>

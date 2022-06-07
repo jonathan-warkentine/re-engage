@@ -10,9 +10,16 @@ const Footer = () => {
     <footer>
       <Container className="footer">
         {location.pathname !== "/" && (
-          <Button className="footer-back-button" size="sm" onClick={() => navigate(-1)}>&larr; Go Back</Button>
+          <Button color="secondary" ghost className="footer-back-button" size="xs" onClick={() => navigate(-1)}>&larr; Go Back</Button>
         )}
-        <h4>&copy; {new Date().getFullYear()} - ReEngage</h4>
+        <Text h4 css={{
+          textGradient: "45deg, $blue600 -20%, $red600 50%",
+        }}
+        weight="bold">&copy; {new Date().getFullYear()} - ReEngage</Text>
+        <Text h5 css={{
+          textGradient: "45deg, $red600 -20%, $yellow600 50%",
+        }}
+        weight="bold">brought to you by WWHAMM!</Text>
       </Container>
     </footer>
   );
