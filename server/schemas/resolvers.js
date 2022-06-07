@@ -1,6 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const BodySplitter = require('../utils/lib/Passage');
-const {Reader, Passage, SingleReading} = require("../models");
+const {Reader, Passage, Word, Sentence, SingleReading} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
@@ -135,20 +134,16 @@ const resolvers = {
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     addPassage: async (parent, {title, providedBy, fullBody}) => {
-      // TODO: use fullBody to generate splitBody via utils
-      const splitBody = new BodySplitter(fullBody);
-      await splitBody.build();
+      const splitBody = new Passage({title, providedBy, fullBody});
+      await splitBody.build(fullBody);
 
-      const newPassage = await Passage.create({
-        title: title,
-        providedBy: providedBy,
-        fullBody: fullBody,
-        splitBody: splitBody.sentences
-      });
+      const newPassage = await splitBody.save();
       
       await Reader.findByIdAndUpdate(providedBy, {
         $push: {passages: {passage: newPassage._id}},
       });
+
+      return newPassage;
     },
 
     addSplitBody: async (_, args) => {
