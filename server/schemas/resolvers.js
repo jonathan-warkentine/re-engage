@@ -166,6 +166,10 @@ const resolvers = {
         passage: newPassage._id
       })
 
+      await Reader.findByIdAndUpdate(providedBy, {
+        $push: {passages: newSingleReading},
+      });
+
       return newPassage
     },
 
