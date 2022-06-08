@@ -53,7 +53,7 @@ passageSchema.methods.processNLP = async function ( fullBody = this.fullBody ) {
 }
 
 passageSchema.methods.buildWords = function ( nlpResults ) {
-  this.words = nlpResults.map( word => new Word( {text: word.text, partOfSpeech: word.tag} ) );
+  this.words = nlpResults.map( word => new Word( {text: word.text, partOfSpeech: word.tag, display: false} ) );
 }
 
 passageSchema.methods.buildSentences = function ( words = this.words ) {

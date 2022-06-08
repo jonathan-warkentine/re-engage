@@ -188,14 +188,6 @@ const resolvers = {
       return newPassage.populate("providedBy");
     },
 
-    addSplitBody: async (_, args) => {
-      const newPassage = await Passage.create(args);
-      await Reader.findByIdAndUpdate(args.providedBy, {
-        $push: {passages: {passage: newPassage._id}},
-      });
-      return newPassage;
-    },
-
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     deletePassage: async (parent, {_id}) => {
       return await Passage.deleteOne({_id: _id});
