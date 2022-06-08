@@ -1,8 +1,9 @@
 import React from "react";
+import { useState, useEffect, setState } from 'react';
 import { Container, Text, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer } from '@nextui-org/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboard, faEnvelope, faList } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faClipboard, faEnvelope, faList } from '@fortawesome/free-solid-svg-icons';
+// import { faGithub, faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { IconButton } from "./IconButton";
 import { EyeIcon } from "./EyeIcon";
 import { EditIcon } from "./EditIcon";
@@ -10,15 +11,56 @@ import { DeleteIcon } from "./DeleteIcon";
 import { ResumeIcon } from "./ResumeIcon";
 import { ClipboardIcon } from "./ClipboardIcon";
 import '../styles/Dashboard.css';
+import { search, searchAllBooks } from "../utils/bibleApi";
 
 
-function Dashboard(props) {
 
-  
+
+
+const Dashboard = () => {
+
+  const [versions, setVersions] = useState([]);
+  const searchBible = async () => {
+    const response = await search();
+    console.log(response, "response")
+    setVersions(response)
+  };
+
+  const [allBooks, setBooks] = useState([]);
+  const searchBibleBooks = async () => {
+    const booksResponse = await searchAllBooks();
+    console.log(booksResponse, "response books")
+    setBooks(booksResponse)
+  };
+  // search()
+  //   .then((res) => setResult(res.data))
+  //   .catch((err) => console.log(err));
+
+    useEffect(() => {
+      searchBible();
+      searchBibleBooks()
+    }, []);
+
+    // useEffect(() => {
+    //   searchBibleBooks();
+    // }, []);
+
   return (
   <Container className="dashboard-container">
     <h2>Welcome to your Dashboard</h2>
-      
+      <div>result={versions.map(function({version}, index) {
+         return(
+           <p key={index} >{version}</p>
+         )
+      })}
+      </div>
+      <div>allBooks={allBooks.map(function({name}, index) {
+         return(
+           <p key={index} >{name}</p>
+         )
+      })}
+      </div>
+
     <Spacer y={3} />      
 
       <Container className="my-contributions-box">
@@ -270,6 +312,7 @@ function Dashboard(props) {
       </Container>
   </Container>
   )
+  
 };
 
 export default Dashboard;

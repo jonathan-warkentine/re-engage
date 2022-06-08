@@ -1,3 +1,4 @@
+const axios = require('axios').default;
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
@@ -20,6 +21,18 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
+
+app.get('/versions', async (req, res) => {
+  const result = await axios.get(`https://bible-go-api.rkeplin.com/v1/translations`)
+  console.log(result, "server result")
+  res.json({result: result.data})
+} )
+
+app.get('/allBooks', async (req, res) => {
+  const books = await axios.get(`https://bible-go-api.rkeplin.com/v1/books`)
+  console.log(books, "allbooks")
+  res.json({allBooks: books.data})
+})
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
