@@ -13,4 +13,4 @@ const singleReadingSchema = new Schema({
 
 const SingleReading = model("SingleReading", singleReadingSchema);
 
-module.exports = SingleReading;
+module.exports = {SingleReading, singleReadingSchema};

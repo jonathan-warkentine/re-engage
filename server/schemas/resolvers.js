@@ -17,26 +17,28 @@ const resolvers = {
     },
 
     reader: async (parent, {readerId}) => {
-      return Reader.findOne({_id: readerId}).populate({
-        path: "passages",
-        populate: "passage",
-      })
-      .populate({
-        path: "passages.passage",
-        populate: "providedBy",
-      });;
-    },
-
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return Reader.findOne({_id: context.user._id}).populate({
+      return Reader.findOne({_id: readerId})
+        .populate({
           path: "passages",
           populate: "passage",
         })
         .populate({
           path: "passages.passage",
           populate: "providedBy",
-        });;
+        });
+    },
+
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Reader.findOne({_id: context.user._id})
+          .populate({
+            path: "passages",
+            populate: "passage",
+          })
+          .populate({
+            path: "passages.passage",
+            populate: "providedBy",
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -60,6 +62,12 @@ const resolvers = {
 
     singleUsersPassages: async (parent, {readerId}) => {
       return await Passage.find({providedBy: readerId}).populate("providedBy");
+    },
+
+    mySpecificReading: async (parent, {singleReadingId}) => {
+      return await SingleReading.findOne({
+        _id: singleReadingId,
+      }).populate("passage");
     },
   },
 
@@ -93,6 +101,36 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    incrementResumeAt: async (parent, {singleReadingId}) => {
+      const singleReading = await SingleReading.findOne({
+        _id: singleReadingId,
+      }).populate("passage");
+      const prevResume = singleReading.resumeAt;
+      const newResumeAt = prevResume + 2;
+      return await SingleReading.findByIdAndUpdate(
+        {_id: singleReadingId},
+        {
+          $set: {
+            resumeAt: newResumeAt,
+          },
+        },
+        {returnDocument: "after"}
+      ).populate("passage");
+    },
+
+    // incrementResumeAt: async (parent, {readerId, passageId}) => {
+    //   await Reader.findByIdAndUpdate(
+    //     {_id: readerId},
+    //     {
+    //       $set: {"passages.$[el].resumeAt": 3},
+    //     },
+    //     {
+    //       arrayFilters: [{"el.passage": passageId}],
+    //       new: true,
+    //     }
+    //   );
+    // },
 
     // THIS METHOD DOES WORK, without the "if context"
     updateReader: async (parent, args, context) => {
@@ -138,17 +176,35 @@ const resolvers = {
       await splitBody.build(fullBody);
 
       const newPassage = await splitBody.save();
-      
-      await Reader.findByIdAndUpdate(providedBy, {
-        $push: {passages: {passage: newPassage._id}},
+
+      const newSingleReading = await SingleReading.create({
+        passage: newPassage._id,
       });
 
-      return newPassage;
+      await Reader.findByIdAndUpdate(providedBy, {
+        $push: {passages: newSingleReading},
+      });
+
+      return newPassage.populate("providedBy");
     },
 
     // 'providedBy' below could/should be from the 'context._id', when that's ready to go
     deletePassage: async (parent, {_id}) => {
       return await Passage.deleteOne({_id: _id});
+    },
+
+    addToCurrentReadings: async (parent, {readerId, passageId}, context) => {
+      // ONCE FRONT END IS SETUP, USE CONTEXT, AND TAKE OUT READER_ID
+      const newSingleReading = await SingleReading.create({
+        passage: passageId,
+      });
+
+      const updatedReader = await Reader.findByIdAndUpdate(readerId, {
+        $push: {passages: newSingleReading},
+      });
+
+      return updatedReader
+
     },
   },
 };
