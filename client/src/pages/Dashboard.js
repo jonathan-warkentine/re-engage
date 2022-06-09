@@ -83,12 +83,12 @@ function Dashboard(props) {
             
 
 
-
-            <Table.Row key="4">
-              <Table.Cell>My Speech for Next Tuesday</Table.Cell>
+          {myContributions.map((singleReading) => (
+            <Table.Row key={singleReading.passage.title}>
+              <Table.Cell>{singleReading.passage.title}</Table.Cell>
               <Table.Cell>
                 <Grid>
-                  <Progress color="primary" value={80} />
+                  <Progress color="primary" value={singleReading.resumeAt/singleReading.passage.splitBody.length*100} />
                 </Grid>
               </Table.Cell>
               <Table.Cell>
@@ -124,8 +124,10 @@ function Dashboard(props) {
             </Table.Row>
 
 
+          ))}
 
-            
+
+
           </Table.Body>
         </Table>
       </Container>
