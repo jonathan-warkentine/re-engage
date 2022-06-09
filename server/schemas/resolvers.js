@@ -18,23 +18,19 @@ const resolvers = {
 
     reader: async (parent, {readerId}) => {
       return Reader.findOne({_id: readerId})
-        .populate({
-          path: "passages",
-          populate: "passage",
-        })
-        .populate({
-          path: "passages.passage",
-          populate: "providedBy",
-        });
+      .populate(
+        "passages")
+      .populate({
+        path: "passages.passage",
+        populate: "providedBy",
+      });
     },
 
     me: async (parent, args, context) => {
       if (context.user) {
         return Reader.findOne({_id: context.user._id})
-          .populate({
-            path: "passages",
-            populate: "passage",
-          })
+          .populate(
+            "passages")
           .populate({
             path: "passages.passage",
             populate: "providedBy",

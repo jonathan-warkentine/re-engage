@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {
   Container,
   Text,
@@ -30,20 +30,24 @@ import {ResumeIcon} from "./ResumeIcon";
 import {ClipboardIcon} from "./ClipboardIcon";
 import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
-import {QUERY_ME, QUERY_MY_CONTRIBUTIONS} from "../utils/queries";
+import {QUERY_ME} from "../utils/queries";
+import {ADD_PASSAGE} from "../utils/mutations";
+import Auth from "../utils/auth";
+import PassageForm from '../components/PassageForm';
 
 function Dashboard(props) {
   const {loading, data} = useQuery(QUERY_ME);
 
-if (loading) {
-  return <p>Loading...</p>
-}
+  console.log(Auth.getReader());
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   const user = data?.me || {};
   console.log(user);
 
   const allSingleReadings = user.passages;
-  console.log(allSingleReadings[0].passage.providedBy.name);
+  // console.log(allSingleReadings[0].passage.providedBy.name);
   const myContributions = [];
 
   for (let i = 0; i < allSingleReadings.length; i++) {
@@ -162,11 +166,14 @@ if (loading) {
                 <Table.Cell>{singleReading.passage.providedBy.name}</Table.Cell>
                 <Table.Cell>
                   <Grid>
-                    <Progress color="primary" value={
+                    <Progress
+                      color="primary"
+                      value={
                         (singleReading.resumeAt /
                           singleReading.passage.splitBody.length) *
                         100
-                      } />
+                      }
+                    />
                   </Grid>
                 </Table.Cell>
                 <Table.Cell>
@@ -192,27 +199,7 @@ if (loading) {
       </Container>
 
       <Spacer y={3} />
-
-      <Container className="submit-box">
-        <div className="submit-title-and-paste-button">
-          <h3>Submit New Passage ... </h3>
-          <Tooltip color="primary" content="PASTE from your clipboard">
-            <IconButton onClick={() => console.log("RESUME button clicked")}>
-              <ClipboardIcon size={26} fill="#00cc00" />
-            </IconButton>
-          </Tooltip>
-        </div>
-
-        <Textarea
-          fullWidth="true"
-          minRows={3}
-          maxRows={15}
-          bordered
-          color="success"
-          placeholder="You can type or paste-in your passage text here."
-        ></Textarea>
-        <Button color="success">Submit New Passage</Button>
-      </Container>
+      <PassageForm />
     </Container>
   );
 }
