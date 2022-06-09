@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   Container,
   Text,
@@ -36,6 +36,22 @@ function Dashboard(props) {
   const {loading, data} = useQuery(QUERY_ME);
   const user = data?.me || {};
   console.log(user);
+  
+  const allSingleReadings = user.passages;
+  console.log(allSingleReadings[0].passage.providedBy.name)
+  const myContributions = [];
+
+  for (let i = 0; i < allSingleReadings.length; i++) {
+    if (allSingleReadings[i].passage.providedBy.name == user.name) {
+      // console.log(allSingleReadings[i].passage.providedBy.name);
+      // console.log(user.name);
+      myContributions.push(allSingleReadings[i]);
+    }
+  }
+  console.log("All Passages");
+  console.log(allSingleReadings);
+  console.log("My Contributions");
+  console.log(myContributions);
 
   // const {almost, info} = useQuery(QUERY_MY_CONTRIBUTIONS);
   // const contributions = info?.me || {};
@@ -45,7 +61,7 @@ function Dashboard(props) {
     <Container className="dashboard-container">
       <h2>Welcome to your Dashboard</h2>
 
-      <Spacer y={3} /> 
+      <Spacer y={3} />
 
       <Container className="my-contributions-box">
         <h3>My Contributions</h3>
@@ -64,120 +80,10 @@ function Dashboard(props) {
             <Table.Column width={3}>ACTIONS</Table.Column>
           </Table.Header>
           <Table.Body>
-            <Table.Row key="1">
-              <Table.Cell>Preamble to the Constitution</Table.Cell>
-              <Table.Cell>
-                <Grid>
-                  <Progress color="primary" value={30} />
-                </Grid>
-              </Table.Cell>
-              <Table.Cell>
-                <Tooltip color="primary" content="SHOW passage preview">
-                  <IconButton
-                    onClick={() => console.log("PREVIEW button clicked")}
-                  >
-                    <EyeIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="warning" content="EDIT passage">
-                  <IconButton
-                    onClick={() => console.log("EDIT button clicked")}
-                  >
-                    <EditIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="error" content="DELETE passage">
-                  <IconButton
-                    onClick={() => console.log("DELETE button clicked")}
-                  >
-                    <DeleteIcon size={20} fill="#FF0080" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="success" content="RESUME passage">
-                  <IconButton
-                    onClick={() => console.log("RESUME button clicked")}
-                  >
-                    <ResumeIcon size={20} fill="#00cc00" />
-                  </IconButton>
-                </Tooltip>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row key="2">
-              <Table.Cell>John 3</Table.Cell>
-              <Table.Cell>
-                <Grid>
-                  <Progress color="primary" value={10} />
-                </Grid>
-              </Table.Cell>
-              <Table.Cell>
-                <Tooltip color="primary" content="SHOW passage preview">
-                  <IconButton
-                    onClick={() => console.log("PREVIEW button clicked")}
-                  >
-                    <EyeIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="warning" content="EDIT passage">
-                  <IconButton
-                    onClick={() => console.log("EDIT button clicked")}
-                  >
-                    <EditIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="error" content="DELETE passage">
-                  <IconButton
-                    onClick={() => console.log("DELETE button clicked")}
-                  >
-                    <DeleteIcon size={20} fill="#FF0080" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="success" content="RESUME passage">
-                  <IconButton
-                    onClick={() => console.log("RESUME button clicked")}
-                  >
-                    <ResumeIcon size={20} fill="#00cc00" />
-                  </IconButton>
-                </Tooltip>
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row key="3">
-              <Table.Cell>Excerpt from 'Pilgrim's Progress'</Table.Cell>
-              <Table.Cell>
-                <Grid>
-                  <Progress color="primary" value={65} />
-                </Grid>
-              </Table.Cell>
-              <Table.Cell>
-                <Tooltip color="primary" content="SHOW passage preview">
-                  <IconButton
-                    onClick={() => console.log("PREVIEW button clicked")}
-                  >
-                    <EyeIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="warning" content="EDIT passage">
-                  <IconButton
-                    onClick={() => console.log("EDIT button clicked")}
-                  >
-                    <EditIcon size={20} fill="#979797" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="error" content="DELETE passage">
-                  <IconButton
-                    onClick={() => console.log("DELETE button clicked")}
-                  >
-                    <DeleteIcon size={20} fill="#FF0080" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip color="success" content="RESUME passage">
-                  <IconButton
-                    onClick={() => console.log("RESUME button clicked")}
-                  >
-                    <ResumeIcon size={20} fill="#00cc00" />
-                  </IconButton>
-                </Tooltip>
-              </Table.Cell>
-            </Table.Row>
+            
+
+
+
             <Table.Row key="4">
               <Table.Cell>My Speech for Next Tuesday</Table.Cell>
               <Table.Cell>
@@ -216,6 +122,10 @@ function Dashboard(props) {
                 </Tooltip>
               </Table.Cell>
             </Table.Row>
+
+
+
+            
           </Table.Body>
         </Table>
       </Container>
