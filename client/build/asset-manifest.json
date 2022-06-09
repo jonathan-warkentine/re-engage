@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cb360efd.chunk.css",
+    "main.js": "/static/js/main.f221ce6f.chunk.js",
+    "main.js.map": "/static/js/main.f221ce6f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.83d7289b.js",
+    "runtime-main.js.map": "/static/js/runtime-main.83d7289b.js.map",
+    "static/js/2.5935b689.chunk.js": "/static/js/2.5935b689.chunk.js",
+    "static/js/2.5935b689.chunk.js.map": "/static/js/2.5935b689.chunk.js.map",
+    "static/js/3.30b7fda3.chunk.js": "/static/js/3.30b7fda3.chunk.js",
+    "static/js/3.30b7fda3.chunk.js.map": "/static/js/3.30b7fda3.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.cb360efd.chunk.css.map": "/static/css/main.cb360efd.chunk.css.map",
+    "static/js/2.5935b689.chunk.js.LICENSE.txt": "/static/js/2.5935b689.chunk.js.LICENSE.txt",
+    "static/media/blue-book2.00788a2a.webp": "/static/media/blue-book2.00788a2a.webp",
+    "static/media/blueribbon.8946877d.png": "/static/media/blueribbon.8946877d.png",
+    "static/media/bookandgrass.e271cb3b.jpg": "/static/media/bookandgrass.e271cb3b.jpg",
+    "static/media/ladyreading2.5349598c.jpg": "/static/media/ladyreading2.5349598c.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.83d7289b.js",
+    "static/js/2.5935b689.chunk.js",
+    "static/css/main.cb360efd.chunk.css",
+    "static/js/main.f221ce6f.chunk.js"
+  ]
+}

@@ -3,6 +3,6 @@ const Passage = require('./Passage');
 
 const {Word} = require('./Word');
 const {Sentence} = require('./Sentence');
-const {SingleReading} = require('./SingleReading');
+const {Reading} = require('./Reading');
 
-module.exports = { Reader, Passage, Word, Sentence, SingleReading };
+module.exports = { Reader, Passage, Word, Sentence, Reading };

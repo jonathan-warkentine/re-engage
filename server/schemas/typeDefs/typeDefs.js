@@ -1,8 +1,9 @@
 const {gql} = require("apollo-server-express");
 
 const typeDefs = gql`
-  type SingleReading {
+  type Reading {
     _id: ID
+    readerId: ID
     passage: Passage
     resumeAt: Int
   }
@@ -12,8 +13,7 @@ const typeDefs = gql`
     name: String
     email: String
     password: String
-    screenName: String
-    passages: [SingleReading]
+    readings: [Reading]
   }
 
   type Word {
@@ -56,26 +56,28 @@ const typeDefs = gql`
   }
 
   type Query {
-    readers: [Reader]!
-    reader(readerId: ID!): Reader
+    reader (readerId: ID!): Reader
+    readers: [Reader]
     me: Reader
+    passage (passageId: ID!): Passage
     passages: [Passage]
-    passage(passageId: ID!): Passage
     myPassages: [Passage]
-    singleUsersPassages(providedBy: ID!): [Passage]
-    mySpecificReading(singleReadingId: ID!): SingleReading
+    passagesByAuthor (providedBy: ID!): [Passage]
+    reading (readingId: ID!): Reading
+    readings: [Reading]
+    myReadings: [Reading]
   }
 
   type Mutation {
     addReader(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    updateReader(_id: ID!, name: String, email: String, password: String): Reader
     removeReader: Reader
-    incrementResumeAt(singleReadingId: ID!): SingleReading
-    updateReader(_id: ID!, name: String, email: String, password: String, screenName: String): Reader
-    updatePassage(_id: ID!, title: String, fullBody: String): Passage
     addPassage(title: String, providedBy: ID, fullBody: String): Passage
+    updatePassage(_id: ID!, title: String, fullBody: String): Passage
     deletePassage(_id: ID!): Passage
-    addToCurrentReadings(readerId: ID!, passageId: ID!): SingleReading
+    addReading (readerId: ID!, passageId: ID!): Reading
+    incrementResumeAt(readingId: ID!): Reading
   }
 `;
 

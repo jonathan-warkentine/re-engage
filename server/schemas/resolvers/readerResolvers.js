@@ -1,0 +1,98 @@
+const {AuthenticationError} = require("apollo-server-express");
+const {Reader} = require("../../models");
+const {signToken} = require("../../utils/auth");
+
+const readerResolvers = {
+  Query: {
+    reader: async (parent, {readerId}) => {
+      return Reader.findOne({_id: readerId})
+      .populate(
+        "passages")
+      .populate({
+        path: "passages.passage",
+        populate: "providedBy",
+      });
+    },
+    
+    readers: async () => {
+      return await Reader.find({})
+        .populate({
+          path: "passages",
+          populate: "passage",
+        })
+        .populate({
+          path: "passages.passage",
+          populate: "providedBy",
+        });
+    },
+
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Reader.findOne({_id: context.user._id})
+          .populate(
+            "passages")
+          .populate({
+            path: "passages.passage",
+            populate: "providedBy",
+          });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    }
+  }, 
+
+  Mutation: {
+
+    addReader: async (parent, {name, email, password}) => {
+      const reader = await Reader.create({name, email, password});
+      const token = signToken(reader);
+
+      return {token, reader};
+    },
+
+    login: async (parent, {email, password}) => {
+      const reader = await Reader.findOne({email});
+
+      if (!reader) {
+        throw new AuthenticationError("No Reader with this email found!");
+      }
+
+      const correctPw = await reader.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password!");
+      }
+
+      const token = signToken(reader);
+      return {token, reader};
+    },
+
+    updateReader: async (parent, args, context) => {
+      if (context.user) {
+        return Reader.findOneAndUpdate(
+          // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
+          {_id: args._id},
+          {
+            $set: {
+              name: args.name,
+              email: args.email,
+              password: args.password,
+              screenName: args.screenName,
+            },
+          },
+          {returnDocument: "after"}
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    removeReader: async (parent, args, context) => {
+      if (context.user) {
+        return Reader.findOneAndDelete({_id: context.user._id});
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+  }
+}
+
+module.exports = readerResolvers;

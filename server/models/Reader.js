@@ -1,6 +1,6 @@
 const {Schema, model} = require("mongoose");
 const bcrypt = require("bcrypt");
-const {singleReadingSchema} = require('./SingleReading')
+const {singleReadingSchema, readingSchema} = require('./Reading')
 
 const readerSchema = new Schema({
   name: {
@@ -20,12 +20,8 @@ const readerSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  screenName: {
-    type: String,
-    // required: true,
-    minlength: 3,
-  },
-  passages: [singleReadingSchema],
+  passages: [readingSchema], // passages that a reader has authored
+  readings: [readingSchema] // readings
 });
 
 // set up pre-save middleware to create password
