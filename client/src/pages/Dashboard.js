@@ -34,6 +34,11 @@ import {QUERY_ME, QUERY_MY_CONTRIBUTIONS} from "../utils/queries";
 
 function Dashboard(props) {
   const {loading, data} = useQuery(QUERY_ME);
+
+if (loading) {
+  return <p>Loading...</p>
+}
+
   const user = data?.me || {};
   console.log(user);
 
