@@ -1,10 +1,34 @@
-import { gql } from '@apollo/client';
+import {gql} from "@apollo/client";
 
 export const QUERY_READERS = gql`
   query allReaders {
     readers {
       _id
       name
+    }
+  }
+`;
+
+export const QUERY_ALL_PASSAGES = gql`
+  query allPassages {
+    passages {
+      _id
+      title
+      providedBy {
+        name
+        _id
+      }
+      fullBody
+      splitBody {
+        words {
+          key
+          partOfSpeech
+          text
+          display
+        }
+        key
+        text
+      }
     }
   }
 `;
