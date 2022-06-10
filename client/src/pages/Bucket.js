@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { Container, Text, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
+import React from "react";
+import { Container, Text, Textarea, Button, Table, Tooltip, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
 import { IconButton } from "./IconButton";
 import { EyeIcon } from "./EyeIcon";
-import { EditIcon } from "./EditIcon";
-import { DeleteIcon } from "./DeleteIcon";
-import { ResumeIcon } from "./ResumeIcon";
 import { AddIcon } from "./AddIcon";
 
 import '../styles/Bucket.css';
