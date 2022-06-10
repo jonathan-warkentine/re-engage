@@ -43,6 +43,7 @@ function Dashboard(props) {
   }
 
   if (data) {
+    console.log(data.me?.sessions)
     return (
       <Container className="dashboard-container">
         <h2>Welcome to your Dashboard</h2>

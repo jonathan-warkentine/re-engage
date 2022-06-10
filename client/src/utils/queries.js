@@ -72,15 +72,21 @@ export const QUERY_ME = gql`
           sentences {
             key
           }
+          author {
+            _id
+            name
+          }
         }
         resumeAt
       }
       passages {
         _id
         title
-        sentences {
-          key
+        author {
+          _id
+          name
         }
+        fullText
       }
     }
   }

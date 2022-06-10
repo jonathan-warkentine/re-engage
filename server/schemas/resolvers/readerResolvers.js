@@ -34,7 +34,7 @@ const readerResolvers = {
 
     me: async (parent, args, context) => {
       if (context) { // TODO: change back to context.user
-        return await Reader.findOne({_id: "62a3a1401510b88bf96fdd45"}) // TODO: change to context.user._id
+        return await Reader.findOne({_id: "62a3a45732c548ef04dada49"}) // TODO: change to context.user._id
           .populate("sessions")
           .populate({
             path: "sessions",
@@ -49,7 +49,11 @@ const readerResolvers = {
               populate: "author"
             }
           })
-          .populate("passages");
+          .populate("passages")
+          .populate({
+            path: "passages",
+            populate: "author"
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     }

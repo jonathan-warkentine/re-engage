@@ -29,7 +29,7 @@ const passageResolvers = {
     Mutation: {
 
         addPassage: async (parent, {title, authorId, fullText}) => {
-          const newPassage = new Passage({title, authorId, fullText});
+          const newPassage = new Passage({title, author: authorId, fullText});
           await newPassage.build(fullText);
           await newPassage.save();
           await newPassage.populate("author");
