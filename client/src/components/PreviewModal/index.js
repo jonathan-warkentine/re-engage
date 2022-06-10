@@ -10,22 +10,22 @@ function PreviewModal (props) {
   return(
     
     <Modal
-      id="preview-modal"
+      id="preview-passage-modal"
       scroll
       blur
       closeButton
-      open={props.visible}
+      open={props.previewPassageModalVisible}
       width="600px"
-      aria-labelledby="preview-modal-title"
-      aria-describedby="preview-modal-description"
+      aria-labelledby="preview-passage-modal-title"
+      aria-describedby="preview-passage-modal-description"
     >
       <Modal.Header>
         <Text id="modal-title" size={18}>
-          Modal with a lot of content
+          {props.modalTitle} ... id number {props.modalId}
         </Text>
       </Modal.Header>
       <Modal.Body>
-        <Text id="modal-description"></Text>
+        <Text id="modal-description">{props.modalBody}</Text>
       </Modal.Body>
       <Modal.Footer>
         <Button auto flat color="error" onClick={() => props.closeHandler()}>
