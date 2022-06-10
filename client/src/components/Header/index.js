@@ -29,6 +29,7 @@ const Header = () => {
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/signup');}}>Signup</Button>
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/bucket');}}>Bucket</Button>
               <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/dashboard');}}>Dashboard</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/game');}}>Game</Button>
             </Button.Group>
           )}
         </div>
