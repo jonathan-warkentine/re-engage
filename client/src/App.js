@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
+import Game from './pages/Game';
 
 
 function App() {
@@ -55,6 +56,10 @@ function App() {
                 <Route 
                   path="/dashboard" 
                   element={<Dashboard />}
+                />
+                <Route 
+                  path="/game" 
+                  element={<Game />}
                 />
               </Routes>
             <Footer />
