@@ -5,7 +5,7 @@ const passageResolvers = {
     Query: {
         
         passage: async (parent, {passageId}) => {
-            return Passage.findOne({_id: passageId}).populate("providedBy");
+          return Passage.findOne({_id: passageId}).populate("providedBy");
         },
 
         passages: async () => {
@@ -29,41 +29,33 @@ const passageResolvers = {
     Mutation: {
 
         addPassage: async (parent, {title, providedBy, fullText}) => {
-            const newPassage = new Passage({title, providedBy, fullText});
-            await newPassage.build(fullText);
-            await newPassage.save();
-      
-            // I'm not sure why we are creating a reading here?
-            // const newReading = await Reading.create({
-            //   passage: newPassage._id,
-            // });
-      
-            // await Reader.findByIdAndUpdate(providedBy, {
-            //   $push: {passages: newReading},
-            // });
-      
-            return await newPassage.populate("providedBy");
+          const newPassage = new Passage({title, providedBy, fullText});
+          await newPassage.build(fullText);
+          await newPassage.save();
+          await newPassage.populate("providedBy");
+    
+          return newPassage;
         },
 
         updatePassage: async (parent, {_id, title, fullText}, context) => {
-            if (context.user) {
-              return await Passage.findOneAndUpdate(
-                // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
-                {_id},
-                {
-                  $set: {
-                    title,
-                    fullText,
-                  },
+          if (context.user) {
+            return await Passage.findOneAndUpdate(
+              // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
+              {_id},
+              {
+                $set: {
+                  title,
+                  fullText,
                 },
-                {new: true}
-              );
-            }
-            throw new AuthenticationError("You need to be logged in!");
+              },
+              {new: true}
+            );
+          }
+          throw new AuthenticationError("You need to be logged in!");
         },
 
         deletePassage: async (parent, {_id}) => {
-            return await Passage.deleteOne({_id});
+          return await Passage.deleteOne({_id});
         },
     }
 }
