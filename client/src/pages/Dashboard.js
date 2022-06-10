@@ -22,12 +22,12 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import {IconButton} from "./IconButton";
-import {EyeIcon} from "./EyeIcon";
-import {EditIcon} from "./EditIcon";
-import {DeleteIcon} from "./DeleteIcon";
-import {ResumeIcon} from "./ResumeIcon";
-import {ClipboardIcon} from "./ClipboardIcon";
+import {IconButton} from "../components/Icons/IconButton";
+import {EyeIcon} from "../components/Icons/EyeIcon";
+import {EditIcon} from "../components/Icons/EditIcon";
+import {DeleteIcon} from "../components/Icons/DeleteIcon";
+import {ResumeIcon} from "../components/Icons/ResumeIcon";
+import {ClipboardIcon} from "../components/Icons/ClipboardIcon";
 import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";

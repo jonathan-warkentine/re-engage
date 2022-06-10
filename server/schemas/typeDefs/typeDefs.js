@@ -46,8 +46,10 @@ const typeDefs = gql`
     _id: ID
     title: String
     providedBy: Reader
-    fullBody: String
-    splitBody: [Sentence]
+    fullText: String
+    words: [Word]
+    sentences: [Sentence]
+    blankedSentences: [Sentence]
   }
 
   type Auth {
@@ -73,8 +75,8 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     updateReader(_id: ID!, name: String, email: String, password: String): Reader
     removeReader: Reader
-    addPassage(title: String, providedBy: ID, fullBody: String): Passage
-    updatePassage(_id: ID!, title: String, fullBody: String): Passage
+    addPassage(title: String, providedBy: ID, fullText: String): Passage
+    updatePassage(_id: ID!, title: String, fullText: String): Passage
     deletePassage(_id: ID!): Passage
     addReading (readerId: ID!, passageId: ID!): Reading
     incrementResumeAt(readingId: ID!): Reading

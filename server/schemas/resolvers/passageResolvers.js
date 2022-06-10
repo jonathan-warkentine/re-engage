@@ -28,11 +28,10 @@ const passageResolvers = {
 
     Mutation: {
 
-        addPassage: async (parent, {title, providedBy, fullBody}) => {
-            const splitBody = new Passage({title, providedBy, fullBody});
-            await splitBody.build(fullBody);
-      
-            const newPassage = await splitBody.save();
+        addPassage: async (parent, {title, providedBy, fullText}) => {
+            const newPassage = new Passage({title, providedBy, fullText});
+            await newPassage.build(fullText);
+            await newPassage.save();
       
             // I'm not sure why we are creating a reading here?
             // const newReading = await Reading.create({
@@ -46,25 +45,25 @@ const passageResolvers = {
             return await newPassage.populate("providedBy");
         },
 
-        updatePassage: async (parent, args, context) => {
+        updatePassage: async (parent, {_id, title, fullText}, context) => {
             if (context.user) {
               return await Passage.findOneAndUpdate(
                 // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
-                {_id: args._id},
+                {_id},
                 {
                   $set: {
-                    title: args.title,
-                    fullBody: args.fullBody,
+                    title,
+                    fullText,
                   },
                 },
-                {returnDocument: "after"}
+                {new: true}
               );
             }
             throw new AuthenticationError("You need to be logged in!");
         },
 
         deletePassage: async (parent, {_id}) => {
-            return await Passage.deleteOne({_id: _id});
+            return await Passage.deleteOne({_id});
         },
     }
 }

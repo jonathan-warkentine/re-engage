@@ -2,9 +2,9 @@ import React from "react";
 import {Container, Table, Tooltip} from "@nextui-org/react";
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
-import {IconButton} from "./IconButton";
-import {EyeIcon} from "./EyeIcon";
-import {AddIcon} from "./AddIcon";
+import {IconButton} from "../components/Icons/IconButton";
+import {EyeIcon} from "../components/Icons/EyeIcon";
+import {AddIcon} from "../components/Icons/AddIcon";
 import "../styles/Bucket.css";
 
 function Bucket(props) {

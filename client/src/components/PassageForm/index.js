@@ -22,9 +22,8 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import {IconButton} from "../../pages/IconButton";
-
-import {ClipboardIcon} from "../../pages/ClipboardIcon";
+import {IconButton} from "../../components/Icons/IconButton";
+import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
 import "../../styles/Dashboard.css"
 import {ADD_PASSAGE} from "../../utils/mutations";
 import Auth from "../../utils/auth";

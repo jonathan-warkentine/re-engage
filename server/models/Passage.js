@@ -14,21 +14,17 @@ const passageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Reader",
   },
-  fullBody: {
+  fullText: {
     type: String,
     required: true,
-    // maxlength: 500,
-  },
-  splitBody: {
-    type: Array,
-  },
-  splitBodyBlanks: {
-    type: Array,
   },
   words: {
     type: [wordSchema]
   },
   sentences: {
+    type: [sentenceSchema]
+  },
+  blankedSentences: {
     type: [sentenceSchema]
   }
 });

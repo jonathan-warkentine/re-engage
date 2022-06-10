@@ -21,7 +21,8 @@ const readingResolvers = {
 
     Mutation: {
         addReading: async (parent, {readerId, passageId}, context) => {
-            // ONCE FRONT END IS SETUP, USE CONTEXT, AND TAKE OUT READER_ID
+            
+            // TODO: ONCE FRONT END IS SETUP, USE CONTEXT, AND TAKE OUT READER_ID
             const newreading = await Reading.create({
               passage: passageId,
               readerId: readerId
