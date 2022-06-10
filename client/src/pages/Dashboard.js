@@ -1,8 +1,8 @@
 import React from "react";
-import { Container, Text, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer } from '@nextui-org/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboard, faEnvelope, faList } from '@fortawesome/free-solid-svg-icons';
-import { faGithub, faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { Container, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer } from '@nextui-org/react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faClipboard, faEnvelope, faList } from '@fortawesome/free-solid-svg-icons';
+// import { faGithub, faFacebook, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { IconButton } from "./IconButton";
 import { EyeIcon } from "./EyeIcon";
 import { EditIcon } from "./EditIcon";
