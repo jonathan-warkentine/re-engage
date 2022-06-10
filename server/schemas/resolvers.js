@@ -99,14 +99,15 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    incrementResumeAt: async (parent, {singleReadingId, readerId, passageId}) => {
+    incrementResumeAt: async (parent, {singleReadingId}, context) => {
       const singleReading = await SingleReading.findOne({
         _id: singleReadingId,
       }).populate("passage");
+      const passageId = singleReading.passage._id;
       const prevResume = singleReading.resumeAt;
       const newResumeAt = prevResume + 2;
       await Reader.findByIdAndUpdate(
-            {_id: readerId},
+            {_id: context.user._id},
             {
               $set: {"passages.$[el].resumeAt": newResumeAt},
             },
