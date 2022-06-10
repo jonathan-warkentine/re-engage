@@ -9,7 +9,7 @@ import "../styles/Bucket.css";
 
 function Bucket(props) {
   const {loading, data} = useQuery(QUERY_ALL_PASSAGES);
-  const passages = data?.passages || [];
+  const passages = data?.allPassages || [];
 
   return (
     <Container className="the-bucket-container">
@@ -33,8 +33,8 @@ function Bucket(props) {
             {passages.map((passage) => (
               <Table.Row key={passage.title}>
                 <Table.Cell>{passage.title}</Table.Cell>
-               {passage.providedBy ? (
-                 <Table.Cell>{passage.providedBy.name}</Table.Cell>
+               {passage.author ? (
+                 <Table.Cell>{passage.author.name}</Table.Cell>
                ) : (<Table.Cell> </Table.Cell>)}
                 
                 <Table.Cell>

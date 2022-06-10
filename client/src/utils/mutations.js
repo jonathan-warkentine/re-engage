@@ -25,12 +25,12 @@ export const LOGIN_READER = gql`
 `;
 
 export const ADD_PASSAGE = gql`
-  mutation addPassage($title: String, $providedBy: ID, $fullText: String) {
-    addPassage(title: $title, providedBy: $providedBy, fullText: $fullText) {
+  mutation addPassage($title: String, $authorId: ID, $fullText: String) {
+    addPassage(title: $title, authorId: $authorId, fullText: $fullText) {
       _id
       title
       fullText
-      providedBy {
+      author {
         name
         email
       }

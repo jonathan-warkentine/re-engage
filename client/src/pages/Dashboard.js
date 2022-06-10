@@ -73,7 +73,7 @@ function Dashboard(props) {
                       <Progress
                         color="primary"
                         value={
-                          ( (data.me.sessions?.find(session => session.passageId === passage._id)?.resumeAt /
+                          ( (data.me.sessions?.find(session => session.passage._id === passage._id)?.resumeAt /
                             passage.sentences?.length) * 100 ) || 0
                         }
                       />
@@ -135,17 +135,17 @@ function Dashboard(props) {
               <Table.Column width={3}>ACTIONS</Table.Column>
             </Table.Header>
             <Table.Body>
-              {data.me.sessions.passages?.map((passage)=> (
-                <Table.Row key={passage.title}>
-                  <Table.Cell>{passage.title}</Table.Cell>
-                  <Table.Cell>{passage.providedBy.name}</Table.Cell>
+              {data.me.sessions?.map((session)=> (
+                <Table.Row key={session.passage.title}>
+                  <Table.Cell>{session.passage.title}</Table.Cell>
+                  <Table.Cell>{session.passage.author.name}</Table.Cell>
                   <Table.Cell>
                     <Grid>
                       <Progress
                         color="primary"
                         value={
-                          ((data.me.sessions?.find(session => session.passageId === passage._id)?.resumeAt /
-                            passage.sentences?.length) * 100 ) || 0
+                          ((session.resumeAt /
+                          session.passage.sentences?.length) * 100 ) || 0
                         }
                       />
                     </Grid>

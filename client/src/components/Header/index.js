@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { Container, Text, Button } from '@nextui-org/react';
 import '../../styles/Header.css'
@@ -20,15 +20,17 @@ const Header = () => {
         </div>
         <div className="nav-buttons">
           {Auth.loggedIn() ? (
-            <>
-              <button onClick={logout}>Logout</button>
-            </>
+           <Button.Group color="gradient">
+            <Button onClick={logout} auto ghost >Logout</Button>
+            <Button auto ghost as={Link} to='/bucket'>Bucket</Button>
+            <Button auto ghost as={Link} to='/dashboard'>Dashboard</Button>
+          </Button.Group>
           ) : (
             <Button.Group color="gradient">
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/login');}}>Login</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/signup');}}>Signup</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/bucket');}}>Bucket</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/dashboard');}}>Dashboard</Button>
+              <Button auto ghost as={Link} to='/login'>Login</Button>
+              <Button auto ghost as={Link} to='/signup'>Signup</Button>
+              <Button auto ghost as={Link} to='/bucket'>Bucket</Button>
+              <Button auto ghost as={Link} to='/dashboard'>Dashboard</Button>
             </Button.Group>
           )}
         </div>

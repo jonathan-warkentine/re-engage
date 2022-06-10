@@ -10,7 +10,7 @@ const passageSchema = new Schema({
     required: true,
     unique: true,
   },
-  providedBy: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: "Reader",
   },

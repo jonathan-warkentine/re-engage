@@ -5,36 +5,36 @@ const passageResolvers = {
     Query: {
         
         passage: async (parent, {passageId}) => {
-          return Passage.findOne({_id: passageId}).populate("providedBy");
+          return Passage.findOne({_id: passageId}).populate("author");
         },
 
         allPassages: async () => {
-          return Passage.find().populate("providedBy");
+          return Passage.find().populate("author");
         },
     
         myPassages: async (parent, args, context) => {
           if (context.user) {
-            return Passage.find({providedBy: context.user._id}).populate(
-              "providedBy"
+            return Passage.find({author: context.user._id}).populate(
+              "author"
             );
           }
           throw new AuthenticationError("You need to be logged in!");
         },
     
         passagesByAuthor: async (parent, {readerId}) => {
-          return await Passage.find({providedBy: readerId}).populate("providedBy");
+          return await Passage.find({author: readerId}).populate("author");
         }
     },
 
     Mutation: {
 
-        addPassage: async (parent, {title, providedBy, fullText}) => {
-          const newPassage = new Passage({title, providedBy, fullText});
+        addPassage: async (parent, {title, authorId, fullText}) => {
+          const newPassage = new Passage({title, authorId, fullText});
           await newPassage.build(fullText);
           await newPassage.save();
-          await newPassage.populate("providedBy");
+          await newPassage.populate("author");
           
-          const author = await Reader.findByIdAndUpdate(providedBy, {
+          const author = await Reader.findByIdAndUpdate(authorId, {
             $push: {
               passages: {
                 _id: newPassage._id

@@ -41,16 +41,14 @@ const PassageForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(passageText.passageTitle);
-    console.log(userId);
-    console.log(passageText.passageBody);
+    
     // On form submit, perform mutation and pass in form data object as arguments
     // It is important that the object fields are match the defined parameters in `ADD_THOUGHT` mutation
     try {
       const {data} = addPassage({
         variables: {
           title: passageText.passageTitle,
-          providedBy: userId,
+          authorId: userId,
           fullText: passageText.passageBody,
         },
       });

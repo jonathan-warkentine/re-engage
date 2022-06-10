@@ -33,7 +33,7 @@ const typeDefs = gql`
   type Passage {
     _id: ID
     title: String
-    providedBy: Reader
+    author: Reader
     fullText: String
     words: [Word]
     sentences: [Sentence]
@@ -65,7 +65,7 @@ const typeDefs = gql`
     passage (passageId: ID!): Passage
     allPassages: [Passage]
     myPassages: [Passage]
-    passagesByAuthor (providedBy: ID!): [Passage]
+    passagesByAuthor (authorId: ID!): [Passage]
     session (sessionId: ID!): Session
     allSessions: [Session]
     mySessions: [Session]
@@ -76,7 +76,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     updateReader(_id: ID!, name: String, email: String, password: String): Reader
     removeReader: Reader
-    addPassage(title: String, providedBy: ID, fullText: String): Passage
+    addPassage(title: String, authorId: ID, fullText: String): Passage
     updatePassage(_id: ID!, title: String, fullText: String): Passage
     deletePassage(_id: ID!): Passage
     addSession (readerId: ID!, passageId: ID!): Session

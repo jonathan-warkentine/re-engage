@@ -6,31 +6,47 @@ const readerResolvers = {
   Query: {
     reader: async (parent, {readerId}) => {
       return Reader.findOne({_id: readerId})
-      .populate(
-        "passages")
+      .populate("passages")
+      .populate("sessions")
       .populate({
-        path: "passages.passage",
-        populate: "providedBy",
-      });
+        path: "sessions",
+        populate: "passage"
+      })
+      .populate({
+        path: "passages",
+        populate: "author"
+      })
     },
     
     allReaders: async () => {
       return await Reader.find({})
         .populate("passages")
+        .populate("sessions")
         .populate({
-          path: "sessions.passage",
-          populate: "_id",
-        });
+          path: "sessions",
+          populate: "passage"
+        })
+        .populate({
+          path: "passages",
+          populate: "author"
+        })
     },
 
     me: async (parent, args, context) => {
       if (context) { // TODO: change back to context.user
-        return await Reader.findOne({_id: "62a362b49fc03b9edaad361f"}) // TODO: change to context.user._id
+        return await Reader.findOne({_id: "62a3a1401510b88bf96fdd45"}) // TODO: change to context.user._id
           .populate("sessions")
           .populate({
             path: "sessions",
             populate: {
               path: "passage"
+            }
+          })
+          .populate({
+            path: "sessions",
+            populate: {
+              path: "passage",
+              populate: "author"
             }
           })
           .populate("passages");

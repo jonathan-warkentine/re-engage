@@ -34,7 +34,6 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <NextUIProvider theme={darkTheme}>
         <Router>
-          <>
             <Header />
               <Routes>
                 <Route 
@@ -59,7 +58,6 @@ function App() {
                 />
               </Routes>
             <Footer />
-          </>
         </Router>
       </NextUIProvider>
     </ApolloProvider>
