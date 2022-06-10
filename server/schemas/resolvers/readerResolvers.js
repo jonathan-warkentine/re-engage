@@ -33,8 +33,8 @@ const readerResolvers = {
     },
 
     me: async (parent, args, context) => {
-      if (context) { // TODO: change back to context.user
-        return await Reader.findOne({_id: "62a3a45732c548ef04dada49"}) // TODO: change to context.user._id
+      if (context.user) {
+        return await Reader.findOne({_id: context.user._id})
           .populate("sessions")
           .populate({
             path: "sessions",
