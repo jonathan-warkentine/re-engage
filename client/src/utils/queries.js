@@ -67,35 +67,22 @@ export const QUERY_SINGLE_PROFILE = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
+  query Me {
     me {
       _id
       name
-      email
-      password
-      screenName
-      passages {
+      sessions {
         _id
-        resumeAt
+        readerId
         passage {
           _id
           title
-          providedBy {
-            name
-            _id
-          }
-          fullBody
-          splitBody {
-            key
-            words {
-              key
-              partOfSpeech
-              text
-              display
-            }
-            text
-          }
         }
+        resumeAt
+      }
+      passages {
+        _id
+        title
       }
     }
   }

@@ -87,4 +87,4 @@ passageSchema.methods.populateBlanks = function ( sentences = this.sentences, bl
 
 const Passage = model("Passage", passageSchema);
 
-module.exports = Passage;
+module.exports = {Passage, passageSchema};

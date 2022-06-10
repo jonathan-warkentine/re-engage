@@ -25,10 +25,10 @@ const Header = () => {
             </>
           ) : (
             <Button.Group color="gradient">
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/login');}}>Login</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/signup');}}>Signup</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/bucket');}}>Bucket</Button>
-              <Button auto ghost onClick={(e) => {e.preventDefault(); window.open('/dashboard');}}>Dashboard</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/login');}}>Login</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/signup');}}>Signup</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/bucket');}}>Bucket</Button>
+              <Button auto ghost onClick={(e) => {e.preventDefault(); window.location.replace('/dashboard');}}>Dashboard</Button>
             </Button.Group>
           )}
         </div>

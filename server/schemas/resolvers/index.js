@@ -1,15 +1,15 @@
 const readerResolvers = require('./readerResolvers');
 const passageResolvers = require('./passageResolvers');
-const readingResolvers = require('./readingResolvers');
+const sessionResolvers = require('./sessionResolvers');
 
 const resolvers = {
     Query: {
-        ...readingResolvers.Query,
+        ...sessionResolvers.Query,
         ...passageResolvers.Query,
         ...readerResolvers.Query
     },
     Mutation: {
-        ...readingResolvers.Mutation,
+        ...sessionResolvers.Mutation,
         ...passageResolvers.Mutation,
         ...readerResolvers.Mutation
     }

@@ -1,6 +1,5 @@
-const {Schema, model} = require("mongoose");
+const {Schema, model, Types} = require("mongoose");
 const bcrypt = require("bcrypt");
-const {singleReadingSchema, readingSchema} = require('./Reading')
 
 const readerSchema = new Schema({
   name: {
@@ -20,8 +19,14 @@ const readerSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  passages: [readingSchema], // passages that a reader has authored
-  readings: [readingSchema] // readings
+  passages: [{
+    type: Types.ObjectId,
+    ref: 'Passage'
+  }],
+  sessions: [{
+    type: Types.ObjectId,
+    ref: 'Session'
+  }]
 });
 
 // set up pre-save middleware to create password

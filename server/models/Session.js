@@ -1,6 +1,6 @@
 const {Schema, model} = require("mongoose");
 
-const readingSchema = new Schema({
+const sessionSchema = new Schema({
   passage: {
     type: Schema.Types.ObjectId,
     ref: "Passage",
@@ -15,6 +15,6 @@ const readingSchema = new Schema({
   },
 });
 
-const Reading = model("Reading", readingSchema);
+const Session = model("Session", sessionSchema);
 
-module.exports = {Reading, readingSchema};
+module.exports = {Session, sessionSchema};

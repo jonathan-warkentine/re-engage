@@ -1,5 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {Passage} = require("../../models");
+const {Passage, Reader} = require("../../models");
 
 const passageResolvers = {
     Query: {
@@ -8,7 +8,7 @@ const passageResolvers = {
           return Passage.findOne({_id: passageId}).populate("providedBy");
         },
 
-        passages: async () => {
+        allPassages: async () => {
           return Passage.find().populate("providedBy");
         },
     
@@ -33,7 +33,15 @@ const passageResolvers = {
           await newPassage.build(fullText);
           await newPassage.save();
           await newPassage.populate("providedBy");
-    
+          
+          const author = await Reader.findByIdAndUpdate(providedBy, {
+            $push: {
+              passages: {
+                _id: newPassage._id
+              }
+            },
+          });
+
           return newPassage;
         },
 

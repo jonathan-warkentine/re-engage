@@ -25,23 +25,14 @@ export const LOGIN_READER = gql`
 `;
 
 export const ADD_PASSAGE = gql`
-  mutation addPassage($title: String, $providedBy: ID, $fullBody: String) {
-    addPassage(title: $title, providedBy: $providedBy, fullBody: $fullBody) {
+  mutation addPassage($title: String, $providedBy: ID, $fullText: String) {
+    addPassage(title: $title, providedBy: $providedBy, fullText: $fullText) {
       _id
       title
+      fullText
       providedBy {
         name
-      }
-      fullBody
-      splitBody {
-        words {
-          key
-          partOfSpeech
-          text
-          display
-        }
-        text
-        key
+        email
       }
     }
   }

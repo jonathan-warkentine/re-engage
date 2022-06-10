@@ -14,27 +14,26 @@ const readerResolvers = {
       });
     },
     
-    readers: async () => {
+    allReaders: async () => {
       return await Reader.find({})
+        .populate("passages")
         .populate({
-          path: "passages",
-          populate: "passage",
-        })
-        .populate({
-          path: "passages.passage",
-          populate: "providedBy",
+          path: "sessions.passage",
+          populate: "_id",
         });
     },
 
     me: async (parent, args, context) => {
-      if (context.user) {
-        return Reader.findOne({_id: context.user._id})
-          .populate(
-            "passages")
+      if (context) { // TODO: change back to context.user
+        return await Reader.findOne({_id: "62a362b49fc03b9edaad361f"}) // TODO: change to context.user._id
+          .populate("sessions")
           .populate({
-            path: "passages.passage",
-            populate: "providedBy",
-          });
+            path: "sessions",
+            populate: {
+              path: "passage"
+            }
+          })
+          .populate("passages");
       }
       throw new AuthenticationError("You need to be logged in!");
     }

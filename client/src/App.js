@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  ApolloProvider
-} from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import apolloClient from './apolloClient';
@@ -13,9 +11,6 @@ import Login from './pages/Login';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
-
-
-
 
 
 function App() {
@@ -39,6 +34,7 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <NextUIProvider theme={darkTheme}>
         <Router>
+          <>
             <Header />
               <Routes>
                 <Route 
@@ -63,6 +59,7 @@ function App() {
                 />
               </Routes>
             <Footer />
+          </>
         </Router>
       </NextUIProvider>
     </ApolloProvider>
