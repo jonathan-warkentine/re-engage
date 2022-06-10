@@ -14,6 +14,7 @@ import '../styles/Bucket.css';
 function Bucket(props) {
   
   // MODAL STUFF ------------------------------
+  // ------------------------------------------
   
   const { setVisible, bindings } = useModal();
 
@@ -34,12 +35,13 @@ function Bucket(props) {
     console.log("CLOSE button pressed");
   };
 
-  function handlerForConfirm() {
+  function handlerForConfirm(id) {
     setVisible(false);
-    console.log("CONFIRM ADD button pressed");  
+    console.log("CONFIRM ADD button pressed"); 
+    return console.log(id);
   };
   
-  
+  // ------------------------------------------
   // MODAL STUFF ------------------------------
 
 
@@ -209,7 +211,9 @@ John the Baptist Exalts Christ
         </Card>
     </Container>
 
+    {passages.map((passage) => (
     <Modal
+        key={passage._id}
         scroll
         width="600px"
         aria-labelledby="modal-title"
@@ -217,22 +221,21 @@ John the Baptist Exalts Christ
         {...bindings}
       >
         <Modal.Header>
-          <Text id="modal-title" size={18}>
-            Modal with a lot of content
-          </Text>
+          <Text id="modal-title" size={18}>{passage.title}</Text>
         </Modal.Header>
         <Modal.Body>
-          <Text id="modal-description">Test text. Test text. Test text. Test text. Test text. Test text. Test text. Test text. Test text. </Text>
+          <Text id="modal-description">{passage._id}</Text>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={handlerForClosePreviewModal}>
             Nope, Nevermind
           </Button>
-          <Button auto onClick={handlerForConfirm}>
+          <Button auto onClick={() => {handlerForConfirm(passage._id)}}>
             ADD to My Queue
           </Button>
         </Modal.Footer>
       </Modal>
+    ))}
 
   </Container>
   )
