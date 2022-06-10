@@ -17,13 +17,14 @@ const resolvers = {
     },
 
     reader: async (parent, {readerId}) => {
-      return Reader.findOne({_id: readerId})
+      const reader = await Reader.findOne({_id: readerId})
       .populate(
         "passages")
       .populate({
         path: "passages.passage",
         populate: "providedBy",
       });
+      return reader;
     },
 
     me: async (parent, args, context) => {
@@ -98,12 +99,23 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    incrementResumeAt: async (parent, {singleReadingId}) => {
+    incrementResumeAt: async (parent, {singleReadingId}, context) => {
       const singleReading = await SingleReading.findOne({
         _id: singleReadingId,
       }).populate("passage");
+      const passageId = singleReading.passage._id;
       const prevResume = singleReading.resumeAt;
       const newResumeAt = prevResume + 2;
+      await Reader.findByIdAndUpdate(
+            {_id: context.user._id},
+            {
+              $set: {"passages.$[el].resumeAt": newResumeAt},
+            },
+            {
+              arrayFilters: [{"el.passage": passageId}],
+              new: true,
+            }
+          );
       return await SingleReading.findByIdAndUpdate(
         {_id: singleReadingId},
         {
