@@ -16,6 +16,28 @@ function Bucket(props) {
   // MODAL STUFF ------------------------------
   
   const { setVisible, bindings } = useModal();
+
+  function handlerForShowPreview (passage) {
+    setVisible(true);
+    console.log("PREVIEW button pressed");
+    console.log(passage)
+  };
+
+  function handlerForAddPassage (passage) {
+    setVisible(false);
+    console.log("ADD button pressed");
+    console.log(passage);
+  };
+
+  function handlerForClosePreviewModal() {
+    setVisible(false);
+    console.log("CLOSE button pressed");
+  };
+
+  function handlerForConfirm() {
+    setVisible(false);
+    console.log("CONFIRM ADD button pressed");  
+  };
   
   
   // MODAL STUFF ------------------------------
@@ -107,20 +129,13 @@ John the Baptist Exalts Christ
                 <Table.Cell>
                   <Tooltip color="secondary" content="SHOW passage preview">
                     <IconButton
-                      onClick={() => {
-                        setVisible(true);
-                        console.log("PREVIEW button pressed");
-                        console.log(passage)
-                      }}
+                      onClick={() => {handlerForShowPreview(passage)}}
                     >
                       <EyeIcon size={20} fill="#979797" />
                     </IconButton>
                   </Tooltip>
                   <Tooltip color="primary" content="ADD passage">
-                    <IconButton onClick={() => {
-                        console.log("ADD button pressed");
-                        console.log(passage);
-                        }}>
+                    <IconButton onClick={() => {handlerForAddPassage(passage)}}>
                       <AddIcon size={20} fill="#00cc00" />
                     </IconButton>
                   </Tooltip>
@@ -210,17 +225,11 @@ John the Baptist Exalts Christ
           <Text id="modal-description">Test text. Test text. Test text. Test text. Test text. Test text. Test text. Test text. Test text. </Text>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="error" onClick={() => {
-              setVisible(false);
-              console.log("CLOSE button pressed");
-              }}>
-            Close
+          <Button auto flat color="error" onClick={handlerForClosePreviewModal}>
+            Nope, Nevermind
           </Button>
-          <Button auto onClick={() => {
-              setVisible(false);
-              console.log("ADD TO QUEUE button pressed");
-              }}>
-            Agree
+          <Button auto onClick={handlerForConfirm}>
+            ADD to My Queue
           </Button>
         </Modal.Footer>
       </Modal>
