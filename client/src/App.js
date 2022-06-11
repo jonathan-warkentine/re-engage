@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 import apolloClient from './apolloClient';
 
-// import ModalProvider from './pages/ModalProvider';
 import LandingPage from './pages/LandingPage';
 import Bucket from './pages/Bucket';
 import Signup from './pages/Signup';
@@ -16,14 +15,6 @@ import Game from './pages/Game';
 
 
 function App() {
-
-  // 2. Call `createTheme` and pass your custom values
-  const lightTheme = createTheme({
-    type: 'light',
-    /* theme: {
-      colors: {},
-    } */
-  })
 
   const darkTheme = createTheme({
     type: 'dark',

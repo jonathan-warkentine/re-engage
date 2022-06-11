@@ -1,27 +1,11 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {
   Container,
-  Text,
   Textarea,
   Button,
-  Table,
   Tooltip,
-  Progress,
-  Grid,
-  Spacer,
+  Spacer
 } from "@nextui-org/react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-  faClipboard,
-  faEnvelope,
-  faList,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  faGithub,
-  faFacebook,
-  faLinkedin,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
 import {IconButton} from "../../components/Icons/IconButton";
 import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
 import "../../styles/Dashboard.css"
@@ -71,7 +55,7 @@ const PassageForm = () => {
       <div className="submit-title-and-paste-button">
         <h3>Submit New Passage ... </h3>
         <Tooltip color="primary" content="PASTE from your clipboard">
-          <IconButton onClick={() => console.log("RESUME button clicked")}>
+          <IconButton onClick={() => console.log("PASTE button clicked")}>
             <ClipboardIcon size={26} fill="#00cc00" />
           </IconButton>
         </Tooltip>
@@ -87,6 +71,7 @@ const PassageForm = () => {
         color="success"
         placeholder="Title"
       ></Textarea>
+      <Spacer y={0.5} />
       <Textarea
         name="passageBody"
         fullWidth="true"

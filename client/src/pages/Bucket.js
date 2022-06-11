@@ -5,7 +5,6 @@ import {QUERY_ALL_PASSAGES} from "../utils/queries";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
 import {AddIcon} from "../components/Icons/AddIcon";
-import PreviewModal from "../components/PreviewModal";
 import "../styles/Bucket.css";
 
 function Bucket(props) {
