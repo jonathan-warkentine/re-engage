@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
 
+// import ModalProvider from './pages/ModalProvider';
 import LandingPage from './pages/LandingPage';
 import Bucket from './pages/Bucket';
 import Signup from './pages/Signup';
@@ -59,40 +60,41 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <NextUIProvider theme={darkTheme}>
-        <Router>
-          <div >
-            <Header />
+          <Router>
             <div >
-              <Routes>
-                <Route 
-                  path="/" 
-                  element={<LandingPage />}
-                />
-                <Route 
-                  path="/bucket" 
-                  element={<Bucket />}
-                />
-                <Route 
-                  path="/login" 
-                  element={<Login />}
-                />
-                <Route 
-                  path="/signup" 
-                  element={<Signup />}
-                />
-                <Route 
-                  path="/dashboard" 
-                  element={<Dashboard />}
-                />
-                <Route 
-                  path="/game" 
-                  element={<Game />}
-                />
-              </Routes>
+              <Header />
+              <div >
+                <Routes>
+                  <Route 
+                    path="/" 
+                    element={<LandingPage />}
+                  />
+                  <Route 
+                    path="/bucket" 
+                    element={<Bucket />}
+                  />
+                  <Route 
+                    path="/login" 
+                    element={<Login />}
+                  />
+                  <Route 
+                    path="/signup" 
+                    element={<Signup />}
+                  />
+                  <Route 
+                    path="/dashboard" 
+                    element={<Dashboard />}
+                  />
+                  <Route 
+                    path="/game" 
+                    element={<Game />}
+                  />
+                </Routes>
+                {/* <ModalProvider /> */}
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </Router>
+          </Router>
       </NextUIProvider>
     </ApolloProvider>
   );

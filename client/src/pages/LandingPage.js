@@ -1,11 +1,35 @@
 import React from "react";
-import { Container, Text, Card, Col, Row, Button } from '@nextui-org/react';
-import bluebook from '../images/blue-book2.webp';
-import bookandgrass from '../images/bookandgrass.jpg';
+import { Container, Text, Card, Col, Row, Button, Modal } from '@nextui-org/react';
 import ladyreading from '../images/ladyreading2.jpg';
 import ribbon from '../images/blueribbon.png';
 
 function LandingPage(props) {
+  
+  const [showModal1, setShowModal1] = React.useState(false);
+  const handlerToShowModal1 = () => setShowModal1(true);
+  const handlerToHideModal1 = () => setShowModal1(false);
+  const handlerToModal1Button1 = () => {
+    handlerToHideModal1();
+    console.log("Modal 1, Button ONE pressed");
+  };
+  const handlerToModal1Button2 = () => {
+    handlerToHideModal1();
+    console.log("Modal 1, Button TWO pressed");
+  };
+  
+  const [showModal2, setShowModal2] = React.useState(false);
+  const handlerToShowModal2 = () => setShowModal2(true);
+  const handlerToHideModal2 = () => setShowModal2(false);
+  const handlerToModal2Button1 = () => {
+    handlerToHideModal2();
+    console.log("Modal 2, Button ONE pressed");
+  };
+  const handlerToModal2Button2 = () => {
+    handlerToHideModal2();
+    console.log("Modal 2, Button TWO pressed");
+  };
+
+  
   return (
   <Container>
   <Card css={{ w: "100%", h: "400px" }}>
@@ -70,6 +94,7 @@ function LandingPage(props) {
               auto
               rounded
               css={{ color: "#94f9f0", bg: "#94f9f026" }}
+              onClick={handlerToShowModal1}
             >
               <Text
                 css={{ color: "inherit" }}
@@ -77,7 +102,23 @@ function LandingPage(props) {
                 weight="bold"
                 transform="uppercase"
               >
-                Login / Signup
+                MODAL 1 TEST
+              </Text>
+            </Button>
+            <Button
+              flat
+              auto
+              rounded
+              css={{ color: "#94f9f0", bg: "#94f9f026" }}
+              onClick={handlerToShowModal2}
+            >
+              <Text
+                css={{ color: "inherit" }}
+                size={12}
+                weight="bold"
+                transform="uppercase"
+              >
+                MODAL 2 TEST
               </Text>
             </Button>
           </Row>
@@ -85,6 +126,49 @@ function LandingPage(props) {
       </Row>
     </Card.Footer>
   </Card>
+
+  <Modal
+    id = "MODAL1"
+    closeButton
+    aria-labelledby="confirm-delete-modal"
+    open={showModal1}
+    onClose={handlerToHideModal1}
+  >
+    <Modal.Header>
+      <Text h3>MODAL 1</Text>
+    </Modal.Header>
+    <Modal.Body><Text h6>This is the body of MODAL 1</Text></Modal.Body>
+    <Modal.Footer>
+      <Button auto flat color="error" onClick={handlerToModal1Button1}>
+        Close
+      </Button>
+      <Button auto onClick={handlerToModal1Button2}>
+        Confirm DELETE
+      </Button>
+    </Modal.Footer>
+  </Modal>
+  
+  <Modal
+    id = "MODAL2"
+    closeButton
+    aria-labelledby="confirm-delete-modal"
+    open={showModal2}
+    onClose={handlerToHideModal2}
+  >
+    <Modal.Header>
+      <Text h3>MODAL 2</Text>
+    </Modal.Header>
+    <Modal.Body><Text h6>This is the body of MODAL 2</Text></Modal.Body>
+    <Modal.Footer>
+      <Button auto flat color="error" onClick={handlerToModal2Button1}>
+        Close
+      </Button>
+      <Button auto onClick={handlerToModal2Button2}>
+        Confirm DELETE
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
   </Container>
   )
 };
