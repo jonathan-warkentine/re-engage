@@ -40,14 +40,10 @@ export const ADD_PASSAGE = gql`
 
 export const ADD_SESSION = gql`
   mutation addSession($passageId: ID!) {
-    addSession(passage: $passageId) {
+    addSession(passageId: $passageId) {
       _id
       readerId
       resumeAt
-      passage {
-        _id
-        title
-      }
     }
   }
 `;

@@ -19,10 +19,12 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
+import {ADD_SESSION} from "../utils/mutations";
+import {useMutation} from "@apollo/client";
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
-
+  const [addSession, {error}] = useMutation(ADD_SESSION);
   // MODAL FUNCTIONS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/
   // PREVIEW Modal
   const [showPreviewModal, setShowPreviewModal] = useState(false);
@@ -83,14 +85,28 @@ function Dashboard(props) {
     handlerToHideAddModal();
     console.log("Add CANCEL button pressed");
   };
-  const handlerToAddModalConfirmBtn = () => {
+  const handlerToAddModalConfirmBtn = async (event) => {
+    event.preventDefault();
     handlerToHideAddModal();
-    console.log("Add CONFIRM button pressed");
+
+    try {
+      const data = await addSession({
+        variables: {
+          passageId: targetPassage._id,
+        },
+      });
+      console.log(targetPassage._id);
+      console.log(data);
+      // window.location.reload();
+      refetch();
+    } catch (err) {
+      console.error(err);
+    }
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
-  const {loading, data} = useQuery(QUERY_ME);
-
+  const {loading, data, refetch} = useQuery(QUERY_ME);
+  console.log(data?.me.sessions);
   if (loading) {
     return <p>Loading...</p>;
   }

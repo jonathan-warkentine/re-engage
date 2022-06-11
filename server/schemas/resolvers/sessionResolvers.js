@@ -30,9 +30,9 @@ const sessionResolvers = {
             await newsession.populate("passage");
       
             const updatedReader = await Reader.findByIdAndUpdate(context.user._id, {
-              $push: {sessions: newsession},
+              $addToSet: {sessions: newsession},
             });
-      
+      console.log(updatedReader);
             return newsession;
       
         },
