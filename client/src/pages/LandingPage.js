@@ -28,6 +28,30 @@ function LandingPage() {
     handlerToHideModal2();
     console.log("Modal 2, Button TWO pressed");
   };
+  
+  const [showModal3, setShowModal3] = React.useState(false);
+  const handlerToShowModal3 = () => setShowModal3(true);
+  const handlerToHideModal3 = () => setShowModal3(false);
+  const handlerToModal3Button1 = () => {
+    handlerToHideModal3();
+    console.log("Modal 3, Button ONE pressed");
+  };
+  const handlerToModal3Button2 = () => {
+    handlerToHideModal3();
+    console.log("Modal 3, Button TWO pressed");
+  };
+  
+  const [showModal4, setShowModal4] = React.useState(false);
+  const handlerToShowModal4 = () => setShowModal4(true);
+  const handlerToHideModal4 = () => setShowModal4(false);
+  const handlerToModal4Button1 = () => {
+    handlerToHideModal4();
+    console.log("Modal 4, Button ONE pressed");
+  };
+  const handlerToModal4Button2 = () => {
+    handlerToHideModal4();
+    console.log("Modal 4, Button TWO pressed");
+  };
 
   
   return (
@@ -121,53 +145,143 @@ function LandingPage() {
                 MODAL 2 TEST
               </Text>
             </Button>
+            <Button
+              flat
+              auto
+              rounded
+              css={{ color: "#94f9f0", bg: "#94f9f026" }}
+              onClick={handlerToShowModal3}
+            >
+              <Text
+                css={{ color: "inherit" }}
+                size={12}
+                weight="bold"
+                transform="uppercase"
+              >
+                MODAL 3 TEST
+              </Text>
+            </Button>
+            <Button
+              flat
+              auto
+              rounded
+              css={{ color: "#94f9f0", bg: "#94f9f026" }}
+              onClick={handlerToShowModal4}
+            >
+              <Text
+                css={{ color: "inherit" }}
+                size={12}
+                weight="bold"
+                transform="uppercase"
+              >
+                MODAL 4 TEST
+              </Text>
+            </Button>
           </Row>
         </Col>
       </Row>
     </Card.Footer>
   </Card>
 
+
+{/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
+
   <Modal
-    id = "MODAL1"
+    id = "preview-body-modal"
     closeButton
-    aria-labelledby="confirm-delete-modal"
+    scroll
+    width="600px"
+    aria-labelledby="preview-body-modal"
     open={showModal1}
     onClose={handlerToHideModal1}
   >
     <Modal.Header>
-      <Text h3>MODAL 1</Text>
+      <Text h2>Preview this Passage</Text>
     </Modal.Header>
-    <Modal.Body><Text h6>This is the body of MODAL 1</Text></Modal.Body>
+    <Modal.Body>
+      <Text h4>This is the PASSAGE TITLE</Text>
+      <Text>This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . . </Text>
+    </Modal.Body>
     <Modal.Footer>
-      <Button auto flat color="error" onClick={handlerToModal1Button1}>
-        Close
+      <Button auto flat color="secondary" onClick={handlerToModal1Button1}>
+        Nope, nevermind. Not this one.
       </Button>
-      <Button auto onClick={handlerToModal1Button2}>
-        Confirm DELETE
+      <Button auto color="success" onClick={handlerToModal1Button2}>
+        Add it to My Queue
       </Button>
     </Modal.Footer>
   </Modal>
   
   <Modal
-    id = "MODAL2"
+    id = "edit-body-modal"
     closeButton
-    aria-labelledby="confirm-delete-modal"
+    scroll
+    width="600px"
+    aria-labelledby="edit-body-modal"
     open={showModal2}
     onClose={handlerToHideModal2}
   >
     <Modal.Header>
-      <Text h3>MODAL 2</Text>
+      <Text h2>Edit this Passage</Text>
     </Modal.Header>
-    <Modal.Body><Text h6>This is the body of MODAL 2</Text></Modal.Body>
+    <Modal.Body>
+      <Text h4>This is the PASSAGE TITLE</Text>
+      <Text>This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . . . </Text>
+    </Modal.Body>
     <Modal.Footer>
-      <Button auto flat color="error" onClick={handlerToModal2Button1}>
-        Close
+      <Button auto flat color="secondary" onClick={handlerToModal2Button1}>
+        Nope, don't want to change it.
       </Button>
-      <Button auto onClick={handlerToModal2Button2}>
-        Confirm DELETE
+      <Button auto color="warning" onClick={handlerToModal2Button2}>
+        Yes, EDIT!
       </Button>
     </Modal.Footer>
   </Modal>
+  
+  <Modal
+    id = "confirm-delete-modal"
+    closeButton
+    aria-labelledby="confirm-delete-modal"
+    open={showModal3}
+    onClose={handlerToHideModal3}
+  >
+    <Modal.Header>
+      <Text h2>Confirm Delete?!?</Text>
+    </Modal.Header>
+    <Modal.Body><Text h4>This is the body of MODAL 3</Text></Modal.Body>
+    <Modal.Footer>
+      <Button auto flat color="secondary" onClick={handlerToModal3Button1}>
+        Nevermind, Go Back
+      </Button>
+      <Button auto color="error" onClick={handlerToModal3Button2}>
+        Yes, Confirm DELETE!
+      </Button>
+    </Modal.Footer>
+  </Modal>
+  
+  <Modal
+    id = "confirm-add-modal"
+    closeButton
+    aria-labelledby="confirm-add-modal"
+    open={showModal4}
+    onClose={handlerToHideModal4}
+  >
+    <Modal.Header>
+      <Text h2>Sure you want to ADD this to your Queue?</Text>
+    </Modal.Header>
+    <Modal.Body><Text h3>This will add this passage to your own personal queue.  You'll see it on your Dashhoard.</Text></Modal.Body>
+    <Modal.Footer>
+      <Button auto flat color="secondary" onClick={handlerToModal4Button1}>
+        Nevermind, Go Back
+      </Button>
+      <Button auto color="success" onClick={handlerToModal4Button2}>
+        Yes, ADD it!
+      </Button>
+    </Modal.Footer>
+  </Modal>
+
+{/* MODALS  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^  */}
+
 
   </Container>
   )
