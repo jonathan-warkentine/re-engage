@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, NextUIProvider } from '@nextui-org/react';
+import apolloClient from './apolloClient';
 
 // import ModalProvider from './pages/ModalProvider';
 import LandingPage from './pages/LandingPage';
@@ -19,26 +14,6 @@ import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import Game from './pages/Game';
 
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
 
 function App() {
 
@@ -58,12 +33,10 @@ function App() {
   })
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <NextUIProvider theme={darkTheme}>
           <Router>
-            <div >
               <Header />
-              <div >
                 <Routes>
                   <Route 
                     path="/" 
@@ -90,10 +63,7 @@ function App() {
                     element={<Game />}
                   />
                 </Routes>
-                {/* <ModalProvider /> */}
-              </div>
               <Footer />
-            </div>
           </Router>
       </NextUIProvider>
     </ApolloProvider>

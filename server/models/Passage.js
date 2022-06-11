@@ -10,40 +10,36 @@ const passageSchema = new Schema({
     required: true,
     unique: true,
   },
-  providedBy: {
+  author: {
     type: Schema.Types.ObjectId,
     ref: "Reader",
   },
-  fullBody: {
+  fullText: {
     type: String,
     required: true,
-    // maxlength: 500,
-  },
-  splitBody: {
-    type: Array,
-  },
-  splitBodyBlanks: {
-    type: Array,
   },
   words: {
     type: [wordSchema]
   },
   sentences: {
     type: [sentenceSchema]
+  },
+  blankedSentences: {
+    type: [sentenceSchema]
   }
 });
 
-passageSchema.methods.build = async function ( fullBody ) {
-  const nlpResults = await this.processNLP( fullBody );
+passageSchema.methods.build = async function ( fullText ) {
+  const nlpResults = await this.processNLP( fullText );
   this.buildWords ( nlpResults );
   this.buildSentences( this.words );
   this.populateBlanks( this.sentences );
 }
 
-passageSchema.methods.processNLP = async function ( fullBody = this.fullBody ) {
+passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
   const nlpCloudClient = new NLPCloudClient('en_core_web_lg', nlpCloudClientKey);
   try {
-    const response = await nlpCloudClient.dependencies( fullBody );
+    const response = await nlpCloudClient.dependencies( fullText );
     return response.data.words;
   } catch (error) {
     console.error(error.response.status);
@@ -65,14 +61,14 @@ passageSchema.methods.buildSentences = function ( words = this.words ) {
       // if the word/char is sentence-ending punctuation
       // trigger new sentence iteration
       if (word.text.match(/[.!?\\-]/)) {
-          this.splitBody.push(currentSentence);
-          currentSentence = new Sentence( {key: this.splitBody.length} );
+          this.sentences.push(currentSentence);
+          currentSentence = new Sentence( {key: this.sentences.length} );
       }
   }); 
 }
 
-passageSchema.methods.populateBlanks = function ( sentences = this.splitBody, blankrate = 8 ) { // blankrate is the ratio of words/blanks to generate
-  this.splitBodyBlanks = sentences.map ( sentence => {
+passageSchema.methods.populateBlanks = function ( sentences = this.sentences, blankrate = 8 ) { // blankrate is the ratio of words/blanks to generate
+  this.blankedSentences = sentences.map ( sentence => {
       // if (sentence.length > blankRate) {
       //     TODO: separate alogorithm for longer sentences? can probably consolidate in the future
       // }
@@ -86,9 +82,9 @@ passageSchema.methods.populateBlanks = function ( sentences = this.splitBody, bl
       return sentence;
   });
 
-  return this.splitBodyBlanks;
+  return this.blankedSentences;
 }
 
 const Passage = model("Passage", passageSchema);
 
-module.exports = Passage;
+module.exports = {Passage, passageSchema};

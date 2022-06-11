@@ -14,7 +14,7 @@ export const QUERY_MY_CONTRIBUTIONS = gql`
     myPassages {
       _id
       title
-      providedBy {
+      author {
         _id
         name
       }
@@ -34,25 +34,17 @@ export const QUERY_MY_CONTRIBUTIONS = gql`
 `;
 
 export const QUERY_ALL_PASSAGES = gql`
-  query allPassages {
-    passages {
+  query AllPassages {
+    allPassages {
       _id
       title
-      providedBy {
-        name
+      author {
         _id
+        name
+        email
+        password
       }
-      fullBody
-      splitBody {
-        words {
-          key
-          partOfSpeech
-          text
-          display
-        }
-        key
-        text
-      }
+      fullText
     }
   }
 `;
@@ -67,35 +59,34 @@ export const QUERY_SINGLE_PROFILE = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
+  query Me {
     me {
       _id
       name
-      email
-      password
-      screenName
-      passages {
+      sessions {
         _id
-        resumeAt
+        readerId
         passage {
           _id
           title
-          providedBy {
-            name
-            _id
-          }
-          fullBody
-          splitBody {
+          sentences {
             key
-            words {
-              key
-              partOfSpeech
-              text
-              display
-            }
-            text
+          }
+          author {
+            _id
+            name
           }
         }
+        resumeAt
+      }
+      passages {
+        _id
+        title
+        author {
+          _id
+          name
+        }
+        fullText
       }
     }
   }

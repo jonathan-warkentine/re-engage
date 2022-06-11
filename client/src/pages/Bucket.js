@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Text, Textarea, Button, Table, Tooltip, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
-import { IconButton } from "./IconButton";
-import { EyeIcon } from "./EyeIcon";
-import { AddIcon } from "./AddIcon";
-
-import '../styles/Bucket.css';
+import {IconButton} from "../components/Icons/IconButton";
+import {EyeIcon} from "../components/Icons/EyeIcon";
+import {AddIcon} from "../components/Icons/AddIcon";
+import PreviewModal from "../components/PreviewModal";
+import "../styles/Bucket.css";
 
 function Bucket(props) {
   
@@ -43,7 +43,7 @@ function Bucket(props) {
 
 
   const {loading, data} = useQuery(QUERY_ALL_PASSAGES);
-  const passages = data?.passages || [];
+  const passages = data?.allPassages || [];
 
   const [selectedBook, setSelectedBook] = React.useState(new Set(["Book"]));
   const selectedBookValue = React.useMemo(
@@ -121,8 +121,8 @@ John the Baptist Exalts Christ
             {passages.map((passage) => (
               <Table.Row key={passage.title}>
                 <Table.Cell>{passage.title}</Table.Cell>
-               {passage.providedBy ? (
-                 <Table.Cell>{passage.providedBy.name}</Table.Cell>
+               {passage.author ? (
+                 <Table.Cell>{passage.author.name}</Table.Cell>
                ) : (<Table.Cell> </Table.Cell>)}
                 
                 <Table.Cell>
