@@ -20,16 +20,16 @@ const sessionResolvers = {
     },
 
     Mutation: {
-        addSession: async (parent, {readerId, passageId}, context) => {
+        addSession: async (parent, {passageId}, context) => {
             
             // TODO: ONCE FRONT END IS SETUP, USE CONTEXT, AND TAKE OUT READER_ID
             const newsession = await Session.create({
               passage: passageId,
-              readerId: readerId
+              readerId: context.user._id
             });
             await newsession.populate("passage");
       
-            const updatedReader = await Reader.findByIdAndUpdate(readerId, {
+            const updatedReader = await Reader.findByIdAndUpdate(context.user._id, {
               $push: {sessions: newsession},
             });
       

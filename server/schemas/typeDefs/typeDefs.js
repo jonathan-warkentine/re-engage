@@ -79,7 +79,7 @@ const typeDefs = gql`
     addPassage(title: String, authorId: ID, fullText: String): Passage
     updatePassage(_id: ID!, title: String, fullText: String): Passage
     deletePassage(_id: ID!): Passage
-    addSession (readerId: ID!, passageId: ID!): Session
+    addSession (passageId: ID!): Session
     incrementResumeAt(sessionId: ID!): Session
   }
 `;
