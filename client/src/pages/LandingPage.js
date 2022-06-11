@@ -1,11 +1,10 @@
 import React from "react";
-import { Container, Text, Card, Col, Row, Button } from '@nextui-org/react';
-import bluebook from '../images/blue-book2.webp';
-import bookandgrass from '../images/bookandgrass.jpg';
+import { Container, Text, Card, Col, Row, Button, Modal } from '@nextui-org/react';
 import ladyreading from '../images/ladyreading2.jpg';
 import ribbon from '../images/blueribbon.png';
 
-function LandingPage(props) {
+function LandingPage() {
+  
   return (
   <Container>
   <Card css={{ w: "100%", h: "400px" }}>
@@ -65,19 +64,9 @@ function LandingPage(props) {
         </Col>
         <Col>
           <Row justify="flex-end">
-            <Button
-              flat
-              auto
-              rounded
-              css={{ color: "#94f9f0", bg: "#94f9f026" }}
-            >
-              <Text
-                css={{ color: "inherit" }}
-                size={12}
-                weight="bold"
-                transform="uppercase"
-              >
-                Login / Signup
+            <Button flat auto rounded css={{ color: "#94f9f0", bg: "#94f9f026" }}>
+              <Text css={{ color: "inherit" }} size={12} weight="bold" transform="uppercase" >
+                PLACEHOLDER BUTTON
               </Text>
             </Button>
           </Row>

@@ -1,58 +1,48 @@
 import React from "react";
-import { Container, Text, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
+import { Container, Text, Textarea, Button, Table, Tooltip, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
 import {AddIcon} from "../components/Icons/AddIcon";
-import PreviewModal from "../components/PreviewModal";
 import "../styles/Bucket.css";
 
 function Bucket(props) {
+  
+  // MODAL STUFF ------------------------------
+  // ------------------------------------------
+  
+  const { setVisible, bindings } = useModal();
+
+  function handlerForShowPreview (passage) {
+    setVisible(true);
+    console.log("PREVIEW button pressed");
+    console.log(passage)
+  };
+
+  function handlerForAddPassage (passage) {
+    setVisible(false);
+    console.log("ADD button pressed");
+    console.log(passage);
+  };
+
+  function handlerForClosePreviewModal() {
+    setVisible(false);
+    console.log("CLOSE button pressed");
+  };
+
+  function handlerForConfirm(id) {
+    setVisible(false);
+    console.log("CONFIRM ADD button pressed"); 
+    return console.log(id);
+  };
+  
+  // ------------------------------------------
+  // MODAL STUFF ------------------------------
+
 
   const {loading, data} = useQuery(QUERY_ALL_PASSAGES);
   const passages = data?.allPassages || [];
-
-  const [visible, setVisible] = React.useState(false);
-
-  function openPreviewModalHandler (item) {
-    setVisible(true);
-    console.log(item);
-  };
-
-  const closeHandler = () => {
-    setVisible(false);
-    console.log("modal closed");
-  };
-  
-  function addToListHandler(item) {
-    setVisible(false);
-    console.log(item);
-  };
-
-
-  const testPreviewSets = [
-    {
-      id: 1,
-      title: "Premable to the Constitution",
-      body: " test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble "
-    },
-    {
-      id: 2,
-      title: "Second Title",
-      body: " test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second "
-    },
-    {
-      id: 3,
-      title: "Third Title",
-      body: " test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third "
-    },
-    {
-      id: 4,
-      title: "Fourth",
-      body: " test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth "
-    }
-  ];
 
   const [selectedBook, setSelectedBook] = React.useState(new Set(["Book"]));
   const selectedBookValue = React.useMemo(
@@ -66,7 +56,7 @@ function Bucket(props) {
     [selectedChapter]
   );
 
-  const sampleInitialValue = `
+  const sampleScripture = `
   1 Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.
 2 This man came to Jesus by night and said to him, "Rabbi, we know that you are a teacher come from God, for no one can do these signs that you do unless God is with him."
 3 Jesus answered him, "Truly, truly, I say to you, unless one is born again he cannot see the kingdom of God."
@@ -137,15 +127,13 @@ John the Baptist Exalts Christ
                 <Table.Cell>
                   <Tooltip color="secondary" content="SHOW passage preview">
                     <IconButton
-                      onClick={() => console.log("PREVIEW button clicked")}
+                      onClick={() => {handlerForShowPreview(passage)}}
                     >
                       <EyeIcon size={20} fill="#979797" />
                     </IconButton>
                   </Tooltip>
                   <Tooltip color="primary" content="ADD passage">
-                    <IconButton
-                      onClick={() => console.log("ADD button clicked")}
-                    >
+                    <IconButton onClick={() => {handlerForAddPassage(passage)}}>
                       <AddIcon size={20} fill="#00cc00" />
                     </IconButton>
                   </Tooltip>
@@ -204,7 +192,7 @@ John the Baptist Exalts Christ
                 </Dropdown>
               </Row>
               <Row>
-                <Textarea fullWidth="true" minRows={5} initialValue={sampleInitialValue}></Textarea>
+                <Textarea fullWidth="true" minRows={5} initialValue={sampleScripture}></Textarea>
               </Row>
 
             </Card.Body>
@@ -219,13 +207,31 @@ John the Baptist Exalts Christ
         </Card>
     </Container>
 
-    <PreviewModal
-       openPreviewModalHandler
-       addToListHandler
-       closeHandler
-       setVisible
-       visible
-    />
+    {passages.map((passage) => (
+    <Modal
+        key={passage._id}
+        scroll
+        width="600px"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        {...bindings}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={18}>{passage.title}</Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Text id="modal-description">{passage._id}</Text>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onClick={handlerForClosePreviewModal}>
+            Nope, Nevermind
+          </Button>
+          <Button auto onClick={() => {handlerForConfirm(passage._id)}}>
+            ADD to My Queue
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    ))}
 
   </Container>
   )
