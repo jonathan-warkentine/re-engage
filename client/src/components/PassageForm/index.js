@@ -22,9 +22,8 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import {IconButton} from "../../pages/IconButton";
-
-import {ClipboardIcon} from "../../pages/ClipboardIcon";
+import {IconButton} from "../../components/Icons/IconButton";
+import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
 import "../../styles/Dashboard.css"
 import {ADD_PASSAGE} from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -42,17 +41,15 @@ const PassageForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
- console.log(passageText.passageTitle);
- console.log(userId);
- console.log(passageText.passageBody);
+    
     // On form submit, perform mutation and pass in form data object as arguments
     // It is important that the object fields are match the defined parameters in `ADD_THOUGHT` mutation
     try {
       const {data} = addPassage({
         variables: {
           title: passageText.passageTitle,
-          providedBy: userId,
-          fullBody: passageText.passageBody,
+          authorId: userId,
+          fullText: passageText.passageBody,
         },
       });
 

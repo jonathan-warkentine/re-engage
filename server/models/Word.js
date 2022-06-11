@@ -3,7 +3,6 @@ const {Schema, model} = require("mongoose");
 const wordSchema = new Schema({
     key: {
       type: Number,
-      unique: true
     },
     text: {
       type: String,

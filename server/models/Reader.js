@@ -1,6 +1,5 @@
-const {Schema, model} = require("mongoose");
+const {Schema, model, Types} = require("mongoose");
 const bcrypt = require("bcrypt");
-const {singleReadingSchema} = require('./SingleReading')
 
 const readerSchema = new Schema({
   name: {
@@ -20,12 +19,14 @@ const readerSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  screenName: {
-    type: String,
-    // required: true,
-    minlength: 3,
-  },
-  passages: [singleReadingSchema],
+  passages: [{
+    type: Types.ObjectId,
+    ref: 'Passage'
+  }],
+  sessions: [{
+    type: Types.ObjectId,
+    ref: 'Session'
+  }]
 });
 
 // set up pre-save middleware to create password

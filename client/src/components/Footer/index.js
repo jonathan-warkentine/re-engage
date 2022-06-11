@@ -7,7 +7,6 @@ const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <footer>
       <Container className="footer">
         {location.pathname !== "/" && (
           <Button color="secondary" ghost className="footer-back-button" size="xs" onClick={() => navigate(-1)}>&larr; Go Back</Button>
@@ -21,7 +20,6 @@ const Footer = () => {
         }}
         weight="bold">brought to you by WWHAMM!</Text>
       </Container>
-    </footer>
   );
 };
 
