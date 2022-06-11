@@ -3,7 +3,7 @@ import { Container, Text, Card, Col, Row, Button, Modal } from '@nextui-org/reac
 import ladyreading from '../images/ladyreading2.jpg';
 import ribbon from '../images/blueribbon.png';
 
-function LandingPage(props) {
+function LandingPage() {
   
   const [showModal1, setShowModal1] = React.useState(false);
   const handlerToShowModal1 = () => setShowModal1(true);
