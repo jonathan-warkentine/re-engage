@@ -101,9 +101,66 @@ const {loading, data} = useQuery(QUERY_ME);
       <Container className="dashboard-container">
         <h2>Welcome to your Dashboard</h2>
         <Spacer y={3} />
+        <Container className="current-engagements-box">
+          <h3>Currently Reading</h3>
+          <Table
+            bordered
+            lined
+            aria-label="list-of-contributions"
+            css={{
+              height: "auto",
+              minWidth: "100%",
+            }}
+          >
+            <Table.Header>
+              <Table.Column width={6}>TITLE</Table.Column>
+              <Table.Column width={6}>PROVIDED BY</Table.Column>
+              <Table.Column width={3}>PROGRESS</Table.Column>
+              <Table.Column width={3}>ACTIONS</Table.Column>
+            </Table.Header>
+            <Table.Body>
+              {data.me.sessions?.map((session)=> (
+                <Table.Row key={session.passage.title}>
+                  <Table.Cell>{session.passage.title}</Table.Cell>
+                  <Table.Cell>{session.passage.author.name}</Table.Cell>
+                  <Table.Cell>
+                    <Grid>
+                      <Progress
+                        color="primary"
+                        value={
+                          ((session.resumeAt /
+                          session.passage.sentences?.length) * 100 ) || 0
+                        }
+                      />
+                    </Grid>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Tooltip color="primary" content="SHOW passage preview">
+                      <IconButton
+                        onClick={() => console.log("PREVIEW button clicked")}
+                      >
+                        <EyeIcon size={20} fill="#979797" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip color="success" content="RESUME passage">
+                      <IconButton
+                        onClick={() => console.log("RESUME button clicked")}
+                      >
+                        <ResumeIcon size={20} fill="#00cc00" />
+                      </IconButton>
+                    </Tooltip>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Container>
+        
+  
+        <Spacer y={3} />
   
         <Container className="my-contributions-box">
-          <h3>My Contributions</h3>
+          <h3>My Submissions</h3>
           <Table
             bordered
             lined
@@ -155,66 +212,9 @@ const {loading, data} = useQuery(QUERY_ME);
                         <DeleteIcon size={20} fill="#FF0080" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip color="success" content="RESUME passage">
+                    <Tooltip color="success" content="Add to Current Reading Queue">
                       <IconButton
                         onClick={() => handlerToShowAddModal(passage)}
-                      >
-                        <ResumeIcon size={20} fill="#00cc00" />
-                      </IconButton>
-                    </Tooltip>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </Container>
-  
-        <Spacer y={3} />
-  
-        <Container className="current-engagements-box">
-          <h3>My Current Engagments</h3>
-          <Table
-            bordered
-            lined
-            aria-label="list-of-contributions"
-            css={{
-              height: "auto",
-              minWidth: "100%",
-            }}
-          >
-            <Table.Header>
-              <Table.Column width={6}>TITLE</Table.Column>
-              <Table.Column width={6}>PROVIDED BY</Table.Column>
-              <Table.Column width={3}>PROGRESS</Table.Column>
-              <Table.Column width={3}>ACTIONS</Table.Column>
-            </Table.Header>
-            <Table.Body>
-              {data.me.sessions?.map((session)=> (
-                <Table.Row key={session.passage.title}>
-                  <Table.Cell>{session.passage.title}</Table.Cell>
-                  <Table.Cell>{session.passage.author.name}</Table.Cell>
-                  <Table.Cell>
-                    <Grid>
-                      <Progress
-                        color="primary"
-                        value={
-                          ((session.resumeAt /
-                          session.passage.sentences?.length) * 100 ) || 0
-                        }
-                      />
-                    </Grid>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Tooltip color="primary" content="SHOW passage preview">
-                      <IconButton
-                        onClick={() => console.log("PREVIEW button clicked")}
-                      >
-                        <EyeIcon size={20} fill="#979797" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip color="success" content="RESUME passage">
-                      <IconButton
-                        onClick={() => console.log("RESUME button clicked")}
                       >
                         <ResumeIcon size={20} fill="#00cc00" />
                       </IconButton>
