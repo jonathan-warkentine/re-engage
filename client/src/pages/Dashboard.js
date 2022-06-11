@@ -19,6 +19,7 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from '../components/PassageForm';
+import PreviewModal from "../components/Modals/PreviewModal";
 
 function Dashboard(props) {
 
@@ -233,7 +234,7 @@ const {loading, data} = useQuery(QUERY_ME);
 {/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
 
   {/* Modal to PREVIEW */}
-  <Modal
+  {/* <Modal
     id = "preview-body-modal"
     closeButton
     scroll
@@ -257,7 +258,13 @@ const {loading, data} = useQuery(QUERY_ME);
         Add it to My Queue
       </Button>
     </Modal.Footer>
-  </Modal>
+  </Modal> */}
+  <PreviewModal
+    showPreviewModal
+    handlerToHidePreviewModal
+    handlerToPreviewModalCancelBtn
+    handlerToPreviewModalAddBtn
+  />
   
   {/* Modal to EDIT */}
   <Modal
