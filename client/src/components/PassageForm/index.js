@@ -29,7 +29,7 @@ import {ADD_PASSAGE} from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useMutation } from '@apollo/client';
 
-const PassageForm = () => {
+const PassageForm = (props) => {
   const [passageText, setPassageText] = useState({
     passageBody: "",
     passageTitle: "",
@@ -53,10 +53,11 @@ const PassageForm = () => {
         },
       });
 
-      window.location.reload();
     } catch (err) {
       console.error(err);
     }
+
+    props.refetch();
   };
 
   const handleChange = (event) => {

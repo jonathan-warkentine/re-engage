@@ -36,7 +36,7 @@ import Auth from "../utils/auth";
 import PassageForm from '../components/PassageForm';
 
 function Dashboard(props) {
-  const {loading, data} = useQuery(QUERY_ME);
+  const {loading, data, refetch} = useQuery(QUERY_ME);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -174,7 +174,7 @@ function Dashboard(props) {
         </Container>
   
         <Spacer y={3} />
-        <PassageForm />
+        <PassageForm refetch={refetch}/>
       </Container>
     );
   }

@@ -1,28 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Bucket.css';
 import blueleather from '../images/blueleather.jpg';
 
-function Game(props) {
+function Game ( props ) {
+
+  
 
   const testPassageFullBody = "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America.";
+  
   const testPassageTitle = "Preamble to the Constitution";
 
   const testWordList = [
-    "Super Long Word", 
-    "Word2", 
-    "Word3", 
-    "Word4", 
-    "Word5", 
-    "Word6", 
-    "Word7", 
-    "Word8", 
-    "Word9", 
-    "Word10", 
-  ]
+    {
+      "key": 0,
+      "partOfSpeech": "DT",
+      "display": false,
+      "text": "This"
+    },
+    {
+      "key": 1,
+      "partOfSpeech": "VBZ",
+      "display": false,
+      "text": "is"
+    },
+    {
+      "key": 2,
+      "partOfSpeech": "DT",
+      "display": false,
+      "text": "a"
+    },
+    {
+      "key": 3,
+      "partOfSpeech": "NN",
+      "display": false,
+      "text": "sentence"
+    },
+    {
+      "key": 4,
+      "partOfSpeech": ".",
+      "display": false,
+      "text": "."
+    },
+    {
+      "key": 0,
+      "partOfSpeech": "NN",
+      "display": false,
+      "text": "Sentence"
+    },
+    {
+      "key": 1,
+      "partOfSpeech": "CD",
+      "display": false,
+      "text": "2"
+    },
+    {
+      "key": 2,
+      "partOfSpeech": ".",
+      "display": false,
+      "text": "."
+    }
+  ];
+  
+  const [ words, setWords ] = useState( testWordList );
+  const [ blanks, setBlanks ] = useState( testWordList );
 
+  console.log(testWordList)
   return (
   <Container className="main-game-box">
     <h2>Title of the Passage</h2>
@@ -36,7 +81,7 @@ function Game(props) {
             {testPassageTitle}
           </Text>
           <Text h4 color="white">
-            {testPassageFullBody}
+            {words?.map(word => word.display? word.text: '___')}
           </Text>
         </Col>
       </Card.Header>
@@ -63,9 +108,9 @@ function Game(props) {
               <h5 color="#000" size={12}>Select the correct word.</h5>
               <Row justify="space-around" id="word-list">
                 <Grid.Container justify="space-between">
-                  {testWordList.map(item => (
+                  {blanks.map((item, index) => (
 
-                    <Button flat auto ripple rounded color="secondary">
+                    <Button key={index} flat auto ripple rounded color="secondary">
                       <Text
                         css={{ color: "inherit" }}
                         size={12}
