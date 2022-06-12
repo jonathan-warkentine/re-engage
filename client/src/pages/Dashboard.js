@@ -16,6 +16,7 @@ import {EyeIcon} from "../components/Icons/EyeIcon";
 import {EditIcon} from "../components/Icons/EditIcon";
 import {DeleteIcon} from "../components/Icons/DeleteIcon";
 import {ResumeIcon} from "../components/Icons/ResumeIcon";
+import {AddIcon} from "../components/Icons/AddIcon";
 import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
@@ -273,7 +274,7 @@ function Dashboard(props) {
                       </IconButton>
                     </Tooltip>
                     <Tooltip
-                      color="success"
+                      color="primary"
                       content="Add to Current Reading Queue"
                     >
                       <IconButton
@@ -282,7 +283,7 @@ function Dashboard(props) {
                           handlerToShowAddModal();
                         }}
                       >
-                        <ResumeIcon size={20} fill="#00cc00" />
+                        <AddIcon size={20} fill="#00cc00" />
                       </IconButton>
                     </Tooltip>
                   </Table.Cell>
