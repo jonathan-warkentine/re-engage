@@ -69,6 +69,7 @@ export const QUERY_ME = gql`
         passage {
           _id
           title
+          fullText
           sentences {
             key
           }

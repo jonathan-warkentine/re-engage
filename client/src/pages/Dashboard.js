@@ -110,7 +110,7 @@ function Dashboard(props) {
   if (loading) {
     return <p>Loading...</p>;
   }
-const username = data.me.name.toUpperCase();
+  const username = data.me.name.toUpperCase();
   if (data) {
     return (
       <Container className="dashboard-container">
@@ -153,7 +153,11 @@ const username = data.me.name.toUpperCase();
                   <Table.Cell>
                     <Tooltip color="primary" content="SHOW passage preview">
                       <IconButton
-                        onClick={() => console.log("PREVIEW button clicked")}
+                        onClick={() => {
+                          setTargetPassage(session.passage);
+                          console.log(session.passage);
+                          handlerToShowPreviewModal();
+                        }}
                       >
                         <EyeIcon size={20} fill="#979797" />
                       </IconButton>
@@ -211,21 +215,30 @@ const username = data.me.name.toUpperCase();
                   <Table.Cell>
                     <Tooltip color="primary" content="SHOW passage preview">
                       <IconButton
-                        onClick={() => handlerToShowPreviewModal(passage)}
+                        onClick={() => {
+                          setTargetPassage(passage);
+                          handlerToShowPreviewModal();
+                        }}
                       >
                         <EyeIcon size={20} fill="#979797" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip color="warning" content="EDIT passage">
                       <IconButton
-                        onClick={() => handlerToShowEditModal(passage)}
+                        onClick={() => {
+                          setTargetPassage(passage);
+                          handlerToShowEditModal();
+                        }}
                       >
                         <EditIcon size={20} fill="#979797" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip color="error" content="DELETE passage">
                       <IconButton
-                        onClick={() => handlerToShowDeleteModal(passage)}
+                        onClick={() => {
+                          setTargetPassage(passage);
+                          handlerToShowDeleteModal();
+                        }}
                       >
                         <DeleteIcon size={20} fill="#FF0080" />
                       </IconButton>
@@ -269,15 +282,9 @@ const username = data.me.name.toUpperCase();
             <Text h2>Preview this Passage</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>This is the PASSAGE TITLE</Text>
+            <Text h4>{targetPassage.title}</Text>
             <Text>
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .
-              This is the PASSAGE BODY. . . . This is the PASSAGE BODY. . . .{" "}
+              {targetPassage.fullText}
             </Text>
           </Modal.Body>
           <Modal.Footer>
