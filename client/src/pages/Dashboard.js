@@ -110,11 +110,11 @@ function Dashboard(props) {
   if (loading) {
     return <p>Loading...</p>;
   }
-
+const username = data.me.name.toUpperCase();
   if (data) {
     return (
       <Container className="dashboard-container">
-        <h2>Welcome to your Dashboard</h2>
+        <h2>{username} - Welcome to your Dashboard!</h2>
         <Spacer y={3} />
         <Container className="current-engagements-box">
           <h3>Currently Reading</h3>
