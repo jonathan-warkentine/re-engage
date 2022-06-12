@@ -37,3 +37,29 @@ export const ADD_PASSAGE = gql`
     }
   }
 `;
+
+export const ADD_SESSION = gql`
+  mutation addSession($passageId: ID!) {
+    addSession(passageId: $passageId) {
+      _id
+      readerId
+      resumeAt
+    }
+  }
+`;
+
+export const DELETE_PASSAGE = gql`
+  mutation deletePassage($passageId: ID!) {
+    deletePassage(passageId: $passageId) {
+      _id
+    }
+  }
+`;
+
+export const UPDATE_PASSAGE = gql`
+  mutation updatePassage($passageId: ID!, $title: String, $fullText: String) {
+    updatePassage(passageId: $passageId, title: $title, fullText: $fullText) {
+      _id
+    }
+  }
+`;
