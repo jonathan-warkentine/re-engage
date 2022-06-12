@@ -55,3 +55,11 @@ export const DELETE_PASSAGE = gql`
     }
   }
 `;
+
+export const UPDATE_PASSAGE = gql`
+  mutation updatePassage($passageId: ID!, $title: String, $fullText: String) {
+    updatePassage(passageId: $passageId, title: $title, fullText: $fullText) {
+      _id
+    }
+  }
+`;

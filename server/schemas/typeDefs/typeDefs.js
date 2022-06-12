@@ -77,7 +77,7 @@ const typeDefs = gql`
     updateReader(_id: ID!, name: String, email: String, password: String): Reader
     removeReader: Reader
     addPassage(title: String, authorId: ID, fullText: String): Passage
-    updatePassage(passagId: ID!, title: String, fullText: String): Passage
+    updatePassage(passageId: ID!, title: String, fullText: String): Passage
     deletePassage(passageId: ID!): Passage
     addSession (passageId: ID!): Session
     incrementResumeAt(sessionId: ID!): Session

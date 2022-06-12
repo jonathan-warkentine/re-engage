@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {
   Container,
+  Textarea,
   Text,
   Button,
   Table,
@@ -19,13 +20,24 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
-import {ADD_SESSION, DELETE_PASSAGE} from "../utils/mutations";
+import {ADD_SESSION, DELETE_PASSAGE, UPDATE_PASSAGE} from "../utils/mutations";
 import {useMutation} from "@apollo/client";
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
+  const [updatedPassageText, setUpdatedPassageText] = useState({
+    passageBody: "",
+    passageTitle: "",
+  });
   const [addSession, {error}] = useMutation(ADD_SESSION);
   const [deletePassage, {err}] = useMutation(DELETE_PASSAGE);
+  const [updatePassage, {er}] = useMutation(UPDATE_PASSAGE);
+
+  const handleChange = (event) => {
+    const {name, value} = event.target;
+    setUpdatedPassageText({...updatedPassageText, [name]: value});
+  };
+
   // MODAL FUNCTIONS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/
   // PREVIEW Modal
   const [showPreviewModal, setShowPreviewModal] = useState(false);
@@ -54,9 +66,24 @@ function Dashboard(props) {
     handlerToHideEditModal();
     console.log("Edit CANCEL button pressed");
   };
-  const handlerToEditModalConfirmBtn = () => {
+  const handlerToEditModalConfirmBtn = async (event) => {
+    event.preventDefault();
     handlerToHideEditModal();
-    console.log("Edit CONFIRM button pressed");
+    try {
+      console.log(updatedPassageText.passageTitle)
+      console.log(updatedPassageText.passageBody)
+      const data = await updatePassage({
+        variables: {
+          passageId: targetPassage._id,
+          title: updatedPassageText.passageTitle,
+          fullText: updatedPassageText.passageBody,
+        },
+      });
+      
+      refetch();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // DELETE CONFIRM Modal
@@ -239,6 +266,10 @@ function Dashboard(props) {
                       <IconButton
                         onClick={() => {
                           setTargetPassage(passage);
+                          setUpdatedPassageText({
+                            passageBody: passage.fullText,
+                            passageTitle: passage.title,
+                          });
                           handlerToShowEditModal();
                         }}
                       >
@@ -295,12 +326,9 @@ function Dashboard(props) {
           </Modal.Header>
           <Modal.Body>
             <Text h4>{targetPassage.title}</Text>
-            <Text>
-              {targetPassage.fullText}
-            </Text>
+            <Text>{targetPassage.fullText}</Text>
           </Modal.Body>
           <Modal.Footer>
-            
             <Button auto color="success" onClick={handlerToPreviewModalAddBtn}>
               Back to My Dashboard
             </Button>
@@ -318,23 +346,31 @@ function Dashboard(props) {
           onClose={handlerToHideEditModal}
         >
           <Modal.Header>
-            <Text h2>Edit this Passage</Text>
+            <Text h2>Edit {targetPassage.title}</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>This is the PASSAGE TITLE</Text>
-            <Text>
-              This is the PASSAGE BODY that will be EDITTED. . . . This is the
-              PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY
-              that will be EDITTED. . . . This is the PASSAGE BODY that will be
-              EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . .
-              . This is the PASSAGE BODY that will be EDITTED. . . . This is the
-              PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY
-              that will be EDITTED. . . . This is the PASSAGE BODY that will be
-              EDITTED. . . . This is the PASSAGE BODY that will be EDITTED. . .
-              . This is the PASSAGE BODY that will be EDITTED. . . . This is the
-              PASSAGE BODY that will be EDITTED. . . . This is the PASSAGE BODY
-              that will be EDITTED. . . .{" "}
-            </Text>
+            <Textarea
+              name="passageTitle"
+              fullWidth="true"
+              value={updatedPassageText.passageTitle}
+              minRows={1}
+              maxRows={2}
+              bordered
+              onChange={handleChange}
+              color="success"
+              placeholder="Title"
+            ></Textarea>
+            <Textarea
+              name="passageBody"
+              fullWidth="true"
+              value={updatedPassageText.passageBody}
+              minRows={3}
+              maxRows={15}
+              bordered
+              onChange={handleChange}
+              color="success"
+              placeholder="You can type or paste-in your passage text here."
+            ></Textarea>
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -346,7 +382,7 @@ function Dashboard(props) {
               Nope, don't want to change it.
             </Button>
             <Button auto color="warning" onClick={handlerToEditModalConfirmBtn}>
-              Yes, EDIT!
+              Yes, Confirm EDIT!
             </Button>
           </Modal.Footer>
         </Modal>
@@ -360,10 +396,12 @@ function Dashboard(props) {
           onClose={handlerToHideDeleteModal}
         >
           <Modal.Header>
-            <Text h2>Confirm Delete?!?</Text>
+            <Text h2>
+              Are you sure you want to delete "{targetPassage.title}"?
+            </Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>This is the body of MODAL 3</Text>
+            <Text h4>{targetPassage.fullText}</Text>
           </Modal.Body>
           <Modal.Footer>
             <Button

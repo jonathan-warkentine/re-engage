@@ -42,21 +42,17 @@ const passageResolvers = {
       return newPassage;
     },
 
-    updatePassage: async (parent, {passageId, title, fullText}, context) => {
-      if (context.user) {
-        return await Passage.findOneAndUpdate(
-          // line below will need to change to 'CONTEXT._id' when we 'get there', it's an ARG for early testing only
-          {_id},
-          {
-            $set: {
-              title,
-              fullText,
-            },
+    updatePassage: async (parent, {passageId, title, fullText}) => {
+      return await Passage.findOneAndUpdate(
+        {_id: passageId},
+        {
+          $set: {
+            title: title,
+            fullText: fullText,
           },
-          {new: true}
-        );
-      }
-      throw new AuthenticationError("You need to be logged in!");
+        },
+        {new: true}
+      );
     },
 
     deletePassage: async (parent, {passageId}) => {
