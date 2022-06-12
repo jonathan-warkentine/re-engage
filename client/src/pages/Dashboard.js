@@ -132,7 +132,7 @@ function Dashboard(props) {
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
   const {loading, data, refetch} = useQuery(QUERY_ME);
-  console.log(data?.me.sessions);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -309,10 +309,9 @@ function Dashboard(props) {
           onClose={handlerToHidePreviewModal}
         >
           <Modal.Header>
-            <Text h2>Preview this Passage</Text>
+            <Text h2>{targetPassage.title}</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>{targetPassage.title}</Text>
             <Text>{targetPassage.fullText}</Text>
           </Modal.Body>
           <Modal.Footer>
@@ -418,8 +417,7 @@ function Dashboard(props) {
           </Modal.Header>
           <Modal.Body>
             <Text h3>
-              This will add this passage to your own personal queue. You'll see
-              it on your Dashhoard.
+              Add "{targetPassage.title}" to your Queue for Current Readings?
             </Text>
           </Modal.Body>
           <Modal.Footer>
