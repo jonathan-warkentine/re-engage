@@ -29,15 +29,17 @@ const PassageForm = () => {
     // On form submit, perform mutation and pass in form data object as arguments
     // It is important that the object fields are match the defined parameters in `ADD_THOUGHT` mutation
     try {
-      const {data} = addPassage({
+      const {data} = await addPassage({
         variables: {
           title: passageText.passageTitle,
           authorId: userId,
           fullText: passageText.passageBody,
         },
       });
-
-      window.location.reload();
+      setPassageText({
+        passageBody: '',
+        passageTitle: '',
+      });
     } catch (err) {
       console.error(err);
     }
