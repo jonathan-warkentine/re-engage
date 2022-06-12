@@ -32,7 +32,6 @@ const sessionResolvers = {
             const updatedReader = await Reader.findByIdAndUpdate(context.user._id, {
               $addToSet: {sessions: newsession},
             });
-      console.log(updatedReader);
             return newsession;
       
         },

@@ -47,3 +47,11 @@ export const ADD_SESSION = gql`
     }
   }
 `;
+
+export const DELETE_PASSAGE = gql`
+  mutation deletePassage($passageId: ID!) {
+    deletePassage(passageId: $passageId) {
+      _id
+    }
+  }
+`;

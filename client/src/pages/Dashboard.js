@@ -19,12 +19,13 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
-import {ADD_SESSION} from "../utils/mutations";
+import {ADD_SESSION, DELETE_PASSAGE} from "../utils/mutations";
 import {useMutation} from "@apollo/client";
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
   const [addSession, {error}] = useMutation(ADD_SESSION);
+  const [deletePassage, {err}] = useMutation(DELETE_PASSAGE);
   // MODAL FUNCTIONS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/
   // PREVIEW Modal
   const [showPreviewModal, setShowPreviewModal] = useState(false);
@@ -69,9 +70,21 @@ function Dashboard(props) {
     handlerToHideDeleteModal();
     console.log("Delete CANCEL button pressed");
   };
-  const handlerToDeleteModalConfirmBtn = () => {
+  const handlerToDeleteModalConfirmBtn = async (event) => {
+    event.preventDefault();
     handlerToHideDeleteModal();
-    console.log("Delete CONFIRM button pressed");
+    try {
+      const data = await deletePassage({
+        variables: {
+          passageId: targetPassage._id,
+        },
+      });
+      console.log(targetPassage._id);
+      console.log(data);
+      refetch();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // ADD CONFIRM Modal
@@ -97,7 +110,6 @@ function Dashboard(props) {
       });
       console.log(targetPassage._id);
       console.log(data);
-      // window.location.reload();
       refetch();
     } catch (err) {
       console.error(err);
@@ -288,16 +300,9 @@ function Dashboard(props) {
             </Text>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              auto
-              flat
-              color="secondary"
-              onClick={handlerToPreviewModalCancelBtn}
-            >
-              Nope, nevermind. Not this one.
-            </Button>
+            
             <Button auto color="success" onClick={handlerToPreviewModalAddBtn}>
-              Add it to My Queue
+              Back to My Dashboard
             </Button>
           </Modal.Footer>
         </Modal>
