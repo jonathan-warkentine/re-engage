@@ -58,6 +58,7 @@ function Bucket(props) {
           passageId: targetPassage._id,
         },
       });
+      refetch();
     } catch (err) {
       console.error(err);
     }
@@ -67,7 +68,7 @@ function Bucket(props) {
   // MODAL STUFF ------------------------------
 
   const {loading, data: passagesObj} = useQuery(QUERY_ALL_PASSAGES);
-  const {load, data: userObj} = useQuery(QUERY_ME);
+  const {load, data: userObj, refetch} = useQuery(QUERY_ME);
 
   if (loading || load) {
     return <p>Loading...</p>;
