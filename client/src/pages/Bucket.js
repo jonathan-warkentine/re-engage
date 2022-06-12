@@ -1,40 +1,58 @@
-import React from "react";
+import React, {useState} from "react";
 import { Container, Text, Textarea, Button, Table, Tooltip, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
 import {AddIcon} from "../components/Icons/AddIcon";
+import {ADD_SESSION} from "../utils/mutations";
+import {useMutation} from "@apollo/client";
 import "../styles/Bucket.css";
 
 function Bucket(props) {
   
   // MODAL STUFF ------------------------------
   // ------------------------------------------
+  const [targetPassage, setTargetPassage] = useState({});
+  const [addSession, {error}] = useMutation(ADD_SESSION);
   
-  const { setVisible, bindings } = useModal();
-
-  function handlerForShowPreview (passage) {
-    setVisible(true);
-    console.log("PREVIEW button pressed");
-    console.log(passage)
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const handlerToShowPreviewModal = (passage) => {
+    setShowPreviewModal(true);
+  };
+  const handlerToHidePreviewModal = () => setShowPreviewModal(false);
+  const handlerToPreviewModalCancelBtn = () => {
+    handlerToHidePreviewModal();
+  };
+  const handlerToPreviewModalAddBtn = () => {
+    handlerToHidePreviewModal();
   };
 
-  function handlerForAddPassage (passage) {
-    setVisible(false);
-    console.log("ADD button pressed");
-    console.log(passage);
-  };
 
-  function handlerForClosePreviewModal() {
-    setVisible(false);
-    console.log("CLOSE button pressed");
-  };
 
-  function handlerForConfirm(id) {
-    setVisible(false);
-    console.log("CONFIRM ADD button pressed"); 
-    return console.log(id);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const handlerToShowAddModal = () => {
+    setShowAddModal(true);
+  };
+  const handlerToHideAddModal = () => setShowAddModal(false);
+  const handlerToAddModalCancelBtn = () => {
+    handlerToHideAddModal();
+  };
+  const handlerToAddModalConfirmBtn = async (event) => {
+    event.preventDefault();
+    handlerToHideAddModal();
+
+    try {
+      const data = await addSession({
+        variables: {
+          passageId: targetPassage._id,
+        },
+      });
+
+
+    } catch (err) {
+      console.error(err);
+    }
   };
   
   // ------------------------------------------
@@ -127,13 +145,20 @@ John the Baptist Exalts Christ
                 <Table.Cell>
                   <Tooltip color="secondary" content="SHOW passage preview">
                     <IconButton
-                      onClick={() => {handlerForShowPreview(passage)}}
+                      onClick={() => {
+                          setTargetPassage(passage);
+
+                          handlerToShowPreviewModal();
+                        }}
                     >
                       <EyeIcon size={20} fill="#979797" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip color="primary" content="ADD passage">
-                    <IconButton onClick={() => {handlerForAddPassage(passage)}}>
+                  <Tooltip color="primary" content="Add to Current Reading Queue">
+                    <IconButton onClick={() => {
+                          setTargetPassage(passage);
+                          handlerToShowAddModal();
+                        }}>
                       <AddIcon size={20} fill="#00cc00" />
                     </IconButton>
                   </Tooltip>
@@ -207,31 +232,59 @@ John the Baptist Exalts Christ
         </Card>
     </Container>
 
-    {passages.map((passage) => (
+{/* Modal to DELETE */}
     <Modal
-        key={passage._id}
-        scroll
-        width="600px"
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        {...bindings}
-      >
-        <Modal.Header>
-          <Text id="modal-title" size={18}>{passage.title}</Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Text id="modal-description">{passage._id}</Text>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onClick={handlerForClosePreviewModal}>
-            Nope, Nevermind
-          </Button>
-          <Button auto onClick={() => {handlerForConfirm(passage._id)}}>
-            ADD to My Queue
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    ))}
+          id="preview-body-modal"
+          closeButton
+          scroll
+          width="600px"
+          aria-labelledby="preview-body-modal"
+          open={showPreviewModal}
+          onClose={handlerToHidePreviewModal}
+        >
+          <Modal.Header>
+            <Text h2>{targetPassage.title}</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Text>{targetPassage.fullText}</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto color="success" onClick={handlerToPreviewModalAddBtn}>
+              Back to My Dashboard
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal to CONFIRM to QUEUE */}
+        <Modal
+          id="confirm-add-modal"
+          closeButton
+          aria-labelledby="confirm-add-modal"
+          open={showAddModal}
+          onClose={handlerToHideAddModal}
+        >
+          <Modal.Header>
+            <Text h2>{targetPassage.title}</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Text h3>
+              Add "{targetPassage.title}" to your Queue for Current Readings?
+            </Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              auto
+              flat
+              color="secondary"
+              onClick={handlerToAddModalCancelBtn}
+            >
+              Nevermind, Go Back
+            </Button>
+            <Button auto color="success" onClick={handlerToAddModalConfirmBtn}>
+              Yes, ADD it!
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
   </Container>
   )
