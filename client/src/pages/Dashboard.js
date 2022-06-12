@@ -43,35 +43,28 @@ function Dashboard(props) {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const handlerToShowPreviewModal = (passage) => {
     setShowPreviewModal(true);
-    console.log(passage);
   };
   const handlerToHidePreviewModal = () => setShowPreviewModal(false);
   const handlerToPreviewModalCancelBtn = () => {
     handlerToHidePreviewModal();
-    console.log("Preview CANCEL button pressed");
   };
   const handlerToPreviewModalAddBtn = () => {
     handlerToHidePreviewModal();
-    console.log("Preview ADD button pressed");
   };
 
   // EDIT Modal
   const [showEditModal, setShowEditModal] = useState(false);
   const handlerToShowEditModal = (passage) => {
     setShowEditModal(true);
-    console.log(passage);
   };
   const handlerToHideEditModal = () => setShowEditModal(false);
   const handlerToEditModalCancelBtn = () => {
     handlerToHideEditModal();
-    console.log("Edit CANCEL button pressed");
   };
   const handlerToEditModalConfirmBtn = async (event) => {
     event.preventDefault();
     handlerToHideEditModal();
     try {
-      console.log(updatedPassageText.passageTitle)
-      console.log(updatedPassageText.passageBody)
       const data = await updatePassage({
         variables: {
           passageId: targetPassage._id,
@@ -79,7 +72,6 @@ function Dashboard(props) {
           fullText: updatedPassageText.passageBody,
         },
       });
-      
       refetch();
     } catch (err) {
       console.error(err);
@@ -90,12 +82,10 @@ function Dashboard(props) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const handlerToShowDeleteModal = (passage) => {
     setShowDeleteModal(true);
-    console.log(passage);
   };
   const handlerToHideDeleteModal = () => setShowDeleteModal(false);
   const handlerToDeleteModalCancelBtn = () => {
     handlerToHideDeleteModal();
-    console.log("Delete CANCEL button pressed");
   };
   const handlerToDeleteModalConfirmBtn = async (event) => {
     event.preventDefault();
@@ -106,8 +96,7 @@ function Dashboard(props) {
           passageId: targetPassage._id,
         },
       });
-      console.log(targetPassage._id);
-      console.log(data);
+
       refetch();
     } catch (err) {
       console.error(err);
@@ -118,12 +107,10 @@ function Dashboard(props) {
   const [showAddModal, setShowAddModal] = useState(false);
   const handlerToShowAddModal = () => {
     setShowAddModal(true);
-    console.log(targetPassage);
   };
   const handlerToHideAddModal = () => setShowAddModal(false);
   const handlerToAddModalCancelBtn = () => {
     handlerToHideAddModal();
-    console.log("Add CANCEL button pressed");
   };
   const handlerToAddModalConfirmBtn = async (event) => {
     event.preventDefault();
@@ -135,8 +122,7 @@ function Dashboard(props) {
           passageId: targetPassage._id,
         },
       });
-      console.log(targetPassage._id);
-      console.log(data);
+
       refetch();
     } catch (err) {
       console.error(err);
@@ -194,7 +180,7 @@ function Dashboard(props) {
                       <IconButton
                         onClick={() => {
                           setTargetPassage(session.passage);
-                          console.log(session.passage);
+
                           handlerToShowPreviewModal();
                         }}
                       >
