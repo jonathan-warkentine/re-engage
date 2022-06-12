@@ -12,7 +12,8 @@ const wordSchema = new Schema({
       type: String
     },
     display: {
-      type: Boolean
+      type: Boolean,
+      default: true
     }
 });
 
@@ -21,7 +22,6 @@ wordSchema.methods.checkPosSetBlank = function ( regex ) {
         this.display = false;
         return true;
     }
-
     return false; // returns false if criteria test fails
 }
 
