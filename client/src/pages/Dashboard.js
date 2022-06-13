@@ -83,10 +83,11 @@ function Dashboard(props) {
           fullText: updatedPassageText.passageBody,
         },
       });
-      refetch();
+      
     } catch (err) {
       console.error(err);
     }
+    refetch();
   };
 
   // REMOVE CONFIRM Modal
