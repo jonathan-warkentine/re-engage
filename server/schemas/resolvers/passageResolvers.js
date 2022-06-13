@@ -57,7 +57,7 @@ const passageResolvers = {
 
     deletePassage: async (parent, {passageId}) => {
       await Session.deleteMany({passage: passageId});
-      return await Passage.deleteOne({passageId});
+      return await Passage.deleteOne({_id: passageId});
     },
   },
 };

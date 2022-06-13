@@ -21,12 +21,13 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
-import {ADD_SESSION, DELETE_PASSAGE, UPDATE_PASSAGE} from "../utils/mutations";
+import {ADD_SESSION, DELETE_PASSAGE, UPDATE_PASSAGE, DELETE_SESSION} from "../utils/mutations";
 import {useMutation} from "@apollo/client";
 import BibleApp from "../components/BibleApp" 
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
+  const [targetSession, setTargetSession] = useState({});
   const [updatedPassageText, setUpdatedPassageText] = useState({
     passageBody: "",
     passageTitle: "",
@@ -34,6 +35,7 @@ function Dashboard(props) {
   const [addSession, {error}] = useMutation(ADD_SESSION);
   const [deletePassage, {err}] = useMutation(DELETE_PASSAGE);
   const [updatePassage, {er}] = useMutation(UPDATE_PASSAGE);
+  const [deleteSession, {e}] = useMutation(DELETE_SESSION);
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -79,6 +81,33 @@ function Dashboard(props) {
       console.error(err);
     }
   };
+
+    // REMOVE CONFIRM Modal
+    const [showRemoveModal, setShowRemoveModal] = useState(false);
+    const handlerToShowRemoveModal = (session) => {
+      setShowRemoveModal(true);
+    };
+    const handlerToHideRemoveModal = () => setShowRemoveModal(false);
+    const handlerToRemoveModalCancelBtn = () => {
+      handlerToHideRemoveModal();
+    };
+    const handlerToRemoveModalConfirmBtn = async (event) => {
+      event.preventDefault();
+      handlerToHideRemoveModal();
+      try {
+        console.log(targetSession._id)
+        const data = await deleteSession({
+          variables: {
+            sessionId: targetSession._id,
+          },
+        });
+  
+        refetch();
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
 
   // DELETE CONFIRM Modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -187,6 +216,17 @@ function Dashboard(props) {
                         }}
                       >
                         <EyeIcon size={20} fill="#979797" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip color="danger" content="Remove from Current Readings">
+                      <IconButton
+                        onClick={() => {
+                          setTargetSession(session);
+console.log(session);
+                          handlerToShowRemoveModal();
+                        }}
+                      >
+                        <DeleteIcon size={20} fill="#979797" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip color="success" content="RESUME passage">
@@ -404,6 +444,34 @@ function Dashboard(props) {
             </Button>
             <Button auto color="error" onClick={handlerToDeleteModalConfirmBtn}>
               Yes, Confirm DELETE!
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal to REMOVE Session */}
+        <Modal
+          id="confirm-remove-modal"
+          closeButton
+          aria-labelledby="confirm-remove-modal"
+          open={showRemoveModal}
+          onClose={handlerToHideRemoveModal}
+        >
+          <Modal.Header>
+            <Text h2>
+              Are you sure you want to remove from current readings?
+            </Text>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button
+              auto
+              flat
+              color="secondary"
+              onClick={handlerToRemoveModalCancelBtn}
+            >
+              Nevermind, Go Back
+            </Button>
+            <Button auto color="error" onClick={handlerToRemoveModalConfirmBtn}>
+              Yes, Confirm REMOVAL!
             </Button>
           </Modal.Footer>
         </Modal>
