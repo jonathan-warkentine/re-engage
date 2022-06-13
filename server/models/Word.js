@@ -12,16 +12,16 @@ const wordSchema = new Schema({
       type: String
     },
     display: {
-      type: Boolean
+      type: Boolean,
+      default: true
     }
 });
 
-wordSchema.methods.checkPosSetBlank = function ( regex ) {
-    if (this.partOfSpeech.match( regex )) {
+wordSchema.methods.checkPosSetBlank = function ( regexArray ) {
+    if ( regexArray.reduce((prev, cur) => prev||this.partOfSpeech.match( cur ), false) ) {
         this.display = false;
         return true;
     }
-
     return false; // returns false if criteria test fails
 }
 

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Textarea,
@@ -158,23 +159,26 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
-  const {loading, data, refetch} = useQuery(QUERY_ME);
+  const {loading, data, refetch} = useQuery(QUERY_ME, {
+    fetchPolicy: 'network-only'
+  });
 
   if (loading) {
     return <p>Loading...</p>;
   }
-  const username = data.me.name.toUpperCase();
   if (data) {
+    refetch();
     return (
       <Container className="dashboard-container">
-        <h2>{username} - Welcome to your Dashboard!</h2>
+        <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
         <Spacer y={3} />
         <Container className="current-engagements-box">
           <h3>Currently Reading</h3>
@@ -229,7 +233,6 @@ function Dashboard(props) {
                       <IconButton
                         onClick={() => {
                           setTargetSession(session);
-                          console.log(session);
                           handlerToShowRemoveModal();
                         }}
                       >
@@ -237,9 +240,7 @@ function Dashboard(props) {
                       </IconButton>
                     </Tooltip>
                     <Tooltip color="success" content="RESUME passage">
-                      <IconButton
-                        onClick={() => console.log("RESUME button clicked")}
-                      >
+                      <IconButton as={Link} to={`/game/${session._id}`}>
                         <ResumeIcon size={20} fill="#00cc00" />
                       </IconButton>
                     </Tooltip>
@@ -342,7 +343,7 @@ function Dashboard(props) {
         </Container>
 
         <Spacer y={3} />
-        <PassageForm />
+        <PassageForm refetch={refetch}/>
 
         {/*BIBLE APP*/}
         <BibleApp />

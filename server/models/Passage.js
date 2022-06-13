@@ -49,7 +49,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
 }
 
 passageSchema.methods.buildWords = function ( nlpResults ) {
-  this.words = nlpResults.map( word => new Word( {text: word.text, partOfSpeech: word.tag, display: false} ) );
+  this.words = nlpResults.map( word => new Word( {text: word.text, partOfSpeech: word.tag} ) );
 }
 
 passageSchema.methods.buildSentences = function ( words = this.words ) {
@@ -75,8 +75,12 @@ passageSchema.methods.populateBlanks = function ( sentences = this.sentences, bl
 
       let blankCount = 0;
       sentence.words.forEach( word => {
-          word.checkPosSetBlank(/vb/i)? blankCount++: null;
-          return word;
+        // avoiding duplicate blank words
+        if (sentence.words.findIndex( w => w.text === word.text ) === word.key) {
+          if (word.checkPosSetBlank([/vb$/i, /nn/i, /vbn$/i])) { // note that this is a mutative method called on each word
+            blankCount++;
+          }
+        }
       });
 
       return sentence;
