@@ -1,3 +1,4 @@
+const axios = require('axios').default;
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
@@ -20,7 +21,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
-// app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
@@ -31,7 +31,28 @@ app.get('/', (req, res) => {
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
+
+  app.get('/allBooks', async (req, res) => {
+    const books = await axios.get(`https://bible-go-api.rkeplin.com/v1/books`)
+    res.json({allBooks: books.data})
+  })
   
+  app.get(`/chapters`, async (req, res) => {
+    const response4 = await axios.get(`https://bible-go-api.rkeplin.com/v1/books/${req.query.book}/chapters`)
+    res.json({chapters: response4.data})
+  })
+
+  app.get(`/singleChapter`, async (req, res) => {
+    const response5 = await axios.get(`https://bible-go-api.rkeplin.com/v1/books/${req.query.book}/chapters/${req.query.chapter}${req.query.version}`)
+    res.json({chapter: response5.data})
+  })
+
+  app.get(`/singleVerse`, async (req, res) => {
+    const response6 = await axios.get(`https://bible-go-api.rkeplin.com/v1/books/${req.query.book}/chapters/${req.query.chapter}/${req.query.verse}${req.query.version}`)
+    res.json({verse: response6.data})
+
+  })
+
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
