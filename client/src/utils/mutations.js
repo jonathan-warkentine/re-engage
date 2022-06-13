@@ -65,10 +65,11 @@ export const UPDATE_PASSAGE = gql`
 `;
 
 export const INC_RESUME_AT = gql`
-  mutation IncrementResumeAt($sessionId: ID!) {
+  mutation incrementResumeAt($sessionId: ID!) {
     incrementResumeAt(sessionId: $sessionId) {
       _id
     }
+  }
 `;
 
 export const DELETE_SESSION = gql`
