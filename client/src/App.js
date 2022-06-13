@@ -50,7 +50,7 @@ function App() {
                     element={<Dashboard />}
                   />
                   <Route 
-                    path="/game" 
+                    path="/game/:sessionId" 
                     element={<Game />}
                   />
                 </Routes>

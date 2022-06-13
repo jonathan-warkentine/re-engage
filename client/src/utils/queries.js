@@ -92,3 +92,43 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const GET_SESSION = gql`
+  query Session($sessionId: ID!) {
+    session(sessionId: $sessionId) {
+      _id
+      readerId
+      passage {
+        _id
+        title
+        author {
+          _id
+          name
+          email
+          sessions {
+            _id
+            readerId
+            passage {
+              _id
+            }
+          }
+          passages {
+            _id
+            title
+          }
+        }
+        fullText
+        blankedSentences {
+          key
+          words {
+            text
+            partOfSpeech
+            key
+            display
+          }
+          text
+        }
+      }
+    }
+  }
+`
