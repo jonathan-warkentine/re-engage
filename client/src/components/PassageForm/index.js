@@ -41,7 +41,7 @@ const PassageForm = (props) => {
       console.error(err);
     }
     setPassageText({passageBody: "", passageTitle: ""});
-    props.refetch();
+    props.refetch();  
   };
 
   const handleChange = (event) => {
