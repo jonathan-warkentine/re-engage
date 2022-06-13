@@ -110,10 +110,10 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+    refetch();
   };
 
   // DELETE CONFIRM Modal
@@ -135,10 +135,10 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+    refetch();
   };
 
   // ADD CONFIRM Modal
