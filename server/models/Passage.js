@@ -75,8 +75,11 @@ passageSchema.methods.populateBlanks = function ( sentences = this.sentences, bl
 
       let blankCount = 0;
       sentence.words.forEach( word => {
-        if (word.checkPosSetBlank(/vb/i)) { // note that this is a mutative method called on each word
-          blankCount++;
+        // avoiding duplicate blank words
+        if (sentence.words.findIndex( w => w.text === word.text ) === word.key) {
+          if (word.checkPosSetBlank([/vb$/i, /nn/i, /vbn$/i])) { // note that this is a mutative method called on each word
+            blankCount++;
+          }
         }
       });
 

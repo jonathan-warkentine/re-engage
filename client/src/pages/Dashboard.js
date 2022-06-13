@@ -294,7 +294,7 @@ function Dashboard(props) {
         </Container>
 
         <Spacer y={3} />
-        <PassageForm />
+        <PassageForm refetch={refetch}/>
 
         {/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
 

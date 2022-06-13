@@ -17,8 +17,8 @@ const wordSchema = new Schema({
     }
 });
 
-wordSchema.methods.checkPosSetBlank = function ( regex ) {
-    if (this.partOfSpeech.match( regex )) {
+wordSchema.methods.checkPosSetBlank = function ( regexArray ) {
+    if ( regexArray.reduce((prev, cur) => prev||this.partOfSpeech.match( cur ), false) ) {
         this.display = false;
         return true;
     }

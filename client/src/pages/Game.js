@@ -11,15 +11,12 @@ function Game ( _ ) { // TODO: switch to props
 
 
   const props = {
-    "_id": "62a56d16a3a0488f96ee0f3f",
-    "readerId": "62a56cbd862807c3b739346d",
+    "_id": "62a6c213509f8181ba29032a",
+    "readerId": "62a6a898f816db8d8c1d6aef",
     "passage": {
-      "title": "John 1",
+      "title": "John 6",
       "fullText": "In the beginning was the Word, and the Word was with God, and the Word was God. He was with God in the beginning. Through him all things were made; without him nothing was made that has been made. In him was life, and that life was the light of all mankind. The light shines in the darkness, and the darkness has not overcome it.\n\nThere was a man sent from God whose name was John. He came as a witness to testify concerning that light, so that through him all might believe. He himself was not the light; he came only as a witness to the light.\n\nThe true light that gives light to everyone was coming into the world. He was in the world, and though the world was made through him, the world did not recognize him. He came to that which was his own, but his own did not receive him. Yet to all who did receive him, to those who believed in his name, he gave the right to become children of God— children born not of natural descent, nor of human decision or a husband’s will, but born of God.\n\nThe Word became flesh and made his dwelling among us. We have seen his glory, the glory of the one and only Son, who came from the Father, full of grace and truth.",
-      "_id": "62a56ccb862807c3b7393470",
-      "author": {
-        "_id": "62a56cbd862807c3b739346d"
-      },
+      "_id": "62a6c20d509f8181ba28fdc8",
       "blankedSentences": [
         {
           "key": 0,
@@ -40,13 +37,13 @@ function Game ( _ ) { // TODO: switch to props
               "key": 2,
               "partOfSpeech": "NN",
               "text": "beginning",
-              "display": true
+              "display": false
             },
             {
               "key": 3,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 4,
@@ -58,7 +55,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 5,
               "partOfSpeech": "NNP",
               "text": "Word",
-              "display": true
+              "display": false
             },
             {
               "key": 6,
@@ -88,7 +85,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 10,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
@@ -100,7 +97,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 12,
               "partOfSpeech": "NNP",
               "text": "God",
-              "display": true
+              "display": false
             },
             {
               "key": 13,
@@ -130,7 +127,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 17,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 18,
@@ -160,7 +157,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 2,
@@ -172,7 +169,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 3,
               "partOfSpeech": "NNP",
               "text": "God",
-              "display": true
+              "display": false
             },
             {
               "key": 4,
@@ -190,7 +187,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 6,
               "partOfSpeech": "NN",
               "text": "beginning",
-              "display": true
+              "display": false
             },
             {
               "key": 7,
@@ -226,13 +223,13 @@ function Game ( _ ) { // TODO: switch to props
               "key": 3,
               "partOfSpeech": "NNS",
               "text": "things",
-              "display": true
+              "display": false
             },
             {
               "key": 4,
               "partOfSpeech": "VBD",
               "text": "were",
-              "display": false
+              "display": true
             },
             {
               "key": 5,
@@ -262,19 +259,19 @@ function Game ( _ ) { // TODO: switch to props
               "key": 9,
               "partOfSpeech": "NN",
               "text": "nothing",
-              "display": true
+              "display": false
             },
             {
               "key": 10,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
               "partOfSpeech": "VBN",
               "text": "made",
-              "display": false
+              "display": true
             },
             {
               "key": 12,
@@ -286,7 +283,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 13,
               "partOfSpeech": "VBZ",
               "text": "has",
-              "display": false
+              "display": true
             },
             {
               "key": 14,
@@ -298,7 +295,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 15,
               "partOfSpeech": "VBN",
               "text": "made",
-              "display": false
+              "display": true
             },
             {
               "key": 16,
@@ -328,13 +325,13 @@ function Game ( _ ) { // TODO: switch to props
               "key": 2,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 3,
               "partOfSpeech": "NN",
               "text": "life",
-              "display": true
+              "display": false
             },
             {
               "key": 4,
@@ -364,7 +361,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 8,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 9,
@@ -376,7 +373,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 10,
               "partOfSpeech": "NN",
               "text": "light",
-              "display": true
+              "display": false
             },
             {
               "key": 11,
@@ -394,7 +391,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 13,
               "partOfSpeech": "NN",
               "text": "mankind",
-              "display": true
+              "display": false
             },
             {
               "key": 14,
@@ -418,13 +415,13 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "NN",
               "text": "light",
-              "display": true
+              "display": false
             },
             {
               "key": 2,
               "partOfSpeech": "VBZ",
               "text": "shines",
-              "display": false
+              "display": true
             },
             {
               "key": 3,
@@ -442,7 +439,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 5,
               "partOfSpeech": "NN",
               "text": "darkness",
-              "display": true
+              "display": false
             },
             {
               "key": 6,
@@ -472,7 +469,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 10,
               "partOfSpeech": "VBZ",
               "text": "has",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
@@ -520,7 +517,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 2,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 3,
@@ -532,7 +529,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 4,
               "partOfSpeech": "NN",
               "text": "man",
-              "display": true
+              "display": false
             },
             {
               "key": 5,
@@ -550,7 +547,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 7,
               "partOfSpeech": "NNP",
               "text": "God",
-              "display": true
+              "display": false
             },
             {
               "key": 8,
@@ -562,19 +559,19 @@ function Game ( _ ) { // TODO: switch to props
               "key": 9,
               "partOfSpeech": "NN",
               "text": "name",
-              "display": true
+              "display": false
             },
             {
               "key": 10,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
               "partOfSpeech": "NNP",
               "text": "John",
-              "display": true
+              "display": false
             },
             {
               "key": 12,
@@ -598,7 +595,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "VBD",
               "text": "came",
-              "display": false
+              "display": true
             },
             {
               "key": 2,
@@ -616,7 +613,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 4,
               "partOfSpeech": "NN",
               "text": "witness",
-              "display": true
+              "display": false
             },
             {
               "key": 5,
@@ -634,7 +631,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 7,
               "partOfSpeech": "VBG",
               "text": "concerning",
-              "display": false
+              "display": true
             },
             {
               "key": 8,
@@ -646,7 +643,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 9,
               "partOfSpeech": "NN",
               "text": "light",
-              "display": true
+              "display": false
             },
             {
               "key": 10,
@@ -724,7 +721,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 2,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 3,
@@ -742,7 +739,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 5,
               "partOfSpeech": "NN",
               "text": "light",
-              "display": true
+              "display": false
             },
             {
               "key": 6,
@@ -760,7 +757,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 8,
               "partOfSpeech": "VBD",
               "text": "came",
-              "display": false
+              "display": true
             },
             {
               "key": 9,
@@ -784,7 +781,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 12,
               "partOfSpeech": "NN",
               "text": "witness",
-              "display": true
+              "display": false
             },
             {
               "key": 13,
@@ -838,7 +835,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 3,
               "partOfSpeech": "NN",
               "text": "light",
-              "display": true
+              "display": false
             },
             {
               "key": 4,
@@ -850,7 +847,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 5,
               "partOfSpeech": "VBZ",
               "text": "gives",
-              "display": false
+              "display": true
             },
             {
               "key": 6,
@@ -868,19 +865,19 @@ function Game ( _ ) { // TODO: switch to props
               "key": 8,
               "partOfSpeech": "NN",
               "text": "everyone",
-              "display": true
+              "display": false
             },
             {
               "key": 9,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 10,
               "partOfSpeech": "VBG",
               "text": "coming",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
@@ -898,7 +895,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 13,
               "partOfSpeech": "NN",
               "text": "world",
-              "display": true
+              "display": false
             },
             {
               "key": 14,
@@ -922,7 +919,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 2,
@@ -940,7 +937,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 4,
               "partOfSpeech": "NN",
               "text": "world",
-              "display": true
+              "display": false
             },
             {
               "key": 5,
@@ -976,7 +973,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 10,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 11,
@@ -1018,7 +1015,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 17,
               "partOfSpeech": "VBD",
               "text": "did",
-              "display": false
+              "display": true
             },
             {
               "key": 18,
@@ -1060,7 +1057,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "VBD",
               "text": "came",
-              "display": false
+              "display": true
             },
             {
               "key": 2,
@@ -1084,7 +1081,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 5,
               "partOfSpeech": "VBD",
               "text": "was",
-              "display": false
+              "display": true
             },
             {
               "key": 6,
@@ -1126,7 +1123,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 12,
               "partOfSpeech": "VBD",
               "text": "did",
-              "display": false
+              "display": true
             },
             {
               "key": 13,
@@ -1186,7 +1183,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 4,
               "partOfSpeech": "VBD",
               "text": "did",
-              "display": false
+              "display": true
             },
             {
               "key": 5,
@@ -1228,7 +1225,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 11,
               "partOfSpeech": "VBD",
               "text": "believed",
-              "display": false
+              "display": true
             },
             {
               "key": 12,
@@ -1246,7 +1243,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 14,
               "partOfSpeech": "NN",
               "text": "name",
-              "display": true
+              "display": false
             },
             {
               "key": 15,
@@ -1264,7 +1261,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 17,
               "partOfSpeech": "VBD",
               "text": "gave",
-              "display": false
+              "display": true
             },
             {
               "key": 18,
@@ -1276,7 +1273,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 19,
               "partOfSpeech": "NN",
               "text": "right",
-              "display": true
+              "display": false
             },
             {
               "key": 20,
@@ -1294,7 +1291,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 22,
               "partOfSpeech": "NNS",
               "text": "children",
-              "display": true
+              "display": false
             },
             {
               "key": 23,
@@ -1306,7 +1303,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 24,
               "partOfSpeech": "NNP",
               "text": "God",
-              "display": true
+              "display": false
             },
             {
               "key": 25,
@@ -1348,7 +1345,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 31,
               "partOfSpeech": "NN",
               "text": "descent",
-              "display": true
+              "display": false
             },
             {
               "key": 32,
@@ -1378,7 +1375,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 36,
               "partOfSpeech": "NN",
               "text": "decision",
-              "display": true
+              "display": false
             },
             {
               "key": 37,
@@ -1396,7 +1393,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 39,
               "partOfSpeech": "NN",
               "text": "husband",
-              "display": true
+              "display": false
             },
             {
               "key": 40,
@@ -1408,7 +1405,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 41,
               "partOfSpeech": "NN",
               "text": "will",
-              "display": true
+              "display": false
             },
             {
               "key": 42,
@@ -1426,7 +1423,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 44,
               "partOfSpeech": "VBN",
               "text": "born",
-              "display": false
+              "display": true
             },
             {
               "key": 45,
@@ -1468,19 +1465,19 @@ function Game ( _ ) { // TODO: switch to props
               "key": 2,
               "partOfSpeech": "NNP",
               "text": "Word",
-              "display": true
+              "display": false
             },
             {
               "key": 3,
               "partOfSpeech": "VBD",
               "text": "became",
-              "display": false
+              "display": true
             },
             {
               "key": 4,
               "partOfSpeech": "NN",
               "text": "flesh",
-              "display": true
+              "display": false
             },
             {
               "key": 5,
@@ -1492,7 +1489,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 6,
               "partOfSpeech": "VBD",
               "text": "made",
-              "display": false
+              "display": true
             },
             {
               "key": 7,
@@ -1504,7 +1501,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 8,
               "partOfSpeech": "NN",
               "text": "dwelling",
-              "display": true
+              "display": false
             },
             {
               "key": 9,
@@ -1540,7 +1537,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 1,
               "partOfSpeech": "VBP",
               "text": "have",
-              "display": false
+              "display": true
             },
             {
               "key": 2,
@@ -1558,7 +1555,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 4,
               "partOfSpeech": "NN",
               "text": "glory",
-              "display": true
+              "display": false
             },
             {
               "key": 5,
@@ -1612,7 +1609,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 13,
               "partOfSpeech": "NNP",
               "text": "Son",
-              "display": true
+              "display": false
             },
             {
               "key": 14,
@@ -1630,7 +1627,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 16,
               "partOfSpeech": "VBD",
               "text": "came",
-              "display": false
+              "display": true
             },
             {
               "key": 17,
@@ -1648,7 +1645,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 19,
               "partOfSpeech": "NNP",
               "text": "Father",
-              "display": true
+              "display": false
             },
             {
               "key": 20,
@@ -1672,7 +1669,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 23,
               "partOfSpeech": "NN",
               "text": "grace",
-              "display": true
+              "display": false
             },
             {
               "key": 24,
@@ -1684,7 +1681,7 @@ function Game ( _ ) { // TODO: switch to props
               "key": 25,
               "partOfSpeech": "NN",
               "text": "truth",
-              "display": true
+              "display": false
             },
             {
               "key": 26,
@@ -1695,7 +1692,10 @@ function Game ( _ ) { // TODO: switch to props
           ],
           "text": " We have seen his glory , the glory of the one and only Son , who came from the Father , full of grace and truth ."
         }
-      ]
+      ],
+      "author": {
+        "_id": "62a6a898f816db8d8c1d6aef"
+      }
     },
     "resumeAt": 0
   }
@@ -1738,8 +1738,9 @@ function Game ( _ ) { // TODO: switch to props
       return;
     }
     const nextSentence = props.passage.blankedSentences.filter(s=>s.key===sentence.key+1);
+    
     setSentence(nextSentence[0]);
-    setWords(sentence.words);
+    setWords(nextSentence[0].words);
   }
   // useEffect () {  // set to save progress
 
@@ -1806,7 +1807,7 @@ function Game ( _ ) { // TODO: switch to props
           
           <Spacer y={1} />
 
-          <Row><Progress color="success" value={(sentence.key/props.passage.blankedSentences.length-1)*100} /></Row>
+          <Row><Progress color="success" value={(sentence.key/(props.passage.blankedSentences.length-1))*100} /></Row>
           <Row>
             <Col>
               <Row justify="flex-end">
