@@ -23,7 +23,8 @@ function Game () {
     onCompleted(data){
       setSentence(data.session.passage.blankedSentences[data.session.resumeAt]);
       setWords(data.session.passage.blankedSentences[data.session.resumeAt].words);
-    }
+    },
+    fetchPolicy: 'network-only'
   });
 
   const [ incrementResumeAt ] = useMutation(INC_RESUME_AT);

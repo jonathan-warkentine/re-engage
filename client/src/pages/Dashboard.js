@@ -159,15 +159,16 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
   const {loading, data, refetch} = useQuery(QUERY_ME, {
-    refetchOnWindowFocus: 'always'
+    fetchPolicy: 'network-only'
   });
 
   if (loading) {
