@@ -21,8 +21,8 @@ function Game () {
       sessionId
     },
     onCompleted(data){
-      setSentence(data.session.passage.blankedSentences[0]);
-      setWords(data.session.passage.blankedSentences[0].words);
+      setSentence(data.session.passage.blankedSentences[data.session.resumeAt]);
+      setWords(data.session.passage.blankedSentences[data.session.resumeAt].words);
     }
   });
 
@@ -40,6 +40,9 @@ function Game () {
       }
       return word; 
     });
+
+    // if very last sentence and all words are display:true,
+    // trigger state change for 'congratulations' modal
     
     setWords(updatedWords)
     
@@ -49,16 +52,16 @@ function Game () {
     if(sentence.key === 0) {
       return;
     }
-    const nextSentence = data.session?.passage.blankedSentences.filter(s=>s.key===sentence.key-1);
+    const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key-1);
     setSentence(nextSentence[0]);
     setWords(sentence.words);
   }
 
   function incrementSentence () {
-    if(sentence.key === data.session?.passage.blankedSentences.length-1) {
+    if(sentence.key === data.session.passage.blankedSentences.length-1) {
       return;
     }
-    const nextSentence = data.session?.passage.blankedSentences.filter(s=>s.key===sentence.key+1);
+    const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key+1);
     
     setSentence(nextSentence[0]);
     setWords(nextSentence[0].words);
@@ -76,7 +79,6 @@ function Game () {
 
   if (data) {
     if (words && sentence) {
-      console.log(words, sentence)
       return (
         <Container className="main-game-box">
           <h2>{data.session.passage.title}</h2>

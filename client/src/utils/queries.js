@@ -98,6 +98,7 @@ export const GET_SESSION = gql`
     session(sessionId: $sessionId) {
       _id
       readerId
+      resumeAt
       passage {
         _id
         title
