@@ -63,3 +63,19 @@ export const UPDATE_PASSAGE = gql`
     }
   }
 `;
+
+export const INC_RESUME_AT = gql`
+  mutation incrementResumeAt($sessionId: ID!) {
+    incrementResumeAt(sessionId: $sessionId) {
+      _id
+    }
+  }
+`;
+
+export const DELETE_SESSION = gql`
+  mutation deleteSession($sessionId: ID!) {
+    deleteSession(sessionId: $sessionId) {
+      _id
+    }
+  }
+`;

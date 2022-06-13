@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Textarea,
@@ -22,12 +23,18 @@ import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
-import {ADD_SESSION, DELETE_PASSAGE, UPDATE_PASSAGE} from "../utils/mutations";
+import {
+  ADD_SESSION,
+  DELETE_PASSAGE,
+  UPDATE_PASSAGE,
+  DELETE_SESSION,
+} from "../utils/mutations";
 import {useMutation} from "@apollo/client";
-import BibleApp from "../components/BibleApp" 
+import BibleApp from "../components/BibleApp";
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
+  const [targetSession, setTargetSession] = useState({});
   const [updatedPassageText, setUpdatedPassageText] = useState({
     passageBody: "",
     passageTitle: "",
@@ -35,6 +42,7 @@ function Dashboard(props) {
   const [addSession, {error}] = useMutation(ADD_SESSION);
   const [deletePassage, {err}] = useMutation(DELETE_PASSAGE);
   const [updatePassage, {er}] = useMutation(UPDATE_PASSAGE);
+  const [deleteSession, {e}] = useMutation(DELETE_SESSION);
 
   const handleChange = (event) => {
     const {name, value} = event.target;
@@ -75,6 +83,32 @@ function Dashboard(props) {
           fullText: updatedPassageText.passageBody,
         },
       });
+      refetch();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // REMOVE CONFIRM Modal
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const handlerToShowRemoveModal = (session) => {
+    setShowRemoveModal(true);
+  };
+  const handlerToHideRemoveModal = () => setShowRemoveModal(false);
+  const handlerToRemoveModalCancelBtn = () => {
+    handlerToHideRemoveModal();
+  };
+  const handlerToRemoveModalConfirmBtn = async (event) => {
+    event.preventDefault();
+    handlerToHideRemoveModal();
+    try {
+      console.log(targetSession._id);
+      const data = await deleteSession({
+        variables: {
+          sessionId: targetSession._id,
+        },
+      });
+
       refetch();
     } catch (err) {
       console.error(err);
@@ -126,23 +160,26 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
-  const {loading, data, refetch} = useQuery(QUERY_ME);
+  const {loading, data, refetch} = useQuery(QUERY_ME, {
+    fetchPolicy: 'network-only'
+  });
 
   if (loading) {
     return <p>Loading...</p>;
   }
-  const username = data.me.name.toUpperCase();
   if (data) {
+    refetch();
     return (
       <Container className="dashboard-container">               
-        <h2>{username} - Welcome to your Dashboard!</h2>
+        <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
         <Spacer y={2} />
         <Collapse className="current-engagements-box"
          bordered lined expanded title="Currently Reading" css={{
@@ -198,10 +235,21 @@ function Dashboard(props) {
                         <EyeIcon size={20} fill="#979797" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip color="success" content="RESUME passage">
+                    <Tooltip
+                      color="error"
+                      content="Remove from Current Readings"
+                    >
                       <IconButton
-                        onClick={() => console.log("RESUME button clicked")}
+                        onClick={() => {
+                          setTargetSession(session);
+                          handlerToShowRemoveModal();
+                        }}
                       >
+                        <DeleteIcon size={20} fill="#ff0080" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip color="success" content="RESUME passage">
+                      <IconButton as={Link} to={`/game/${session._id}`}>
                         <ResumeIcon size={20} fill="#00cc00" />
                       </IconButton>
                     </Tooltip>
@@ -314,7 +362,7 @@ function Dashboard(props) {
         <BibleApp />
 
         <Spacer y={2} />
-        <PassageForm />
+        <PassageForm refetch={refetch}/>
                           
         <Spacer y={2} />
 
@@ -422,6 +470,34 @@ function Dashboard(props) {
             </Button>
             <Button auto color="error" onClick={handlerToDeleteModalConfirmBtn}>
               Yes, Confirm DELETE!
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal to REMOVE Session */}
+        <Modal
+          id="confirm-remove-modal"
+          closeButton
+          aria-labelledby="confirm-remove-modal"
+          open={showRemoveModal}
+          onClose={handlerToHideRemoveModal}
+        >
+          <Modal.Header>
+            <Text h2>
+              Are you sure you want to remove from current readings?
+            </Text>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button
+              auto
+              flat
+              color="secondary"
+              onClick={handlerToRemoveModalCancelBtn}
+            >
+              Nevermind, Go Back
+            </Button>
+            <Button auto color="error" onClick={handlerToRemoveModalConfirmBtn}>
+              Yes, Confirm REMOVAL!
             </Button>
           </Modal.Footer>
         </Modal>
