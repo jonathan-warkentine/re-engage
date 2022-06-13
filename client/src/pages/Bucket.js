@@ -151,7 +151,7 @@ function Bucket(props) {
         </Table>
       </Container>
 
-      <Spacer y={3} />
+      <Spacer y={2} />
 
       {/* Modal to DELETE */}
       <Modal
