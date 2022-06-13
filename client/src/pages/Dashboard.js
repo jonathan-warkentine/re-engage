@@ -453,12 +453,10 @@ function Dashboard(props) {
           onClose={handlerToHideDeleteModal}
         >
           <Modal.Header>
-            <Text h2>
-              Are you sure you want to delete "{targetPassage.title}"?
-            </Text>
+            <Text h2>DELETE {targetPassage.title}</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>{targetPassage.fullText}</Text>
+            <Text h4>Are you sure you want to permanently DELETE "{targetPassage.title}"?</Text>
           </Modal.Body>
           <Modal.Footer>
             <Button
