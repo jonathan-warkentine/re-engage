@@ -10,6 +10,7 @@ import {
   Grid,
   Spacer,
   Modal,
+  Collapse,
 } from "@nextui-org/react";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
@@ -140,11 +141,19 @@ function Dashboard(props) {
   const username = data.me.name.toUpperCase();
   if (data) {
     return (
-      <Container className="dashboard-container">
+      <Container className="dashboard-container">               
         <h2>{username} - Welcome to your Dashboard!</h2>
-        <Spacer y={3} />
-        <Container className="current-engagements-box">
-          <h3>Currently Reading</h3>
+        <Spacer y={2} />
+        <Collapse className="current-engagements-box"
+         bordered lined expanded title="Currently Reading" css={{
+          maxWidth:'100%',
+          width:'100%'
+        }} subtitle={
+          <>
+          Click <Text b>Here</Text> to open! 
+          </>
+          }
+          > 
           <Table
             bordered
             lined
@@ -201,12 +210,18 @@ function Dashboard(props) {
               ))}
             </Table.Body>
           </Table>
-        </Container>
+        </Collapse>
 
-        <Spacer y={3} />
-
-        <Container className="my-contributions-box">
-          <h3>My Submissions</h3>
+        <Spacer y={2} />     
+        <Collapse  className="my-contributions-box"
+        bordered lined title="My Submissions" css={{
+          maxWidth:'100%',
+          width:'100%'
+        }} subtitle={
+          <>
+          Click <Text b>Here</Text> to open! 
+          </>
+          }>              
           <Table
             bordered
             lined
@@ -292,13 +307,16 @@ function Dashboard(props) {
               ))}
             </Table.Body>
           </Table>
-        </Container>
+        </Collapse>
 
-        <Spacer y={3} />
-        <PassageForm />
-
+        <Spacer y={2} />                
         {/*BIBLE APP*/}
         <BibleApp />
+
+        <Spacer y={2} />
+        <PassageForm />
+                          
+        <Spacer y={2} />
 
         {/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
 
