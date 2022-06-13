@@ -47,6 +47,10 @@ const sessionResolvers = {
               { new: true }
             ).populate("passage");
         },
+
+        deleteSession: async (parent, {sessionId}) => {
+          return await Session.deleteOne({_id: sessionId});
+        },
     }
 }
 

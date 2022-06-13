@@ -31,7 +31,7 @@ const passageResolvers = {
       await newPassage.save();
       await newPassage.populate("author");
 
-      const author = await Reader.findByIdAndUpdate(authorId, {
+      await Reader.findByIdAndUpdate(authorId, {
         $push: {
           passages: {
             _id: newPassage._id,
@@ -57,7 +57,7 @@ const passageResolvers = {
 
     deletePassage: async (parent, {passageId}) => {
       await Session.deleteMany({passage: passageId});
-      return await Passage.deleteOne({passageId});
+      return await Passage.deleteOne({_id: passageId});
     },
   },
 };

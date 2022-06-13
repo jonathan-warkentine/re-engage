@@ -63,3 +63,11 @@ export const UPDATE_PASSAGE = gql`
     }
   }
 `;
+
+export const DELETE_SESSION = gql`
+  mutation deleteSession($sessionId: ID!) {
+    deleteSession(sessionId: $sessionId) {
+      _id
+    }
+  }
+`;
