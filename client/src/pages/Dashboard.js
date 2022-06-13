@@ -23,6 +23,7 @@ import {QUERY_ME} from "../utils/queries";
 import PassageForm from "../components/PassageForm";
 import {ADD_SESSION, DELETE_PASSAGE, UPDATE_PASSAGE} from "../utils/mutations";
 import {useMutation} from "@apollo/client";
+import BibleApp from "../components/BibleApp" 
 
 function Dashboard(props) {
   const [targetPassage, setTargetPassage] = useState({});
@@ -295,6 +296,9 @@ function Dashboard(props) {
 
         <Spacer y={3} />
         <PassageForm />
+
+        {/*BIBLE APP*/}
+        <BibleApp />
 
         {/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
 
