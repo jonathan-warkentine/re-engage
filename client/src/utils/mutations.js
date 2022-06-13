@@ -69,5 +69,12 @@ export const INC_RESUME_AT = gql`
     incrementResumeAt(sessionId: $sessionId) {
       _id
     }
+`;
+
+export const DELETE_SESSION = gql`
+  mutation deleteSession($sessionId: ID!) {
+    deleteSession(sessionId: $sessionId) {
+      _id
+    }
   }
 `;

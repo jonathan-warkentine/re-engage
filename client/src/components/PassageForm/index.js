@@ -36,7 +36,6 @@ const PassageForm = (props) => {
           fullText: passageText.passageBody,
         },
       });
-
     } catch (err) {
       console.error(err);
     }
