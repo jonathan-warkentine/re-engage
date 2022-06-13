@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_READER } from '../utils/mutations';
-import { Container, Text, Input, Button } from '@nextui-org/react';
+import { Container, Input, Button } from '@nextui-org/react';
 import '../styles/LoginAndSignup.css';
 
 import Auth from '../utils/auth';

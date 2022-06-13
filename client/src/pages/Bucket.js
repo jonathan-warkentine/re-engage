@@ -1,58 +1,66 @@
-import React from "react";
-import { Container, Text, Textarea, Button, Table, Tooltip, Progress, Grid, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
+import React, {useState} from "react";
+import { Container, Text, Textarea, Button, Table, Tooltip, Spacer, Card, Dropdown, Row, Modal, useModal } from '@nextui-org/react';
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES} from "../utils/queries";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
 import {AddIcon} from "../components/Icons/AddIcon";
-import PreviewModal from "../components/PreviewModal";
+import {ADD_SESSION} from "../utils/mutations";
+import {useMutation} from "@apollo/client";
 import "../styles/Bucket.css";
 
 function Bucket(props) {
+  
+  // MODAL STUFF ------------------------------
+  // ------------------------------------------
+  const [targetPassage, setTargetPassage] = useState({});
+  const [addSession, {error}] = useMutation(ADD_SESSION);
+  
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const handlerToShowPreviewModal = (passage) => {
+    setShowPreviewModal(true);
+  };
+  const handlerToHidePreviewModal = () => setShowPreviewModal(false);
+  const handlerToPreviewModalCancelBtn = () => {
+    handlerToHidePreviewModal();
+  };
+  const handlerToPreviewModalAddBtn = () => {
+    handlerToHidePreviewModal();
+  };
+
+
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const handlerToShowAddModal = () => {
+    setShowAddModal(true);
+  };
+  const handlerToHideAddModal = () => setShowAddModal(false);
+  const handlerToAddModalCancelBtn = () => {
+    handlerToHideAddModal();
+  };
+  const handlerToAddModalConfirmBtn = async (event) => {
+    event.preventDefault();
+    handlerToHideAddModal();
+
+    try {
+      const data = await addSession({
+        variables: {
+          passageId: targetPassage._id,
+        },
+      });
+
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+  // ------------------------------------------
+  // MODAL STUFF ------------------------------
+
 
   const {loading, data} = useQuery(QUERY_ALL_PASSAGES);
   const passages = data?.allPassages || [];
-
-  const [visible, setVisible] = React.useState(false);
-
-  function openPreviewModalHandler (item) {
-    setVisible(true);
-    console.log(item);
-  };
-
-  const closeHandler = () => {
-    setVisible(false);
-    console.log("modal closed");
-  };
-  
-  function addToListHandler(item) {
-    setVisible(false);
-    console.log(item);
-  };
-
-
-  const testPreviewSets = [
-    {
-      id: 1,
-      title: "Premable to the Constitution",
-      body: " test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble test preamble "
-    },
-    {
-      id: 2,
-      title: "Second Title",
-      body: " test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second test second "
-    },
-    {
-      id: 3,
-      title: "Third Title",
-      body: " test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third test third "
-    },
-    {
-      id: 4,
-      title: "Fourth",
-      body: " test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth test fourth "
-    }
-  ];
 
   const [selectedBook, setSelectedBook] = React.useState(new Set(["Book"]));
   const selectedBookValue = React.useMemo(
@@ -66,7 +74,7 @@ function Bucket(props) {
     [selectedChapter]
   );
 
-  const sampleInitialValue = `
+  const sampleScripture = `
   1 Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.
 2 This man came to Jesus by night and said to him, "Rabbi, we know that you are a teacher come from God, for no one can do these signs that you do unless God is with him."
 3 Jesus answered him, "Truly, truly, I say to you, unless one is born again he cannot see the kingdom of God."
@@ -137,15 +145,20 @@ John the Baptist Exalts Christ
                 <Table.Cell>
                   <Tooltip color="secondary" content="SHOW passage preview">
                     <IconButton
-                      onClick={() => console.log("PREVIEW button clicked")}
+                      onClick={() => {
+                          setTargetPassage(passage);
+
+                          handlerToShowPreviewModal();
+                        }}
                     >
                       <EyeIcon size={20} fill="#979797" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip color="primary" content="ADD passage">
-                    <IconButton
-                      onClick={() => console.log("ADD button clicked")}
-                    >
+                  <Tooltip color="primary" content="Add to Current Reading Queue">
+                    <IconButton onClick={() => {
+                          setTargetPassage(passage);
+                          handlerToShowAddModal();
+                        }}>
                       <AddIcon size={20} fill="#00cc00" />
                     </IconButton>
                   </Tooltip>
@@ -204,7 +217,7 @@ John the Baptist Exalts Christ
                 </Dropdown>
               </Row>
               <Row>
-                <Textarea fullWidth="true" minRows={5} initialValue={sampleInitialValue}></Textarea>
+                <Textarea fullWidth="true" minRows={5} initialValue={sampleScripture}></Textarea>
               </Row>
 
             </Card.Body>
@@ -219,13 +232,59 @@ John the Baptist Exalts Christ
         </Card>
     </Container>
 
-    <PreviewModal
-       openPreviewModalHandler
-       addToListHandler
-       closeHandler
-       setVisible
-       visible
-    />
+{/* Modal to DELETE */}
+    <Modal
+          id="preview-body-modal"
+          closeButton
+          scroll
+          width="600px"
+          aria-labelledby="preview-body-modal"
+          open={showPreviewModal}
+          onClose={handlerToHidePreviewModal}
+        >
+          <Modal.Header>
+            <Text h2>{targetPassage.title}</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Text>{targetPassage.fullText}</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button auto color="success" onClick={handlerToPreviewModalAddBtn}>
+              Back to My Dashboard
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal to CONFIRM to QUEUE */}
+        <Modal
+          id="confirm-add-modal"
+          closeButton
+          aria-labelledby="confirm-add-modal"
+          open={showAddModal}
+          onClose={handlerToHideAddModal}
+        >
+          <Modal.Header>
+            <Text h2>{targetPassage.title}</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Text h3>
+              Add "{targetPassage.title}" to your Queue for Current Readings?
+            </Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              auto
+              flat
+              color="secondary"
+              onClick={handlerToAddModalCancelBtn}
+            >
+              Nevermind, Go Back
+            </Button>
+            <Button auto color="success" onClick={handlerToAddModalConfirmBtn}>
+              Yes, ADD it!
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
   </Container>
   )

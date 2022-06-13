@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
-import { Container, Text, Button } from '@nextui-org/react';
+import { Container, Button } from '@nextui-org/react';
 import '../../styles/Header.css'
 
 const Header = () => {
