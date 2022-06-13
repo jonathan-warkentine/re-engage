@@ -11,7 +11,6 @@ import {
   Grid,
   Spacer,
   Modal,
-  Collapse,
 } from "@nextui-org/react";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
@@ -83,10 +82,11 @@ function Dashboard(props) {
           fullText: updatedPassageText.passageBody,
         },
       });
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
 
   // REMOVE CONFIRM Modal
@@ -109,10 +109,11 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
 
   // DELETE CONFIRM Modal
@@ -134,10 +135,11 @@ function Dashboard(props) {
         },
       });
 
-      refetch();
     } catch (err) {
       console.error(err);
     }
+
+    refetch();
   };
 
   // ADD CONFIRM Modal
@@ -176,21 +178,12 @@ function Dashboard(props) {
     return <p>Loading...</p>;
   }
   if (data) {
-    refetch();
     return (
-      <Container className="dashboard-container">               
+      <Container className="dashboard-container">
         <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
-        <Spacer y={2} />
-        <Collapse className="current-engagements-box"
-         bordered lined expanded title="Currently Reading" css={{
-          maxWidth:'100%',
-          width:'100%'
-        }} subtitle={
-          <>
-          Click <Text b>Here</Text> to open! 
-          </>
-          }
-          > 
+        <Spacer y={3} />
+        <Container className="current-engagements-box">
+          <h3>Currently Reading</h3>
           <Table
             bordered
             lined
@@ -258,18 +251,12 @@ function Dashboard(props) {
               ))}
             </Table.Body>
           </Table>
-        </Collapse>
+        </Container>
 
-        <Spacer y={2} />     
-        <Collapse  className="my-contributions-box"
-        bordered lined title="My Submissions" css={{
-          maxWidth:'100%',
-          width:'100%'
-        }} subtitle={
-          <>
-          Click <Text b>Here</Text> to open! 
-          </>
-          }>              
+        <Spacer y={3} />
+
+        <Container className="my-contributions-box">
+          <h3>My Submissions</h3>
           <Table
             bordered
             lined
@@ -355,16 +342,13 @@ function Dashboard(props) {
               ))}
             </Table.Body>
           </Table>
-        </Collapse>
+        </Container>
 
-        <Spacer y={2} />                
+        <Spacer y={3} />
+        <PassageForm refetch={refetch}/>
+
         {/*BIBLE APP*/}
         <BibleApp />
-
-        <Spacer y={2} />
-        <PassageForm refetch={refetch}/>
-                          
-        <Spacer y={2} />
 
         {/* MODALS \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/  \/ */}
 
