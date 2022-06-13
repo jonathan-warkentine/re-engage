@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useMutation } from '@apollo/client';
 import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +7,7 @@ import '../styles/Bucket.css';
 import blueleather from '../images/blueleather.jpg';
 
 import { shuffleArray } from '../utils/utils';
+import { INC_RESUME_AT } from '../utils/mutations';
 
 function Game ( _ ) { // TODO: switch to props 
 
@@ -1702,14 +1704,10 @@ function Game ( _ ) { // TODO: switch to props
   
   const [ sentence, setSentence ] = useState( props.passage.blankedSentences[0] );
   const [ words, setWords ] = useState( props.passage.blankedSentences[0].words );
-  const [ resumeAt, setResumeAt ] = useState( props.resumeAt );
+
+  const [ incrementResumeAt ] = useMutation(INC_RESUME_AT);
 
   function handleWordSelect(event) {
-
-    // TODO: add logic to check if the button pressed matches a blank
-    // once red herring words are added
-    console.log()
-
     const updatedWords = words.map(word => { 
       if (event.target.value == word.key && word.key == words.reduce(((prev, word) => word.display? prev: Math.min(prev, word.key)), 999)) { // we cannot use strict equality here
           return {
@@ -1741,6 +1739,12 @@ function Game ( _ ) { // TODO: switch to props
     
     setSentence(nextSentence[0]);
     setWords(nextSentence[0].words);
+
+    incrementResumeAt({
+      variables: {
+        sessionId: props._id
+      }
+    });
   }
   // useEffect () {  // set to save progress
 
