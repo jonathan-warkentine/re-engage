@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col, Modal} from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,11 +31,6 @@ function Game () {
     // LOGIC TO RELOAD FROM BEGINNING OF THIS PASSAGE
     setSentence(data.session.passage.blankedSentences[0]);
     setWords(data.session.passage.blankedSentences[0].words);
-  };
-  const handlerToEndOfGameModalMenuBtn = async (event) => {
-    event.preventDefault();
-    handlerToHideEndOfGameModal();
-    window.location.replace("/dashboard");
   };
 
   const { sessionId } = useParams();
@@ -221,7 +216,7 @@ function Game () {
               <Button icon={<ReloadIcon fill="currentColor" filled />} auto color="success" onClick={handlerToEndOfGameModalReloadBtn}>
                 Reload this Passage
               </Button>
-              <Button icon={<MenuIcon fill="currentColor" filled />} auto color="primary" onClick={handlerToEndOfGameModalMenuBtn}>
+              <Button as={Link} to={`/dashboard`} icon={<MenuIcon fill="currentColor" filled />} auto color="primary">
                 Go Back to Dashboard
               </Button>
             </Col>
