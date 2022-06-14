@@ -39,7 +39,14 @@ https://warm-gorge-10209.herokuapp.com/
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+![image](https://user-images.githubusercontent.com/95650769/173675173-ac363f90-874a-47f2-86d5-6119aa66d049.png)
+
+
+![image](https://user-images.githubusercontent.com/95650769/173675840-4666b865-558b-4002-9c20-9bf86b0f0815.png)
+
+
+![image](https://user-images.githubusercontent.com/95650769/173675642-713a67b3-768d-4a90-b3cf-af0c37ed4d9a.png)
+
 
 ## Technologies Used
 
