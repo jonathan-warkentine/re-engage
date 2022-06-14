@@ -188,7 +188,7 @@ function Dashboard(props) {
           width:'100%'
         }} subtitle={
           <>
-          Click <Text b>Here</Text>
+          Click <Text b>Here</Text> to open/close
           </>
           }
           > 
@@ -269,7 +269,7 @@ function Dashboard(props) {
           width:'100%'
         }} subtitle={
           <>
-          Click <Text b>Here</Text>
+          Click <Text b>Here</Text> to open/close
           </>
           }>              
           <Table

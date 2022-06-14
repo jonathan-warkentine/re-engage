@@ -64,7 +64,7 @@ const BibleApp = () => {
   return (  
     <Collapse className="bible-app" bordered title="Bible" subtitle={
       <>
-      <Text b>Welcome to our Bible app!</Text> Click <Text b>Here</Text>
+      <Text b>Welcome to our Bible app!</Text> Click <Text b>Here</Text> to open/close
       </>
       }>
       <Grid.Container 
