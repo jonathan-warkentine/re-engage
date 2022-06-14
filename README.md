@@ -58,7 +58,7 @@ Mitch Watchel, Johnny Warkentine, Patrick Ham, and Ross McWey (WWHaM!)
 Our Github pages: 
 * https://github.com/RMcwey
 * https://github.com/mitchelwachtel
-* https://github.com/jonathan-warkentinehttps://github.com/jonathan-warkentine
+* https://github.com/jonathan-warkentine
 * https://github.com/PatrickFHam
 <br>
 
