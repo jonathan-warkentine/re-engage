@@ -183,12 +183,12 @@ function Dashboard(props) {
         <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
         <Spacer y={2} />
         <Collapse className="current-engagements-box"
-         bordered lined expanded title="Currently Reading" css={{
+         bordered expanded title="Currently Reading" css={{
           maxWidth:'100%',
           width:'100%'
         }} subtitle={
           <>
-          Click <Text b>Here</Text> to open! 
+          Click <Text b>Here</Text> to open/close
           </>
           }
           > 
@@ -264,12 +264,12 @@ function Dashboard(props) {
 
         <Spacer y={2} />     
         <Collapse  className="my-contributions-box"
-        bordered lined title="My Submissions" css={{
+        bordered title="My Submissions" css={{
           maxWidth:'100%',
           width:'100%'
         }} subtitle={
           <>
-          Click <Text b>Here</Text> to open! 
+          Click <Text b>Here</Text> to open/close
           </>
           }>              
           <Table

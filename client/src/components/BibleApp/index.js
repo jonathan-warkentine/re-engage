@@ -75,7 +75,7 @@ const BibleApp = () => {
   return (  
     <Collapse className="bible-app" bordered title="Bible" subtitle={
       <>
-      <Text b>Welcome to our Bible app!</Text> Click <Text b>Here</Text> to open! 
+      <Text b>Welcome to our Bible app!</Text> Click <Text b>Here</Text> to open/close
       </>
       }>
       <Grid.Container 
@@ -90,7 +90,6 @@ const BibleApp = () => {
         <Grid xs={12}>
           <Collapse.Group 
             bordered
-            lined="true"
             aria-label="list-of-contributions"
             css={{
               // display:'flex',
