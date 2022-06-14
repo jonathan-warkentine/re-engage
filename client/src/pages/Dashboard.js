@@ -482,7 +482,7 @@ function Dashboard(props) {
             >
               Nevermind, Go Back
             </Button>
-            <Button auto color="error" onClick={handlerToRemoveModalConfirmBtn}>
+            <Button auto color="warning" onClick={handlerToRemoveModalConfirmBtn}>
               Yes, Confirm REMOVAL!
             </Button>
           </Modal.Footer>

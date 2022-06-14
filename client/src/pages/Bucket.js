@@ -201,7 +201,7 @@ function Bucket(props) {
           >
             Nevermind, Go Back
           </Button>
-          <Button auto color="success" onClick={handlerToAddModalConfirmBtn}>
+          <Button auto color="primary" onClick={handlerToAddModalConfirmBtn}>
             Yes, ADD it!
           </Button>
         </Modal.Footer>
