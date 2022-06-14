@@ -245,7 +245,7 @@ const BibleApp = () => {
       <Container>
         <Spacer y={1} />
         <div className="submit-title-and-paste-button">
-          <Text h3 color="secondary">Your Selected Scripture ... </Text>
+          <Text h3>Your Selected Scripture . . . . </Text>
           <Tooltip color="secondary" content="COPY to your clipboard">
             <IconButton className="copy-button" data-clipboard-action="copy" data-clipboard-target="#bible-body" onClick={() => console.log("COPY button pressed")}>
               <CopyIcon size={26} fill="#962bc4" />
@@ -253,21 +253,21 @@ const BibleApp = () => {
           </Tooltip>
         </div>
         <Textarea
-        bordered
-        color="secondary"
-        initialValue={holyBible.map(function({verse}) {
-          return(
-            verse+' '
-          )}
-        ).join('')
-        }
-        id="bible-body"
-        maxRows={17}
-        css={{
-        width: '100%',
-        height: '100%',
-        }}
-        />
+          bordered
+          color="secondary"
+          initialValue={holyBible.map(function({verse}) {
+            return(
+              verse+' '
+            )}
+          ).join('')
+          }
+          id="bible-body"
+          maxRows={17}
+          css={{
+          width: '100%',
+          height: '100%',
+          }}
+          />
       </Container>
     </Collapse>
   )
