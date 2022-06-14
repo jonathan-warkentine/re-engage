@@ -82,10 +82,10 @@ function Dashboard(props) {
           fullText: updatedPassageText.passageBody,
         },
       });
+      
     } catch (err) {
       console.error(err);
     }
-
     refetch();
   };
 
@@ -112,7 +112,6 @@ function Dashboard(props) {
     } catch (err) {
       console.error(err);
     }
-
     refetch();
   };
 
@@ -138,7 +137,6 @@ function Dashboard(props) {
     } catch (err) {
       console.error(err);
     }
-
     refetch();
   };
 
@@ -235,6 +233,7 @@ function Dashboard(props) {
                       <IconButton
                         onClick={() => {
                           setTargetSession(session);
+                          setTargetPassage(session.passage);
                           handlerToShowRemoveModal();
                         }}
                       >
@@ -386,7 +385,7 @@ function Dashboard(props) {
           onClose={handlerToHideEditModal}
         >
           <Modal.Header>
-            <Text h2>Edit {targetPassage.title}</Text>
+            <Text h2>EDIT {targetPassage.title}</Text>
           </Modal.Header>
           <Modal.Body>
             <Textarea
@@ -398,18 +397,16 @@ function Dashboard(props) {
               bordered
               onChange={handleChange}
               color="success"
-              placeholder="Title"
             ></Textarea>
             <Textarea
               name="passageBody"
               fullWidth="true"
               value={updatedPassageText.passageBody}
-              minRows={3}
+              minRows={5}
               maxRows={15}
               bordered
               onChange={handleChange}
               color="success"
-              placeholder="You can type or paste-in your passage text here."
             ></Textarea>
           </Modal.Body>
           <Modal.Footer>
@@ -436,12 +433,10 @@ function Dashboard(props) {
           onClose={handlerToHideDeleteModal}
         >
           <Modal.Header>
-            <Text h2>
-              Are you sure you want to delete "{targetPassage.title}"?
-            </Text>
+            <Text h2>DELETE {targetPassage.title}</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h4>{targetPassage.fullText}</Text>
+            <Text h4>Are you sure you want to permanently DELETE "{targetPassage.title}"?</Text>
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -468,9 +463,12 @@ function Dashboard(props) {
         >
           <Modal.Header>
             <Text h2>
-              Are you sure you want to remove from current readings?
+              REMOVE {targetPassage.title}?
             </Text>
           </Modal.Header>
+          <Text h3>
+              REMOVE "{targetPassage.title}" to your from your Queue for Current Readings?
+            </Text>
           <Modal.Footer>
             <Button
               auto
@@ -499,7 +497,7 @@ function Dashboard(props) {
           </Modal.Header>
           <Modal.Body>
             <Text h3>
-              Add "{targetPassage.title}" to your Queue for Current Readings?
+              ADD "{targetPassage.title}" to your Queue for Current Readings?
             </Text>
           </Modal.Body>
           <Modal.Footer>

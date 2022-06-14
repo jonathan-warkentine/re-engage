@@ -38,6 +38,19 @@ passageSchema.methods.build = async function ( fullText ) {
 
 passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
   const nlpCloudClient = new NLPCloudClient('en_core_web_lg', nlpCloudClientKey);
+
+  // if the text is too large for a single submission, break it up into several submissions and recombine
+
+  // first split into sentences
+  const allSentences = fullText.match( /[^\.!\?]+[\.!\?]+/g );
+
+  // recombine into sentence groupings of roughly appropriate length
+  const sentenceGroupings = allSentences.reduce( (acc, sentence) => {
+    sentence.length
+  }, [{}]);
+  
+  //for each sentence grouping, analyze NLP
+
   try {
     const response = await nlpCloudClient.dependencies( fullText );
     return response.data.words;
