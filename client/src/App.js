@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './pages/Dashboard';
 import Game from './pages/Game';
+import Team from './pages/Team';
 
 
 function App() {
@@ -44,6 +45,10 @@ function App() {
                   <Route 
                     path="/signup" 
                     element={<Signup />}
+                  />
+                  <Route 
+                    path="/team" 
+                    element={<Team />}
                   />
                   <Route 
                     path="/dashboard" 
