@@ -79,7 +79,6 @@ const BibleApp = () => {
         <Grid xs={12}>
           <Collapse.Group 
             bordered
-            lined="true"
             aria-label="list-of-contributions"
             css={{
               // display:'flex',
