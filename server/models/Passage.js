@@ -129,7 +129,7 @@ passageSchema.methods.buildSentences = function ( words = this.words ) {
       // if the word/char is sentence-ending punctuation
       // trigger new sentence iteration
       if (word.text.match(/[.!?\\-]/)) {
-        if (currentSentence.words.length > 15) {
+        if (currentSentence.words.length > 25) {
           // push the completed sentence and start a new sentence
           this.sentences.push(currentSentence);
           currentSentence = new Sentence( {key: this.sentences.length} );
