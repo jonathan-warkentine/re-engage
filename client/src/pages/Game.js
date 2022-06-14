@@ -203,21 +203,15 @@ function Game () {
           onClose={handlerToHideEndOfGameModal}
         >
           <Modal.Header>
-            <Text h2>Congratulations!</Text>
+            <Text h3>Congratulations!</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h3>You finished this passage!!</Text>
-            <Text h4>What would you like to do?</Text>
+            <Text h4>You finished this passage!!</Text>
+            <Text h5>What would you like to do?</Text>
           </Modal.Body>
           <Modal.Footer>
             <Col>
-              <Button
-                icon={<CloseIcon fill="currentColor" filled/>}
-                auto
-                flat
-                color="secondary"
-                onClick={handlerToEndOfGameModalCloseBtn}
-              >
+              <Button icon={<CloseIcon filled/>} auto color="secondary" onClick={handlerToEndOfGameModalCloseBtn} >
                 Close this Message
               </Button>
               <Button icon={<ReloadIcon fill="currentColor" filled />} auto color="success" onClick={handlerToEndOfGameModalReloadBtn}>
