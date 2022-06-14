@@ -57,23 +57,23 @@ function Game () {
  
 
   function handleWordSelect(event) {
-    const updatedWords = words.map(word => { 
-      if (event.target.value == word.key && word.key == words.reduce(((prev, word) => word.display? prev: Math.min(prev, word.key)), 999)) { // we cannot use strict equality here
-          return {
-          ...word,
-          display: true
+      const updatedWords = words.map(word => { 
+        if (event.target.value == word.key && word.key == words.reduce(((prev, word) => word.display? prev: Math.min(prev, word.key)), 999)) { // we cannot use strict equality here
+            
+          if (words.filter(word => !word.display).length === 1) {
+              handlerToShowEndOfGameModal();
+            } 
+
+            return {
+            ...word,
+            display: true
+          }
         }
-      }
+  
+        return word; 
+      });
 
-      return word; 
-    });
-
-    if (!words.filter(word => !word.display).length) {
-      handlerToShowEndOfGameModal();
-    }
-
-    setWords(updatedWords)
-    
+      setWords(updatedWords)
   }
 
   function decrementSentence () {
