@@ -21,7 +21,7 @@ const PassageForm = (props) => {
 
   const userId = Auth.getReader().data._id;
 
-  const [addPassage, {error}] = useMutation(ADD_PASSAGE);
+  const [addPassage, {data, loading, error}] = useMutation(ADD_PASSAGE);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
