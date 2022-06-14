@@ -218,7 +218,7 @@ function Dashboard(props) {
                         color="primary"
                         value={
                           (session.resumeAt /
-                            session.passage.sentences?.length) *
+                            session.passage.sentences?.length-1) *
                             100 || 0
                         }
                       />
