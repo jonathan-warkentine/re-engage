@@ -152,7 +152,7 @@ function Game () {
                               size={12}
                               weight="bold"
                             >
-                              {word.text}
+                              {word.text.toLowerCase()}
                             </Text>
                           </Button>
       
