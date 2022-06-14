@@ -82,23 +82,26 @@ function Game () {
     }
     const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key-1);
     setSentence(nextSentence[0]);
-    setWords(sentence.words);
+    setWords(nextSentence[0].words);
   }
 
-  function incrementSentence () {
+  async function incrementSentence () {
     if(sentence.key === data.session.passage.blankedSentences.length-1) {
       return;
     }
+
     const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key+1);
     
     setSentence(nextSentence[0]);
     setWords(nextSentence[0].words);
 
-    incrementResumeAt({
-      variables: {
-        sessionId: data.session._id
-      }
-    });
+    if (data.session.resumeAt !== data.session.passage.blankedSentences.length-1) {
+      incrementResumeAt({
+        variables: {
+          sessionId: data.session._id
+        }
+      });
+    }
   }
 
   if (loading) {
@@ -152,7 +155,7 @@ function Game () {
                               size={12}
                               weight="bold"
                             >
-                              {word.text.toLowerCase()}
+                              {word.text}
                             </Text>
                           </Button>
       
