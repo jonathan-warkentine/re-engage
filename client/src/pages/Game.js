@@ -29,13 +29,14 @@ function Game () {
     event.preventDefault();
     handlerToHideEndOfGameModal();
     // LOGIC TO RELOAD FROM BEGINNING OF THIS PASSAGE
+    setSentence(data.session.passage.blankedSentences[0]);
+    setWords(data.session.passage.blankedSentences[0].words);
   };
   const handlerToEndOfGameModalMenuBtn = async (event) => {
     event.preventDefault();
     handlerToHideEndOfGameModal();
     window.location.replace("/dashboard");
   };
-
 
   const { sessionId } = useParams();
   const [ sentence, setSentence ] = useState();
@@ -63,12 +64,14 @@ function Game () {
           display: true
         }
       }
+
       return word; 
     });
 
-    // if very last sentence and all words are display:true,
-    // trigger state change for 'congratulations' modal
-    
+    if (!words.filter(word => !word.display).length) {
+      handlerToShowEndOfGameModal();
+    }
+
     setWords(updatedWords)
     
   }
@@ -138,8 +141,7 @@ function Game () {
       
                 <Row>
                   <Col>
-                    {/* Here is where we should trigger "showEndOfGameModal" */}
-                    <h5 color="#000" size={12}>{words.filter(word => !word.display).length ? "Select the correct word." : "Great job!" }</h5>
+                    <h5 color="#000" size={12}> Select the correct word.</h5>
                     <Row justify="space-around" id="word-list">
                       <Grid.Container justify="start">
                         {shuffleArray(words?.map((word, index) => (
