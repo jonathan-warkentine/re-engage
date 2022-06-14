@@ -59,10 +59,11 @@ function Game () {
   function handleWordSelect(event) {
       const updatedWords = words.map(word => { 
         if (event.target.value == word.key && word.key == words.reduce(((prev, word) => word.display? prev: Math.min(prev, word.key)), 999)) { // we cannot use strict equality here
-            
-          if (words.filter(word => !word.display).length === 1) {
+          
+          // if it's the last sentence and the last word that's been guessed
+          if (data.session.resumeAt == data.session.passage.blankedSentences.length-1 && words.filter(word => !word.display).length === 1) {
               handlerToShowEndOfGameModal();
-            } 
+          } 
 
             return {
             ...word,
