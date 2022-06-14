@@ -170,7 +170,7 @@ function Dashboard(props) {
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
-  const {loading, data, refetch} = useQuery(QUERY_ME, {
+  const { loading, qMeErr, data, refetch } = useQuery(QUERY_ME, {
     fetchPolicy: 'network-only'
   });
 
@@ -178,7 +178,6 @@ function Dashboard(props) {
     return <p>Loading...</p>;
   }
   if (data) {
-    refetch();
     return (
       <Container className="dashboard-container">               
         <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
