@@ -212,7 +212,7 @@ function Game () {
           <Modal.Footer>
             <Col>
               <Button
-                icon={<CloseIcon fill="currentColor" filled />}
+                icon={<CloseIcon fill="currentColor" filled/>}
                 auto
                 flat
                 color="secondary"
