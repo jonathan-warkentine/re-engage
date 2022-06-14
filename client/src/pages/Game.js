@@ -59,10 +59,11 @@ function Game () {
   function handleWordSelect(event) {
       const updatedWords = words.map(word => { 
         if (event.target.value == word.key && word.key == words.reduce(((prev, word) => word.display? prev: Math.min(prev, word.key)), 999)) { // we cannot use strict equality here
-            
-          if (words.filter(word => !word.display).length === 1) {
+          
+          // if it's the last sentence and the last word that's been guessed
+          if (sentence.key == data.session.passage.blankedSentences.length-1 && words.filter(word => !word.display).length === 1) {
               handlerToShowEndOfGameModal();
-            } 
+          } 
 
             return {
             ...word,
@@ -82,23 +83,26 @@ function Game () {
     }
     const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key-1);
     setSentence(nextSentence[0]);
-    setWords(sentence.words);
+    setWords(nextSentence[0].words);
   }
 
-  function incrementSentence () {
+  async function incrementSentence () {
     if(sentence.key === data.session.passage.blankedSentences.length-1) {
       return;
     }
+
     const nextSentence = data.session.passage.blankedSentences.filter(s=>s.key===sentence.key+1);
     
     setSentence(nextSentence[0]);
     setWords(nextSentence[0].words);
 
-    incrementResumeAt({
-      variables: {
-        sessionId: data.session._id
-      }
-    });
+    if (data.session.resumeAt !== data.session.passage.blankedSentences.length-1) {
+      incrementResumeAt({
+        variables: {
+          sessionId: data.session._id
+        }
+      });
+    }
   }
 
   if (loading) {
@@ -152,7 +156,7 @@ function Game () {
                               size={12}
                               weight="bold"
                             >
-                              {word.text.toLowerCase()}
+                              {word.text}
                             </Text>
                           </Button>
       

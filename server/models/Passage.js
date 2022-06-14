@@ -123,13 +123,14 @@ passageSchema.methods.buildWords = function ( nlpResults ) {
 passageSchema.methods.buildSentences = function ( words = this.words ) {
   let currentSentence = new Sentence( {key: 0} );
 
-  words.forEach( word => {
+  words.forEach( (word, index) => {
       currentSentence.pushWord( word );
 
       // if the word/char is sentence-ending punctuation
       // trigger new sentence iteration
       if (word.text.match(/[.!?\\-]/)) {
-        if (currentSentence.words.length > 25) {
+        // if the sentence or combined sentences pass a length threshold, or we're at the end of our words
+        if (currentSentence.words.length > 25 || index == words.length-1) {
           // push the completed sentence and start a new sentence
           this.sentences.push(currentSentence);
           currentSentence = new Sentence( {key: this.sentences.length} );
