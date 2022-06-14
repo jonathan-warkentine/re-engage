@@ -13,7 +13,7 @@ const Header = () => {
   };
   return (
     <header>
-      <Container className="header" css={{ marginBottom: "40px" }}>
+      <Container className="header" css={{ display:"flex", marginBottom: "40px" }}>
         <div className="title-and-subtitle">
           <Link to="/">
             <Text h1 css={{ textGradient: "45deg, $pink600 20%, $blue600 100%" }}><FontAwesomeIcon icon={faEye} /><FontAwesomeIcon icon={faBrain} /> Re-Engage</Text>
@@ -22,6 +22,10 @@ const Header = () => {
         </div>
         <div className="nav-buttons" style={{
             textAlign: "end",
+            display: "flex",
+            flexDirection: "row",
+            alignItems:"center",
+            justifyContent:"flex-end"
         }}>
           {Auth.loggedIn() ? (
            <Button.Group color="gradient">
