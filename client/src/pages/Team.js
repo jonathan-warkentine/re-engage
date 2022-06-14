@@ -15,7 +15,7 @@ import { faEnvelope, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import "../styles/Team.css";
 
-import jonny from '../images/jonny.jpg'
+import jonny from '../images/jonny2.jpg'
 import mitch from '../images/mitch.jpg'
 import ross from '../images/ross.jpg'
 import patrick from '../images/patrick.jpg'
