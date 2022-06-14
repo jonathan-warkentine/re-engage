@@ -48,6 +48,10 @@ const PassageForm = (props) => {
     setPassageText({...passageText, [name]: value});
   };
 
+  function pasteFromClipboard () {
+    console.log("PASTE pressed");
+  }
+
   // ---------- ---------------- ---------------
 
   return (
@@ -55,7 +59,7 @@ const PassageForm = (props) => {
       <div className="submit-title-and-paste-button">
         <h3>Submit New Passage ... </h3>
         <Tooltip color="primary" content="PASTE from your clipboard">
-          <IconButton onClick={() => console.log("PASTE button clicked")}>
+          <IconButton onClick={pasteFromClipboard}>
             <ClipboardIcon size={26} fill="#00cc00" />
           </IconButton>
         </Tooltip>
@@ -74,6 +78,7 @@ const PassageForm = (props) => {
       <Spacer y={0.5} />
       <Textarea
         name="passageBody"
+        id="passageBody"
         fullWidth="true"
         value={passageText.passageBody}
         minRows={3}
@@ -83,7 +88,7 @@ const PassageForm = (props) => {
         color="success"
         placeholder="You can type or paste-in your passage text here."
       ></Textarea>
-      <Button onClick={handleFormSubmit} color="success">Submit New Passage</Button>
+      <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
     </Container>
   );
 };
