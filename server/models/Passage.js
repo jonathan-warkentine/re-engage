@@ -4,6 +4,7 @@ const { wordSchema, Word } = require('./Word');
 const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
+// TODO: these keys ought to be in the production env
 const nlpCloudClientKeys = ['4dbf7d91e72a84f9e3eeeabdf829985539a05fd0', '705328ce2b8ac92c31e908614fa59b7617252186', 'a39ae8cb0d7f77edb6a8526e89903061f9b1dd55', '14daf68bfe3bb4bbd65d68a0cb1d3a5551d2102e', 'b42c9a770431d29d8076a3b77adf8ec31aa1b241', '7204417aa5fe85f72c9050d25f2a96760bf2647a'];
 const nlpCloudClients = {
   indexTracker: 0,
@@ -128,22 +129,22 @@ passageSchema.methods.buildSentences = function ( words = this.words ) {
       // if the word/char is sentence-ending punctuation
       // trigger new sentence iteration
       if (word.text.match(/[.!?\\-]/)) {
+        if (currentSentence.words.length > 25) {
+          // push the completed sentence and start a new sentence
           this.sentences.push(currentSentence);
           currentSentence = new Sentence( {key: this.sentences.length} );
+        }
       }
   }); 
 }
 
-passageSchema.methods.populateBlanks = function ( sentences = this.sentences, blankrate = 8 ) { // blankrate is the ratio of words/blanks to generate
+// blankCap is the ratio of words/blanks to generate, hardcoded for now
+passageSchema.methods.populateBlanks = function ( sentences = this.sentences, blankCap = 6 ) {
   this.blankedSentences = sentences.map ( sentence => {
-      // if (sentence.length > blankRate) {
-      //     TODO: separate alogorithm for longer sentences? can probably consolidate in the future
-      // }
-
       let blankCount = 0;
       sentence.words.forEach( word => {
         // avoiding duplicate blank words
-        if (sentence.words.findIndex( w => w.text === word.text ) === word.key) {
+        if (blankCount < blankCap && sentence.words.findIndex( w => w.text === word.text ) === word.key) {
           if (word.checkPosSetBlank([/vb$/i, /nn/i, /vbn$/i])) { // note that this is a mutative method called on each word
             blankCount++;
           }
@@ -152,6 +153,8 @@ passageSchema.methods.populateBlanks = function ( sentences = this.sentences, bl
 
       return sentence;
   });
+
+  //
 
   return this.blankedSentences;
 }
