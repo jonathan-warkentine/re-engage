@@ -7,7 +7,12 @@ import '../../styles/Footer.css'
 
 const Footer = () => {
   return (
-      <Container className="footer">
+      <Container className="footer" css={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
         <Spacer y={2} />
         <Text h4 css={{
           textGradient: "45deg, $blue600 -20%, $red600 50%",
