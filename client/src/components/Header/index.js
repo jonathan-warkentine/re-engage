@@ -20,7 +20,11 @@ const Header = () => {
           </Link>
           <h4>Slow down... Engage with what you read.</h4>
         </div>
-        <div className="nav-buttons">
+        <div className="nav-buttons" style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems:"flex-end",
+        }}>
           {Auth.loggedIn() ? (
            <Button.Group color="gradient">
             <Button onClick={logout} auto ghost >Logout</Button>

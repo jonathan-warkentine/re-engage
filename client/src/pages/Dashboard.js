@@ -180,7 +180,15 @@ function Dashboard(props) {
   if (data) {
     return (
       <Container className="dashboard-container">               
-        <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
+        <h2
+        style={{ 
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "10px",
+        }}
+        >
+          {data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
         <Spacer y={2} />
         <Collapse className="current-engagements-box"
          bordered expanded title="Currently Reading" css={{
