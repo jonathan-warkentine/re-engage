@@ -6,7 +6,15 @@ import {
   Textarea,
   Button,
   Grid,
+  Tooltip,
+  Spacer
 } from "@nextui-org/react";
+import {IconButton} from "../../components/Icons/IconButton";
+// import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
+import {CopyIcon} from "../../components/Icons/CopyIcon";
+import "../../styles/Dashboard.css"
+import ClipboardJS from "clipboard";
+
 import { searchAllChapters, searchAllBooks, searchChapter, searchVerse } from "../../utils/bibleApi";
 
 
@@ -16,6 +24,9 @@ var chapter = '';
 var verse = "";
 
 const BibleApp = () => {
+
+  new ClipboardJS(".copy-button");
+
   const [holyBible, setHolyBible] = useState([]);
 
   const handleVersionClick = async (event) => {
@@ -230,26 +241,34 @@ const BibleApp = () => {
             </Collapse>
           </Collapse.Group>
         </Grid>
-        <Grid xs={12}>
-          <Textarea
-          bordered
-          color="secondary"
-          label="Your selected chapter/verse will appear here"
-          initialValue={holyBible.map(function({verse}) {
-            return(
-              verse+' '
-            )}
-          ).join('')
-          }
-          
-          maxRows={17}
-          css={{
-          width: '100%',
-          height: '100%',
-          }}
-          />
-        </Grid>
       </Grid.Container>
+      <Container>
+        <Spacer y={1} />
+        <div className="submit-title-and-paste-button">
+          <Text h3 color="secondary">Your Selected Scripture ... </Text>
+          <Tooltip color="secondary" content="COPY to your clipboard">
+            <IconButton className="copy-button" data-clipboard-action="copy" data-clipboard-target="#bible-body" onClick={() => console.log("COPY button pressed")}>
+              <CopyIcon size={26} fill="#962bc4" />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <Textarea
+        bordered
+        color="secondary"
+        initialValue={holyBible.map(function({verse}) {
+          return(
+            verse+' '
+          )}
+        ).join('')
+        }
+        id="bible-body"
+        maxRows={17}
+        css={{
+        width: '100%',
+        height: '100%',
+        }}
+        />
+      </Container>
     </Collapse>
   )
 }

@@ -19,6 +19,7 @@ import {EditIcon} from "../components/Icons/EditIcon";
 import {DeleteIcon} from "../components/Icons/DeleteIcon";
 import {ResumeIcon} from "../components/Icons/ResumeIcon";
 import {AddIcon} from "../components/Icons/AddIcon";
+import {RemoveIcon} from "../components/Icons/RemoveIcon";
 import "../styles/Dashboard.css";
 import {useQuery} from "@apollo/client";
 import {QUERY_ME} from "../utils/queries";
@@ -169,7 +170,7 @@ function Dashboard(props) {
   };
   // MODAL FUNCTIONS ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
 
-  const {loading, data, refetch} = useQuery(QUERY_ME, {
+  const { loading, qMeErr, data, refetch } = useQuery(QUERY_ME, {
     fetchPolicy: 'network-only'
   });
 
@@ -177,7 +178,6 @@ function Dashboard(props) {
     return <p>Loading...</p>;
   }
   if (data) {
-    refetch();
     return (
       <Container className="dashboard-container">               
         <h2>{data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
@@ -237,7 +237,7 @@ function Dashboard(props) {
                       </IconButton>
                     </Tooltip>
                     <Tooltip
-                      color="error"
+                      color="warning"
                       content="Remove from Current Readings"
                     >
                       <IconButton
@@ -247,7 +247,7 @@ function Dashboard(props) {
                           handlerToShowRemoveModal();
                         }}
                       >
-                        <DeleteIcon size={20} fill="#ff0080" />
+                        <RemoveIcon size={20} fill="#ff9900" />
                       </IconButton>
                     </Tooltip>
                     <Tooltip color="success" content="RESUME passage">
@@ -283,27 +283,12 @@ function Dashboard(props) {
           >
             <Table.Header>
               <Table.Column width={6}>TITLE</Table.Column>
-              <Table.Column width={3}>PROGRESS</Table.Column>
               <Table.Column width={3}>ACTIONS</Table.Column>
             </Table.Header>
             <Table.Body>
               {data.me.passages?.map((passage) => (
                 <Table.Row key={passage.title}>
                   <Table.Cell>{passage.title}</Table.Cell>
-                  <Table.Cell>
-                    <Grid>
-                      <Progress
-                        color="primary"
-                        value={
-                          (data.me.sessions?.find(
-                            (session) => session.passage._id === passage._id
-                          )?.resumeAt /
-                            passage.sentences?.length) *
-                            100 || 0
-                        }
-                      />
-                    </Grid>
-                  </Table.Cell>
                   <Table.Cell>
                     <Tooltip color="primary" content="SHOW passage preview">
                       <IconButton
@@ -387,7 +372,7 @@ function Dashboard(props) {
             <Text>{targetPassage.fullText}</Text>
           </Modal.Body>
           <Modal.Footer>
-            <Button auto color="success" onClick={handlerToPreviewModalAddBtn}>
+            <Button auto color="secondary" onClick={handlerToPreviewModalAddBtn}>
               Back to My Dashboard
             </Button>
           </Modal.Footer>
@@ -528,7 +513,7 @@ function Dashboard(props) {
             >
               Nevermind, Go Back
             </Button>
-            <Button auto color="success" onClick={handlerToAddModalConfirmBtn}>
+            <Button auto color="primary" onClick={handlerToAddModalConfirmBtn}>
               Yes, ADD it!
             </Button>
           </Modal.Footer>

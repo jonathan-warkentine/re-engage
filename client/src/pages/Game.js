@@ -1,17 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col } from '@nextui-org/react';
+import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col, Modal } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Bucket.css';
 import blueleather from '../images/blueleather.jpg';
+import {ReloadIcon} from "../components/Icons/ReloadIcon";
+import {CloseIcon} from "../components/Icons/CloseIcon";
+import {MenuIcon} from "../components/Icons/MenuIcon";
 
 import { shuffleArray } from '../utils/utils';
 import { GET_SESSION } from "../utils/queries";
 import { INC_RESUME_AT } from '../utils/mutations';
 
 function Game () { 
+
+  // END OF GAME MODAL
+  const [showEndOfGameModal, setShowEndOfGameModal] = useState(false);
+  const handlerToShowEndOfGameModal = (session) => {
+    setShowEndOfGameModal(true);
+  };
+  const handlerToHideEndOfGameModal = () => setShowEndOfGameModal(false);
+  const handlerToEndOfGameModalCloseBtn = () => {
+    handlerToHideEndOfGameModal();
+  };
+  const handlerToEndOfGameModalReloadBtn = async (event) => {
+    event.preventDefault();
+    handlerToHideEndOfGameModal();
+    // LOGIC TO RELOAD FROM BEGINNING OF THIS PASSAGE
+  };
+  const handlerToEndOfGameModalMenuBtn = async (event) => {
+    event.preventDefault();
+    handlerToHideEndOfGameModal();
+    window.location.replace("/dashboard");
+  };
+
 
   const { sessionId } = useParams();
   const [ sentence, setSentence ] = useState();
@@ -114,6 +138,7 @@ function Game () {
       
                 <Row>
                   <Col>
+                    {/* Here is where we should trigger "showEndOfGameModal" */}
                     <h5 color="#000" size={12}>{words.filter(word => !word.display).length ? "Select the correct word." : "Great job!" }</h5>
                     <Row justify="space-around" id="word-list">
                       <Grid.Container justify="start">
@@ -166,6 +191,43 @@ function Game () {
             </Card.Footer>
           </Card>
           </Container>
+
+        {/* Modal to CONFIRM */}
+        <Modal
+          id="confirm-add-modal"
+          closeButton
+          aria-labelledby="confirm-add-modal"
+          open={showEndOfGameModal}
+          onClose={handlerToHideEndOfGameModal}
+        >
+          <Modal.Header>
+            <Text h2>Congratulations!</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Text h3>You finished this passage!!</Text>
+            <Text h4>What would you like to do?</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Col>
+              <Button
+                icon={<CloseIcon fill="currentColor" filled />}
+                auto
+                flat
+                color="secondary"
+                onClick={handlerToEndOfGameModalCloseBtn}
+              >
+                Close this Message
+              </Button>
+              <Button icon={<ReloadIcon fill="currentColor" filled />} auto color="success" onClick={handlerToEndOfGameModalReloadBtn}>
+                Reload this Passage
+              </Button>
+              <Button icon={<MenuIcon fill="currentColor" filled />} auto color="primary" onClick={handlerToEndOfGameModalMenuBtn}>
+                Go Back to Dashboard
+              </Button>
+            </Col>
+          </Modal.Footer>
+        </Modal>
+
         </Container>
       )  
     } else {

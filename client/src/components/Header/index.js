@@ -29,8 +29,6 @@ const Header = () => {
             <Button.Group color="gradient">
               <Button auto ghost as={Link} to='/login'>Login</Button>
               <Button auto ghost as={Link} to='/signup'>Signup</Button>
-              <Button auto ghost as={Link} to='/bucket'>Bucket</Button>
-              <Button auto ghost as={Link} to='/dashboard'>Dashboard</Button>
             </Button.Group>
           )}
         </div>
