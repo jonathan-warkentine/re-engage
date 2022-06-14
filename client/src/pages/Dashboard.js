@@ -400,7 +400,7 @@ function Dashboard(props) {
               maxRows={2}
               bordered
               onChange={handleChange}
-              color="success"
+              color="warning"
             ></Textarea>
             <Textarea
               name="passageBody"
@@ -410,7 +410,7 @@ function Dashboard(props) {
               maxRows={15}
               bordered
               onChange={handleChange}
-              color="success"
+              color="warning"
             ></Textarea>
           </Modal.Body>
           <Modal.Footer>
