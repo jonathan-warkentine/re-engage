@@ -21,9 +21,7 @@ const Header = () => {
           <h4>Slow down... Engage with what you read.</h4>
         </div>
         <div className="nav-buttons" style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems:"flex-end",
+            textAlign: "end",
         }}>
           {Auth.loggedIn() ? (
            <Button.Group color="gradient">
