@@ -400,7 +400,7 @@ function Dashboard(props) {
               maxRows={2}
               bordered
               onChange={handleChange}
-              color="success"
+              color="warning"
             ></Textarea>
             <Textarea
               name="passageBody"
@@ -410,7 +410,7 @@ function Dashboard(props) {
               maxRows={15}
               bordered
               onChange={handleChange}
-              color="success"
+              color="warning"
             ></Textarea>
           </Modal.Body>
           <Modal.Footer>
@@ -482,7 +482,7 @@ function Dashboard(props) {
             >
               Nevermind, Go Back
             </Button>
-            <Button auto color="error" onClick={handlerToRemoveModalConfirmBtn}>
+            <Button auto color="warning" onClick={handlerToRemoveModalConfirmBtn}>
               Yes, Confirm REMOVAL!
             </Button>
           </Modal.Footer>

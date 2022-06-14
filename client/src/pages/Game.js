@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col, Modal } from '@nextui-org/react';
+import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col, Modal} from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Bucket.css';
@@ -199,28 +199,22 @@ function Game () {
 
         {/* Modal to CONFIRM */}
         <Modal
-          id="confirm-add-modal"
+          id="end-of-game-modal"
           closeButton
-          aria-labelledby="confirm-add-modal"
+          aria-labelledby="end-of-game-modal"
           open={showEndOfGameModal}
           onClose={handlerToHideEndOfGameModal}
         >
           <Modal.Header>
-            <Text h2>Congratulations!</Text>
+            <Text h3>Congratulations!</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text h3>You finished this passage!!</Text>
-            <Text h4>What would you like to do?</Text>
+            <Text h4>You finished this passage!!</Text>
+            <Text h5>What would you like to do?</Text>
           </Modal.Body>
           <Modal.Footer>
             <Col>
-              <Button
-                icon={<CloseIcon fill="currentColor" filled />}
-                auto
-                flat
-                color="secondary"
-                onClick={handlerToEndOfGameModalCloseBtn}
-              >
+              <Button icon={<CloseIcon filled/>} auto color="secondary" onClick={handlerToEndOfGameModalCloseBtn} >
                 Close this Message
               </Button>
               <Button icon={<ReloadIcon fill="currentColor" filled />} auto color="success" onClick={handlerToEndOfGameModalReloadBtn}>
@@ -236,7 +230,7 @@ function Game () {
         </Container>
       )  
     } else {
-      return <h3>Loading...</h3>
+      return <Container><h3>Loading...</h3></Container>
     }
   } 
 };

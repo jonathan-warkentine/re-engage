@@ -57,8 +57,8 @@ const PassageForm = (props) => {
   return (
     <Container  className="submit-box">
       <div className="submit-title-and-paste-button">
-        <h3>Submit New Passage ... </h3>
-        <Tooltip color="primary" content="PASTE from your clipboard">
+        <h3>Submit New Passage . . . . </h3>
+        <Tooltip color="success" content="PASTE from your clipboard">
           <IconButton onClick={pasteFromClipboard}>
             <ClipboardIcon size={26} fill="#00cc00" />
           </IconButton>

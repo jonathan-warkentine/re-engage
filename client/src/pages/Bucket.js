@@ -2,16 +2,11 @@ import React, {useState} from "react";
 import {
   Container,
   Text,
-  Textarea,
   Button,
   Table,
   Tooltip,
   Spacer,
-  Card,
-  Dropdown,
-  Row,
   Modal,
-  useModal,
 } from "@nextui-org/react";
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES, QUERY_ME} from "../utils/queries";
@@ -201,7 +196,7 @@ function Bucket(props) {
           >
             Nevermind, Go Back
           </Button>
-          <Button auto color="success" onClick={handlerToAddModalConfirmBtn}>
+          <Button auto color="primary" onClick={handlerToAddModalConfirmBtn}>
             Yes, ADD it!
           </Button>
         </Modal.Footer>
