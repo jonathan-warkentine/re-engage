@@ -64,11 +64,6 @@ function LandingPage() {
         </Col>
         <Col>
           <Row justify="flex-end">
-            <Button flat auto rounded css={{ color: "#94f9f0", bg: "#94f9f026" }}>
-              <Text css={{ color: "inherit" }} size={12} weight="bold" transform="uppercase" >
-                PLACEHOLDER BUTTON
-              </Text>
-            </Button>
           </Row>
         </Col>
       </Row>
