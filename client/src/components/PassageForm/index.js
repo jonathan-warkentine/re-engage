@@ -44,9 +44,12 @@ const PassageForm = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
+    if (!passageText.passageBody || !passageText.passageTitle) {
+      return;
+    }
     // On form submit, perform mutation and pass in form data object as arguments
     // It is important that the object fields are match the defined parameters in `ADD_THOUGHT` mutation
+    handlerToShowLoadingModal();
     try {
       const {data} = await addPassage({
         variables: {
@@ -58,6 +61,7 @@ const PassageForm = (props) => {
     } catch (err) {
       console.error(err);
     }
+    handlerToCloseLoadingModal();
     setPassageText({passageBody: "", passageTitle: ""});
     props.refetch();  
   };
@@ -118,8 +122,8 @@ const PassageForm = (props) => {
               <Spacer y={2} />
               <Loading size="xl" type="points-opacity"></Loading>
               <Spacer y={1} />
-              <Row justify="center"><Text h4>Loading</Text></Row>
-              <Row justify="center"><Text h4>Natural Language Processing (NLP)</Text></Row>
+              <Row justify="center"><Text h3>Loading</Text></Row>
+              <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
               <Spacer y={2} />
             </Col>
           </Container>
