@@ -44,7 +44,9 @@ const PassageForm = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
+    if (!passageText.passageBody && !passageText.passageTitle) {
+      return;
+    }
     // On form submit, perform mutation and pass in form data object as arguments
     // It is important that the object fields are match the defined parameters in `ADD_THOUGHT` mutation
     try {
