@@ -31,12 +31,27 @@ const PassageForm = (props) => {
     console.log("closed loading modal")
   };
 
-  const [loadingProgress, setLoadingProgress] = useState(1);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
-  function fillUpProgressMeter() {
-    for (let i=1; i < 99; i++) {
-      setInterval(setLoadingProgress(i), 1000);
+  /* function fillUpProgressMeter() {
+    for (let i=0; i < 99; i++) {
+      setLoadingProgress(i);
+      console.log(i);
+      setInterval(500);
     };
+  }; */
+
+  function fillUpProgressMeter() {let i = 0;
+    do {
+      task(i);
+      i++;
+    } while (i < 99);
+    function task(i) {
+      setTimeout(function() {
+        setLoadingProgress(i)
+        console.log(i)
+      }, 77 * i);
+    }
   };
 
   // MODAL FOR LOADING ... FUNCTIONS ^  ^  ^  ^  ^  ^  ^ 
