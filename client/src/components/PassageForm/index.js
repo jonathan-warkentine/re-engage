@@ -33,15 +33,8 @@ const PassageForm = (props) => {
 
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  /* function fillUpProgressMeter() {
-    for (let i=0; i < 99; i++) {
-      setLoadingProgress(i);
-      console.log(i);
-      setInterval(500);
-    };
-  }; */
-
-  function fillUpProgressMeter() {let i = 0;
+  function fillUpProgressMeter() {
+    let i = 0;
     do {
       task(i);
       i++;
