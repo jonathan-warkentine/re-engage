@@ -5,7 +5,7 @@ import {
   Button,
   Tooltip,
   Spacer,
-  Loading,
+  Progress,
   Modal,
   Text,
   Col,
@@ -25,11 +25,28 @@ const PassageForm = (props) => {
   const handlerToShowLoadingModal = () => {
     setShowLoadingModal(true);
     console.log("opened loading modal")
-  }
+  };
   const handlerToCloseLoadingModal = () => {
     setShowLoadingModal(false);
     console.log("closed loading modal")
-  }
+  };
+
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  function fillUpProgressMeter() {
+    let i = 0;
+    do {
+      task(i);
+      i++;
+    } while (i < 99);
+    function task(i) {
+      setTimeout(function() {
+        setLoadingProgress(i)
+        console.log(i)
+      }, 77 * i);
+    }
+  };
+
   // MODAL FOR LOADING ... FUNCTIONS ^  ^  ^  ^  ^  ^  ^ 
 
   
@@ -112,15 +129,19 @@ const PassageForm = (props) => {
         placeholder="You can type or paste-in your passage text here."
       ></Textarea>
       <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
+      <Button ghost onClick={handlerToShowLoadingModal} color="success">TEST SHOW MODAL</Button>
 
 
       {/* MODAL FOR LOADING \/  \/  \/  \/  \/  */}
-      <Modal noPadding open={showLoadingModal} onClose={handlerToCloseLoadingModal} close={handlerToCloseLoadingModal}>
+      <Modal noPadding open={showLoadingModal} onOpen={fillUpProgressMeter} onClose={handlerToCloseLoadingModal}>
         <Modal.Body>
           <Container>
             <Col css={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
               <Spacer y={2} />
-              <Loading size="xl" type="points-opacity"></Loading>
+              {/* <Loading size="xl" type="points-opacity"></Loading> */}
+              <Progress indeterminated striped color="primary" />
+              <Spacer y={1} />
+              <Progress value={loadingProgress} color="success" />
               <Spacer y={1} />
               <Row justify="center"><Text h3>Loading</Text></Row>
               <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
@@ -134,5 +155,6 @@ const PassageForm = (props) => {
     </Container>
   );
 };
+
 
 export default PassageForm;
