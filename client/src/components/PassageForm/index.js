@@ -5,7 +5,7 @@ import {
   Button,
   Tooltip,
   Spacer,
-  Progress,
+  Loading,
   Modal,
   Text,
   Col,
@@ -29,22 +29,6 @@ const PassageForm = (props) => {
   const handlerToCloseLoadingModal = () => {
     setShowLoadingModal(false);
     console.log("closed loading modal")
-  };
-
-  const [loadingProgress, setLoadingProgress] = useState(0);
-
-  function fillUpProgressMeter() {
-    let i = 0;
-    do {
-      task(i);
-      i++;
-    } while (i < 99);
-    function task(i) {
-      setTimeout(function() {
-        setLoadingProgress(i)
-        console.log(i)
-      }, 77 * i);
-    }
   };
 
   // MODAL FOR LOADING ... FUNCTIONS ^  ^  ^  ^  ^  ^  ^ 
@@ -129,22 +113,19 @@ const PassageForm = (props) => {
         placeholder="You can type or paste-in your passage text here."
       ></Textarea>
       <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
-      <Button ghost onClick={handlerToShowLoadingModal} color="success">TEST SHOW MODAL</Button>
 
 
       {/* MODAL FOR LOADING \/  \/  \/  \/  \/  */}
-      <Modal noPadding open={showLoadingModal} onOpen={fillUpProgressMeter} onClose={handlerToCloseLoadingModal}>
+      <Modal noPadding open={showLoadingModal} onClose={handlerToCloseLoadingModal} close={handlerToCloseLoadingModal}>
         <Modal.Body>
           <Container>
             <Col css={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
               <Spacer y={2} />
-              {/* <Loading size="xl" type="points-opacity"></Loading> */}
-              <Progress indeterminated striped color="primary" />
-              <Spacer y={1} />
-              <Progress value={loadingProgress} color="success" />
+              <Loading size="xl" type="points-opacity"></Loading>
               <Spacer y={1} />
               <Row justify="center"><Text h3>Loading</Text></Row>
-              <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
+              <Row justify="center"><Text h4>Using Natural Language Processing (NLP)</Text></Row>
+              <Row justify="center"><Text h4>to Process Your Passage!</Text></Row>
               <Spacer y={2} />
             </Col>
           </Container>
