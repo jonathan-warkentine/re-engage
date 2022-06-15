@@ -108,8 +108,6 @@ const PassageForm = (props) => {
         placeholder="You can type or paste-in your passage text here."
       ></Textarea>
       <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
-      <Button ghost onClick={handlerToShowLoadingModal} color="error">Show Modal</Button>
-      <Button ghost onClick={handlerToCloseLoadingModal} color="error">Hide Modal</Button>
 
 
       {/* MODAL FOR LOADING \/  \/  \/  \/  \/  */}
