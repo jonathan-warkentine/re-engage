@@ -3,7 +3,7 @@
 ## User Story
 AS A a person who needs to study or memorize important information
 I WANT an app that will take what I need to study or memorize and help me engage more with it
-SO THAT I can more easily study or memorize my information. 
+SO THAT I can more easily egage with that information. 
 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -24,8 +24,8 @@ SO THAT I can more easily study or memorize my information.
 ## Description 
 
 - **What was your motivation?** To work together as a team and build an app that would help a user engage more with whatever text they would like.
-- **Why did you build this project?** We wanted an app that could help ourselves and others with studies, scripture memory or even preparing for speaches.
-- **What problem does it solve?** This app helps alleviate some of the stress when trying to focus when studying, preparing for speaches, and  memorizing text like the Bible.
+- **Why did you build this project?** We wanted an app that could help ourselves and others with studies, scripture memory or even preparing for speeches.
+- **What problem does it solve?** This app helps alleviate some of the stress when trying to focus when studying, preparing for speeches, and  memorizing text like the Bible.
 - **What did you learn?** We learned a lot about react, API calls, MongoDb, typeDefs, resolvers and nextUI.
 
 ## Installation
