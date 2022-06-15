@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { Container, Text, Button, Progress, Grid, Spacer, Card, Row, Col, Modal} from '@nextui-org/react';

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Text, Card, Col, Row, Button, Modal } from '@nextui-org/react';
+import { Container, Text, Card, Col, Row } from '@nextui-org/react';
 import ladyreading from '../images/ladyreading2.jpg';
 import ribbon from '../images/blueribbon.png';
 
