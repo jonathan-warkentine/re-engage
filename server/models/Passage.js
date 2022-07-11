@@ -5,7 +5,7 @@ const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
 // TODO: these keys ought to be in the production env
-const nlpCloudClientKeys = ['4dbf7d91e72a84f9e3eeeabdf829985539a05fd0', '705328ce2b8ac92c31e908614fa59b7617252186', 'a39ae8cb0d7f77edb6a8526e89903061f9b1dd55', '14daf68bfe3bb4bbd65d68a0cb1d3a5551d2102e', 'b42c9a770431d29d8076a3b77adf8ec31aa1b241', '7204417aa5fe85f72c9050d25f2a96760bf2647a'];
+const nlpCloudClientKeys = ['94380b51d547b613bef267fc56a6ac7d00f4876a', 'da354f1adba92c126ec954b10cb077bb20d6b29e', 'ab431e15baa7a4ea0c77f9e2a5d2fdb34e1b9132', 'dc9f3c11c838f69b551a4750276e36a7c36faf05', '1535129eca1071cc9b990de9d69f18ba0cdfe07d', 'fd2c4c1380edac2fb88521c0febb7aa3e95ee457'];
 const nlpCloudClients = {
   indexTracker: 0,
 
