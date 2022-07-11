@@ -1,13 +1,5 @@
 # Re-Engage
 
-## User Story
-AS A a person who needs to study or memorize important information
-<br>
-I WANT an app that will take what I need to study or memorize and help me engage more with it
-<br>
-SO THAT I can more easily spend time with information that matters to me without losing focus. 
-
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <br>
 
