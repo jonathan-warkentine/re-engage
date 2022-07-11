@@ -4,7 +4,6 @@
 <br>
 
 ## Table of contents
-* [User Story](#user-story)
 * [Description](#description)
 * [Installation](#installation)
 * [Live URL](#live-url)
