@@ -1,7 +1,6 @@
 # Re-Engage
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-<br>
+## 👉 [This application is live!](https://re-engage.herokuapp.com/)
 
 ## Table of contents
 * [Description](#description)
@@ -23,12 +22,12 @@
 
 ## Installation
 
-Simply visit the site listed below or if you are cloning to your own machine follow the proceeding steps:
+The app is available live via [the link above](https://re-engage.herokuapp.com/)
 1. After cloning to your machine, open terminal and run `npm i`.
 2. Then to run in develop mode enter `npm run develop` or to simply start the application, `npm start`.
 
 ## Live URL
-https://warm-gorge-10209.herokuapp.com/
+[https://re-engage.herokuapp.com/](https://re-engage.herokuapp.com/)
 
 ## Usage
 
@@ -41,10 +40,8 @@ https://warm-gorge-10209.herokuapp.com/
 ![image](https://user-images.githubusercontent.com/95650769/173675642-713a67b3-768d-4a90-b3cf-af0c37ed4d9a.png)
 
 
-## Technologies Used
-
 ## Credits
-Mitch Watchel, Johnny Warkentine, Patrick Ham, and Ross McWey (WWHaM!)
+Mitch **W**atchel, Johnny **W**arkentine, Patrick **Ha**m, and Ross **M**cWey (WWHaM!)
 
 
 ## Questions
@@ -82,6 +79,3 @@ Please refer to this link for the GNU General Public Licences http://www.gnu.org
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>
-
-    
-
