@@ -4,6 +4,7 @@ const { wordSchema, Word } = require('./Word');
 const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
+console.log(process.env.nlpCloudClientKeys.split(','));
 const nlpCloudClients = {
   indexTracker: 0,
 
