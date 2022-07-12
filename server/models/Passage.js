@@ -4,8 +4,7 @@ const { wordSchema, Word } = require('./Word');
 const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
-// TODO: these keys ought to be in the production env
-const nlpCloudClientKeys = ['94380b51d547b613bef267fc56a6ac7d00f4876a', 'da354f1adba92c126ec954b10cb077bb20d6b29e', 'ab431e15baa7a4ea0c77f9e2a5d2fdb34e1b9132', 'dc9f3c11c838f69b551a4750276e36a7c36faf05', '1535129eca1071cc9b990de9d69f18ba0cdfe07d', 'fd2c4c1380edac2fb88521c0febb7aa3e95ee457'];
+ 
 const nlpCloudClients = {
   indexTracker: 0,
 
@@ -19,7 +18,8 @@ const nlpCloudClients = {
       return this.indexTracker;
   },
 
-  clients: nlpCloudClientKeys.map( key => new NLPCloudClient('en_core_web_lg', key) ),
+  // API private keys stored in deployment env
+  clients: process.env.nlpCloudClientKeys.map( key => new NLPCloudClient('en_core_web_lg', key) ),
 }; 
 
 const wait = require('../utils/misc');
