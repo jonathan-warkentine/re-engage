@@ -18,7 +18,8 @@ const nlpCloudClients = {
   },
 
   // API private keys stored in deployment env
-  clients: process.env.nlpCloudClientKeys.map( key => new NLPCloudClient('en_core_web_lg', key) ),
+  keys: process.env.nlpCloudClientKeys,
+  clients: this.keys.map( key => new NLPCloudClient('en_core_web_lg', key) ),
 }; 
 
 const wait = require('../utils/misc');
