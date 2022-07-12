@@ -4,11 +4,10 @@ const { wordSchema, Word } = require('./Word');
 const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
-console.log(process.env.nlpCloudClientKeys.split(','));
-const nlpCloudClients = {
-  indexTracker: 0,
+const nlpCloudClients = new function () {
+  this.indexTracker = 0;
 
-  cycleClient() {
+  this.cycleClient = function() {
       if (this.indexTracker==this.clients.length-1) {
           this.indexTracker = 0;
       }
@@ -16,10 +15,11 @@ const nlpCloudClients = {
           this.indexTracker++;
       }
       return this.indexTracker;
-  },
+  };
 
   // API private keys stored in deployment env
-  clients: process.env.nlpCloudClientKeys.split(',').map( key => new NLPCloudClient('en_core_web_lg', key) ),
+  this.keys = process.env.nlpCloudClientKeys.split(',');
+  this.clients = this.keys.map( key => new NLPCloudClient('en_core_web_lg', key) );
 }; 
 
 const wait = require('../utils/misc');
@@ -81,7 +81,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
 
   //for each sentence grouping, analyze NLP
   const nlpPromises = joinedGroupings.map( async grouping => {
-      wait(1000); // giving the server time to breath to avoid 429 response
+      wait(500); // giving the server time to breath to avoid 429 response
       try {
           const response = await nlpCloudClients.clients[nlpCloudClients.cycleClient()].dependencies( grouping );
           return response.data.words;
