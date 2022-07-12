@@ -63,7 +63,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
   const nlpPromises = joinedGroupings.map( async grouping => {
       wait(500); // giving the server time to breath to avoid 429 response
       try {
-          const response = await nlpCloudClients.clients[nlpCloudClients.cycleClient()].dependencies( grouping );
+          const response = await nlpCloudClients.fetchClient().dependencies( grouping );
           return response.data.words;
 
         } catch (error) {
@@ -80,7 +80,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
       await wait(delay);
 
       try {
-          const response = await nlpCloudClients.clients[nlpCloudClients.cycleClient()].dependencies( text );
+          const response = await nlpCloudClients.fetchClient().dependencies( text );
           return response.data.words;
       } catch (error) {
           // console.error(error);
