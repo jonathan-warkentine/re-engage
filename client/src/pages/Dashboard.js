@@ -175,21 +175,18 @@ function Dashboard(props) {
   });
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Text align="center">Loading...</Text>;
   }
   if (data) {
     return (
-      <Container className="dashboard-container">               
-        <h2
-        style={{ 
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "10px",
-        }}
-        >
-          {data.me.name.toUpperCase()} - Welcome to your Dashboard!</h2>
-        <Spacer y={2} />
+      <Container className="dashboard-container">    
+        <Spacer></Spacer>           
+        <Spacer></Spacer>           
+
+        <Text h3 align="center">
+          What Will You Engage with Next, {data.me.name.split('').map((char, i) => i? char: char.toUpperCase()).join('')}?
+        </Text>
+        <Spacer/>
         <Collapse className="current-engagements-box"
          bordered expanded title="Currently Reading" css={{
           maxWidth:'100%',

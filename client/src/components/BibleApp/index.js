@@ -18,20 +18,18 @@ import ClipboardJS from "clipboard";
 import { searchAllChapters, searchAllBooks, searchChapter, searchVerse } from "../../utils/bibleApi";
 
 
-var version = '?translation=KJV';
-var book = '';
-var chapter = '';
-var verse = "";
-
 const BibleApp = () => {
-
   new ClipboardJS(".copy-button");
+
+  const [version, setVersion] = useState('?translation=KJV');
+  const [book, setBook] = useState('');
+  const [chapter, setChapter] = useState('');
+  const [verse, setVerse] = useState('');
 
   const [holyBible, setHolyBible] = useState([]);
 
   const handleVersionClick = async (event) => {
-    event.preventDefault();
-    version = event.target.closest('button').value;
+    setVersion(event.target.closest('button').value);
   };
 
   const [allBooks, setAllBooks] = useState([]);
@@ -40,28 +38,28 @@ const BibleApp = () => {
     setAllBooks(response)
   };
 
-  const [chapters, setChapters] = useState([]);
+  const [allChapters, setAllChapters] = useState([]);
   const handleBookClick = async (event) => {
     event.preventDefault();
-    book = event.target.closest('button').value
-    const response2 = await searchAllChapters(book);
-    setChapters(response2);
+    const response2 = await searchAllChapters(event.target.closest('button').value);
+    setBook(event.target.closest('button').value);
+    setAllChapters(response2);
   };
 
-  const [singleChapters, setSingleChapter] = useState([]);
+  const [allVerses, setAllVerses] = useState([]);
   const handleChpClick = async (event) => {
     event.preventDefault();
-    chapter = event.target.closest('button').value;
-    const response3 = await searchChapter(book, chapter, version);
-    setSingleChapter(response3);
-    setHolyBible(response3)
+    const response3 = await searchChapter(book, event.target.closest('button').value, version);
+    setChapter(event.target.closest('button').value);
+    setAllVerses(response3);
+    setHolyBible(response3);
   };
 
   
   const handleVerseClick = async (event) => {
     event.preventDefault();
-    verse = event.target.closest('button').value;
-    const response4 = await searchVerse(book, chapter, verse, version);
+    const response4 = await searchVerse(book, chapter, event.target.closest('button').value, version);
+    setVerse(event.target.closest('button').value);
     setHolyBible([response4])
   };
  
@@ -73,9 +71,9 @@ const BibleApp = () => {
   }, []);
 
   return (  
-    <Collapse className="bible-app" bordered title="Bible" subtitle={
+    <Collapse className="bible-app" bordered title="Import a Bible Passage" subtitle={
       <>
-      <Text b>Welcome to our Bible app!</Text> Click <Text b>Here</Text> to open/close
+     Click <Text b>Here</Text> to open/close
       </>
       }>
       <Grid.Container 
@@ -114,37 +112,38 @@ const BibleApp = () => {
                   width: "100%"
                 }}
                 >
-                <Button css={{
+                  {}
+                <Button bordered={version=="?translation=ASV"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=ASV">American Standard Version ASV</Button>
-                <Button css={{
+                <Button bordered={version=="?translation=BBE"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=BBE">Bible in Basic English BBE</Button>
-                <Button css={{
+                <Button bordered={version=="?translation=ESV"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=ESV">English Standar Version ESV</Button>
-                <Button css={{
+                <Button bordered={version == "?translation=KJV"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=KJV">King James Version KJV</Button>
-                <Button css={{
+                <Button bordered={version == "?translation=NIV"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=NIV">New International Version NIV</Button>
-                <Button css={{
+                <Button bordered={version == "?translation=NLT"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
                   }} onClick={handleVersionClick} value="?translation=NLT">New Living Translation NLT</Button>
-                <Button css={{
+                <Button bordered={version == "?translation=YLT"} css={{
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
@@ -172,6 +171,7 @@ const BibleApp = () => {
                 return(
                   <Button 
                   key={index}
+                  bordered={id == book}
                   css={{
                     height: "auto",
                     width: "25%",
@@ -196,10 +196,11 @@ const BibleApp = () => {
                   width: "100%",
                   // flexWrap:'wrap',
                   // MAP FUNCTION HERE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                }}>{chapters.map(function({id}, index) {
+                }}>{allChapters.map(function({id}, index) {
                 return(
                   <Button 
                   key={index}
+                  bordered={id == chapter}
                   css={{
                     height: "auto",
                     width: "25%",
@@ -226,7 +227,7 @@ const BibleApp = () => {
                 width: "100%",
                 // flexWrap:'wrap',
                 // MAP FUNCTION HERE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-              }}>{singleChapters.map(function({id, verseId}, index) {
+              }}>{allVerses.map(function({id, verseId}, index) {
               return(
                 <Button 
                 key={index}

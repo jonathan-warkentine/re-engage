@@ -61,7 +61,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
 
   //for each sentence grouping, analyze NLP
   const nlpPromises = joinedGroupings.map( async grouping => {
-      wait(500); // giving the server time to breath to avoid 429 response
+      wait(750); // giving the server time to breath to avoid 429 response
       try {
           const response = await nlpCloudClients.fetchClient().dependencies( grouping );
           return response.data.words;
@@ -70,7 +70,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
           // console.error(error.response.headers)
           console.error(error.response.status);
           // console.error(error.response.data.detail);
-          const delayedRes = await trytryAgain(grouping, (2000));
+          const delayedRes = await trytryAgain(grouping, (1250));
           return delayedRes;
         }
   });

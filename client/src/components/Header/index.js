@@ -12,36 +12,32 @@ const Header = () => {
     Auth.logout();
   };
   return (
-    <header>
-      <Container className="header" css={{ display:"flex", marginBottom: "40px" }}>
-        <div className="title-and-subtitle">
-          <Link to="/">
-            <Text h1 css={{ textGradient: "45deg, $pink600 20%, $blue600 100%" }}><FontAwesomeIcon icon={faEye} /><FontAwesomeIcon icon={faBrain} /> Re-Engage</Text>
+    <Container align="center" fluid className="header">
+      <>
+        <Text h1 css={{ textGradient: "45deg, $pink600 20%, $blue600 100%" }}>
+          <Link to="/"><FontAwesomeIcon icon={faEye} />
+            <FontAwesomeIcon icon={faBrain} /> 
+            Re-Engage
           </Link>
-          <h4>Slow down... Engage with what you read.</h4>
-        </div>
-        <div className="nav-buttons" style={{
-            textAlign: "end",
-            display: "flex",
-            flexDirection: "row",
-            alignItems:"center",
-            justifyContent:"flex-end"
-        }}>
-          {Auth.loggedIn() ? (
-           <Button.Group color="gradient">
-            <Button onClick={logout} auto ghost >Logout</Button>
-            <Button auto ghost as={Link} to='/bucket'>Bucket</Button>
-            <Button auto ghost as={Link} to='/dashboard'>Dashboard</Button>
+        </Text>
+        <Text h4>Slow down... Engage with what you read.</Text>
+      </>
+          
+      <Container align="center" >
+        {Auth.loggedIn() ? (
+          <Button.Group color="gradient">
+          <Button onClick={logout} auto ghost >Logout</Button>
+          <Button auto ghost as={Link} to='/bucket'>Others' Passages</Button>
+          <Button auto ghost as={Link} to='/dashboard'>Your Passages</Button>
+        </Button.Group>
+        ) : (
+          <Button.Group color="gradient">
+            <Button auto ghost as={Link} to='/login'>Login</Button>
+            <Button auto ghost as={Link} to='/signup'>Signup</Button>
           </Button.Group>
-          ) : (
-            <Button.Group color="gradient">
-              <Button auto ghost as={Link} to='/login'>Login</Button>
-              <Button auto ghost as={Link} to='/signup'>Signup</Button>
-            </Button.Group>
-          )}
-        </div>
+        )}
       </Container>
-    </header>
+    </Container>
   );
 };
 

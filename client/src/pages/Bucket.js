@@ -66,7 +66,10 @@ function Bucket(props) {
   const {load, data: userObj, refetch} = useQuery(QUERY_ME);
 
   if (loading || load) {
-    return <p>Loading...</p>;
+    return <>
+      <Spacer></Spacer>
+      <Text align="center">Loading...</Text>
+    </>
   }
   const passageArr = passagesObj?.allPassages || [];
   const userSessions = userObj?.me.sessions || [];
@@ -87,7 +90,10 @@ function Bucket(props) {
 
   return (
     <Container className="the-bucket-container">
-      <h2>Available Passages You're Not Already Reading</h2>
+      <Spacer></Spacer>
+      <Spacer></Spacer>
+
+      <Text h2 align="center">Available Passages:</Text>
 
       <Container className="current-engagements-box">
         <Table
@@ -146,7 +152,6 @@ function Bucket(props) {
         </Table>
       </Container>
 
-      <Spacer y={2} />
 
       {/* Modal to DELETE */}
       <Modal

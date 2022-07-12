@@ -7,21 +7,23 @@ import '../../styles/Footer.css'
 
 const Footer = () => {
   return (
-      <Container className="footer" css={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
-        <Spacer y={2} />
-        <Text h4 css={{
-          textGradient: "45deg, $blue600 -20%, $red600 50%",
-        }}
-        weight="bold">&copy; {new Date().getFullYear()} - ReEngage</Text>
-          <Text h5 css={{textGradient: "45deg, $red600 -20%, $yellow600 50%"}} weight="bold">brought to you by WWHAMM!</Text>
-          <Button color="secondary" ghost auto size="xs" as={Link} to="/team" ><FontAwesomeIcon icon={faPeopleGroup} /> ... Meet the Team</Button>
+      <Container fluid display="flex" wrap='wrap' direction="column" justify="center" alignItems = "center" className="footer">
+        <Spacer></Spacer>
+        <Spacer></Spacer>
+        <Spacer></Spacer>
+        <Text align="center">
+          &copy; {new Date().getFullYear()}
+        </Text>
+        <Text align="center" css={{textGradient: "45deg, $red600 -20%, $yellow600 50%"}} weight="bold">
+          Brought to you by WWHaM!
+        </Text>
+        <Button auto size="xs" color="secondary" ghost as={Link} to="/team" >
+          <FontAwesomeIcon icon={faPeopleGroup} /> 
+          ... Meet the Team
+        </Button>
+        <Spacer></Spacer>
       </Container>
-  );
-};
+  )
+}
 
 export default Footer;
