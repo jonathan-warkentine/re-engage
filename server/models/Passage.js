@@ -4,7 +4,6 @@ const { wordSchema, Word } = require('./Word');
 const NLPCloudClient = require('nlpcloud');
 
 // generate cloud client 'buckets'
- 
 const nlpCloudClients = {
   indexTracker: 0,
 
@@ -130,7 +129,7 @@ passageSchema.methods.buildSentences = function ( words = this.words ) {
       // trigger new sentence iteration
       if (word.text.match(/[.!?\\-]/)) {
         // if the sentence or combined sentences pass a length threshold, or we're at the end of our words
-        if (currentSentence.words.length > 25 || index == words.length-1) {
+        if (currentSentence.words.length > 18 || index == words.length-1) {
           // push the completed sentence and start a new sentence
           this.sentences.push(currentSentence);
           currentSentence = new Sentence( {key: this.sentences.length} );
@@ -146,7 +145,7 @@ passageSchema.methods.populateBlanks = function ( sentences = this.sentences, bl
       sentence.words.forEach( word => {
         // avoiding duplicate blank words
         if (blankCount < blankCap && sentence.words.findIndex( w => w.text === word.text ) === word.key) {
-          if (word.checkPosSetBlank([/vb$/i, /nn/i, /vbn$/i])) { // note that this is a mutative method called on each word
+          if (word.checkPosSetBlank([/nn/i, /vbn$/i])) { // note that this is a mutative method called on each word
             blankCount++;
           }
         }
