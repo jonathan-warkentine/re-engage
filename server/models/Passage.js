@@ -1,28 +1,8 @@
 const {Schema, model} = require("mongoose");
 const { sentenceSchema, Sentence } = require("./Sentence");
 const { wordSchema, Word } = require('./Word');
-const NLPCloudClient = require('nlpcloud');
-
-// generate cloud client 'buckets'
-const nlpCloudClients = new function () {
-  this.indexTracker = 0;
-
-  this.cycleClient = function() {
-      if (this.indexTracker==this.clients.length-1) {
-          this.indexTracker = 0;
-      }
-      else {
-          this.indexTracker++;
-      }
-      return this.indexTracker;
-  };
-
-  // API private keys stored in deployment env
-  this.keys = process.env.nlpCloudClientKeys.split(',');
-  this.clients = this.keys.map( key => new NLPCloudClient('en_core_web_lg', key) );
-}; 
-
-const wait = require('../utils/misc');
+const wait = require('../utils/misc'); 
+const nlpCloudClients = require('../config/nlpCloudClients')
 
 const passageSchema = new Schema({
   title: {
@@ -76,7 +56,7 @@ passageSchema.methods.processNLP = async function ( fullText = this.fullText ) {
 
   }, [[]]);
 
-  // combine sentences within a grouping
+  // combine sentences within each grouping
   const joinedGroupings = sentenceGroupings.map(group => group.join(''));
 
   //for each sentence grouping, analyze NLP
