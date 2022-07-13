@@ -42,7 +42,7 @@ const Signup = () => {
 
   return (
     <main>
-      <Container>
+      <Container align='center'>
         <div>
           <h2>Sign Up</h2>
           <div>
