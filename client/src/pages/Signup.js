@@ -42,7 +42,8 @@ const Signup = () => {
 
   return (
     <main>
-      <Container align='center'>
+      <Container align='center' xs>
+        <Spacer y={2}/>
         <div>
           <h2>Sign Up</h2>
           <div>
@@ -53,40 +54,42 @@ const Signup = () => {
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
+                <Container display='flex' direction='column'>
                 <Input
-                  underlined
-                  success
-                  placeholder="Your username"
-                  name="name"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
-                <Input
-                  underlined
-                  secondary
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <Input
-                  underlined
-                  warning
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <Spacer y={1} />
-                <Button
-                  flat
-                  style={{cursor: "pointer"}}
-                  type="submit">
-                  Submit
-                </Button>
+                    underlined
+                    success
+                    placeholder="Your username"
+                    name="name"
+                    type="text"
+                    value={formState.name}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    underlined
+                    secondary
+                    placeholder="Your email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    underlined
+                    warning
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                  <Spacer />
+                  <Button
+                    flat
+                    style={{cursor: "pointer"}}
+                    type="submit">
+                    Submit
+                  </Button>
+                </Container>
               </form>
             )}
 

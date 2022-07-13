@@ -44,7 +44,7 @@ const Login = (props) => {
 
   return (
     <Container align='center' xs>
-      <Spacer></Spacer>
+      <Spacer y={2}/>
       <>
         <>
           <Text h2>Login</Text>
