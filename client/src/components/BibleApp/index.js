@@ -72,16 +72,23 @@ const BibleApp = (props) => {
   };
 
   const [showLoadingModal, setShowLoadingModal] = useState(false); 
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
 
   const handlerToShowLoadingModal = () => {
     setShowLoadingModal(true);
-    console.log("opened loading modal")
   };
 
   const handlerToCloseLoadingModal = () => {
     setShowLoadingModal(false);
-    console.log("closed loading modal")
   };
+
+  const handlerToShowSuccessModal = () => {
+    setShowSuccessModal(true);
+  };
+  const handlerToCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+  };
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -105,6 +112,7 @@ const BibleApp = (props) => {
       console.error(err);
     }
     handlerToCloseLoadingModal();
+    handlerToShowSuccessModal();
     document.querySelector('#bible-body').value = '';
     props.refetch();  
   };
@@ -296,7 +304,6 @@ const BibleApp = (props) => {
           ).join('')
           }
           id="bible-body"
-          maxRows={17}
           css={{
           width: '100%',
           height: '100%',
@@ -305,20 +312,20 @@ const BibleApp = (props) => {
           <Button ghost onClick={handleFormSubmit} color="success">Submit Selected Passage</Button>
       </Collapse>
 
-      <Modal noPadding open={showLoadingModal} onOpen={0} onClose={handlerToCloseLoadingModal}>
+      <Modal open={showLoadingModal} onClose={handlerToCloseLoadingModal}>
         <Modal.Body>
-          <Container>
-            <Col css={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
-              <Spacer y={2} />
-              {/* <Loading size="xl" type="points-opacity"></Loading> */}
-              <Progress indeterminated striped color="primary" />
-              <Spacer y={1} />
-              <Progress value={50} color="success" />
-              <Spacer y={1} />
-              <Row justify="center"><Text h3>Loading</Text></Row>
-              <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
-              <Spacer y={2} />
-            </Col>
+          <Container align='center' justify="center" alignItems="center" alignContent="center" display="flex">
+            <Loading>Using Natural Language Processing (NLP) to Process Your Passage!</Loading>
+          </Container>
+        </Modal.Body>
+      </Modal>
+
+      <Modal open={showSuccessModal} onClose={handlerToCloseSuccessModal}>
+        <Modal.Body>
+          <Container align='center' justify="center" alignItems="center">
+            <Text h2 color="success">Success!</Text>
+            <Text>Find Your New Passage Under "My Submissions" Above!</Text>
+            <Button color={'success'} onClick={handlerToCloseSuccessModal}>Done</Button>
           </Container>
         </Modal.Body>
       </Modal>

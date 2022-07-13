@@ -3,14 +3,11 @@ import {
   Container,
   Textarea,
   Button,
-  Tooltip,
   Spacer,
-  Progress,
   Modal,
-  Text,
-  Col,
-  Row,
-  Collapse
+  Collapse,
+  Loading,
+  Text
 } from "@nextui-org/react";
 import {IconButton} from "../../components/Icons/IconButton";
 import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
@@ -23,29 +20,20 @@ const PassageForm = (props) => {
   
   // MODAL FOR LOADING ... FUNCTIONS   \/  \/  \/  \/  \/  
   const [showLoadingModal, setShowLoadingModal] = useState(false); 
+  const [showSuccessModal, setShowSuccessModal] = useState(false); 
+
   const handlerToShowLoadingModal = () => {
     setShowLoadingModal(true);
-    console.log("opened loading modal")
   };
   const handlerToCloseLoadingModal = () => {
     setShowLoadingModal(false);
-    console.log("closed loading modal")
   };
 
-  const [loadingProgress, setLoadingProgress] = useState(0);
-
-  function fillUpProgressMeter() {
-    let i = 0;
-    do {
-      task(i);
-      i++;
-    } while (i < 99);
-    function task(i) {
-      setTimeout(function() {
-        setLoadingProgress(i)
-        console.log(i)
-      }, 77 * i);
-    }
+  const handlerToShowSuccessModal = () => {
+    setShowSuccessModal(true);
+  };
+  const handlerToCloseSuccessModal = () => {
+    setShowSuccessModal(false);
   };
 
   // MODAL FOR LOADING ... FUNCTIONS ^  ^  ^  ^  ^  ^  ^ 
@@ -80,6 +68,7 @@ const PassageForm = (props) => {
       console.error(err);
     }
     handlerToCloseLoadingModal();
+    handlerToShowSuccessModal();
     setPassageText({passageBody: "", passageTitle: ""});
     props.refetch();  
   };
@@ -121,24 +110,24 @@ const PassageForm = (props) => {
       <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
 
       {/* MODAL FOR LOADING \/  \/  \/  \/  \/  */}
-      <Modal noPadding open={showLoadingModal} onOpen={fillUpProgressMeter} onClose={handlerToCloseLoadingModal}>
+      <Modal open={showLoadingModal} onClose={handlerToCloseLoadingModal}>
         <Modal.Body>
-          <Container>
-            <Col css={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
-              <Spacer y={2} />
-              {/* <Loading size="xl" type="points-opacity"></Loading> */}
-              <Progress indeterminated striped color="primary" />
-              <Spacer y={1} />
-              <Progress value={loadingProgress} color="success" />
-              <Spacer y={1} />
-              <Row justify="center"><Text h3>Loading</Text></Row>
-              <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
-              <Spacer y={2} />
-            </Col>
+          <Container align='center' justify="center" alignItems="center">
+            <Loading>Using Natural Language Processing (NLP) to Process Your Passage!</Loading>
           </Container>
         </Modal.Body>
       </Modal>
       {/* MODAL FOR LOADING ^ ^ ^ ^ ^ ^ ^ ^ ^  */}
+
+      <Modal open={showSuccessModal}>
+        <Modal.Body>
+          <Container align='center' justify="center" alignItems="center">
+            <Text h2 color="success">Success!</Text>
+            <Text>Find Your New Passage Under "My Submissions" Above!</Text>
+            <Button color={'success'} onClick={handlerToCloseSuccessModal}>Done</Button>
+          </Container>
+        </Modal.Body>
+      </Modal>
 
     </Collapse>
   );
