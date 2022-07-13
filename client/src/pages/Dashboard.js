@@ -12,6 +12,7 @@ import {
   Spacer,
   Modal,
   Collapse,
+  Loading,
 } from "@nextui-org/react";
 import {IconButton} from "../components/Icons/IconButton";
 import {EyeIcon} from "../components/Icons/EyeIcon";
@@ -175,7 +176,10 @@ function Dashboard(props) {
   });
 
   if (loading) {
-    return <Text align="center">Loading...</Text>;
+    return <Container align='center'>
+      <Spacer y={3}></Spacer>
+      <Loading />
+    </Container>
   }
   if (data) {
     return (
@@ -349,9 +353,9 @@ function Dashboard(props) {
           </Table>
         </Collapse>
 
-        <Spacer y={2} />                
-        {/*BIBLE APP*/}
-        <BibleApp />
+        <Spacer y={2} />  
+
+        <BibleApp refetch={refetch}/>
 
         <Spacer y={2} />
         <PassageForm refetch={refetch}/>

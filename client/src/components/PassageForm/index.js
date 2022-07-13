@@ -9,7 +9,8 @@ import {
   Modal,
   Text,
   Col,
-  Row
+  Row,
+  Collapse
 } from "@nextui-org/react";
 import {IconButton} from "../../components/Icons/IconButton";
 import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
@@ -88,29 +89,17 @@ const PassageForm = (props) => {
     setPassageText({...passageText, [name]: value});
   };
 
-  function pasteFromClipboard () {
-    console.log("PASTE pressed");
-  }
-
   // ---------- ---------------- ---------------
 
   return (
-    <Container  className="submit-box">
-      <div className="submit-title-and-paste-button">
-        <h3>Submit New Passage . . . . </h3>
-        <Tooltip color="success" content="PASTE from your clipboard">
-          <IconButton onClick={pasteFromClipboard}>
-            <ClipboardIcon size={26} fill="#00cc00" />
-          </IconButton>
-        </Tooltip>
-      </div>
+    <Collapse bordered expanded className="submit-box" title='Submit New Passage . . . .'>
       <Textarea
         name="passageTitle"
+        bordered
         fullWidth="true"
         value={passageText.passageTitle}
         minRows={1}
         maxRows={2}
-        bordered
         onChange={handleChange}
         color="success"
         placeholder="Title"
@@ -120,14 +109,15 @@ const PassageForm = (props) => {
         name="passageBody"
         id="passageBody"
         fullWidth="true"
+        bordered
         value={passageText.passageBody}
         minRows={3}
         maxRows={15}
-        bordered
         onChange={handleChange}
         color="success"
         placeholder="You can type or paste-in your passage text here."
       ></Textarea>
+      <Spacer y={0.5}></Spacer>
       <Button ghost onClick={handleFormSubmit} color="success">Submit New Passage</Button>
 
       {/* MODAL FOR LOADING \/  \/  \/  \/  \/  */}
@@ -150,7 +140,7 @@ const PassageForm = (props) => {
       </Modal>
       {/* MODAL FOR LOADING ^ ^ ^ ^ ^ ^ ^ ^ ^  */}
 
-    </Container>
+    </Collapse>
   );
 };
 

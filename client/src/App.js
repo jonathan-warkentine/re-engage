@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { createTheme, NextUIProvider } from '@nextui-org/react';
+import { Container, createTheme, NextUIProvider, Spacer } from '@nextui-org/react';
 import apolloClient from './apolloClient';
 
 import LandingPage from './pages/LandingPage';
@@ -28,6 +28,7 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <NextUIProvider theme={darkTheme}>
           <Router>
+            <Container>
               <Header />
                 <Routes>
                   <Route 
@@ -59,7 +60,9 @@ function App() {
                     element={<Game />}
                   />
                 </Routes>
+              <Spacer y={6}></Spacer>
               <Footer />
+            </Container>
           </Router>
       </NextUIProvider>
     </ApolloProvider>

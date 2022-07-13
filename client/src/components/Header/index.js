@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
-import { Container, Button, Text } from '@nextui-org/react';
+import { Container, Button, Text, Spacer } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBrain, faEye } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/Header.css'
@@ -22,8 +22,8 @@ const Header = () => {
         </Text>
         <Text h4>Slow down... Engage with what you read.</Text>
       </>
-          
       <Container align="center" >
+        <Spacer></Spacer>
         {Auth.loggedIn() ? (
           <Button.Group color="gradient">
           <Button onClick={logout} auto ghost >Logout</Button>

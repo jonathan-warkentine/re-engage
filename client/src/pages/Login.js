@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_READER } from '../utils/mutations';
-import { Container, Input, Button } from '@nextui-org/react';
+import { Container, Input, Button, Spacer, Text } from '@nextui-org/react';
 import '../styles/LoginAndSignup.css';
 
 import Auth from '../utils/auth';
@@ -43,42 +43,46 @@ const Login = (props) => {
   };
 
   return (
-    <Container>
-      <div >
-        <div >
-          <h2 >Login</h2>
-          <div >
+    <Container align='center' xs>
+      <Spacer></Spacer>
+      <>
+        <>
+          <Text h2>Login</Text>
+          <>
             {data ? (
-              <p>
+              <Text>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
-              </p>
+              </Text>
             ) : (
               <form onSubmit={handleFormSubmit}>
-                <Input
-                  underlined
-                  secondary
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <Input
-                  underlined
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <Button
-                  flat
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </Button>
+                <Container display='flex' direction='column'>
+                  <Input
+                    underlined
+                    secondary
+                    placeholder="Your email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                  <Input
+                    underlined
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                  <Spacer></Spacer>
+                  <Button
+                    flat
+                    style={{ cursor: 'pointer' }}
+                    type="submit"
+                  >
+                    Submit
+                  </Button>
+                </Container>
               </form>
             )}
 
@@ -87,9 +91,9 @@ const Login = (props) => {
                 {error.message}
               </div>
             )}
-          </div>
-        </div>
-      </div>
+          </>
+        </>
+      </>
     </Container>
   );
 };

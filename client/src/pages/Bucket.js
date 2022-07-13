@@ -7,6 +7,7 @@ import {
   Tooltip,
   Spacer,
   Modal,
+  Loading
 } from "@nextui-org/react";
 import {useQuery} from "@apollo/client";
 import {QUERY_ALL_PASSAGES, QUERY_ME} from "../utils/queries";
@@ -66,10 +67,10 @@ function Bucket(props) {
   const {load, data: userObj, refetch} = useQuery(QUERY_ME);
 
   if (loading || load) {
-    return <>
-      <Spacer></Spacer>
-      <Text align="center">Loading...</Text>
-    </>
+    return <Container align='center'>
+        <Spacer y={3}></Spacer>
+        <Loading />
+      </Container>
   }
   const passageArr = passagesObj?.allPassages || [];
   const userSessions = userObj?.me.sessions || [];

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useMutation } from '@apollo/client';
 import {
   Collapse,
   Container,
@@ -6,25 +7,29 @@ import {
   Textarea,
   Button,
   Grid,
-  Tooltip,
-  Spacer
+  Modal,
+  Spacer,
+  Row,
+  Col,
+  Progress,
+  Loading
 } from "@nextui-org/react";
-import {IconButton} from "../../components/Icons/IconButton";
-// import {ClipboardIcon} from "../../components/Icons/ClipboardIcon";
-import {CopyIcon} from "../../components/Icons/CopyIcon";
 import "../../styles/Dashboard.css"
-import ClipboardJS from "clipboard";
 
+import {ADD_PASSAGE} from "../../utils/mutations";
+import Auth from "../../utils/auth";
 import { searchAllChapters, searchAllBooks, searchChapter, searchVerse } from "../../utils/bibleApi";
 
 
-const BibleApp = () => {
-  new ClipboardJS(".copy-button");
+const BibleApp = (props) => {
+  const [addPassage, {data, loading, error}] = useMutation(ADD_PASSAGE);
+
 
   const [version, setVersion] = useState('?translation=KJV');
   const [book, setBook] = useState('');
   const [chapter, setChapter] = useState('');
   const [verse, setVerse] = useState('');
+  const [verseNumber, setVerseNumber] = useState('');
 
   const [holyBible, setHolyBible] = useState([]);
 
@@ -35,22 +40,24 @@ const BibleApp = () => {
   const [allBooks, setAllBooks] = useState([]);
   const searchBible = async () => {
     const response = await searchAllBooks();
-    setAllBooks(response)
+    setAllBooks(response);
   };
 
   const [allChapters, setAllChapters] = useState([]);
+  const [bookName, setBookName] = useState('');
   const handleBookClick = async (event) => {
     event.preventDefault();
-    const response2 = await searchAllChapters(event.target.closest('button').value);
     setBook(event.target.closest('button').value);
+    setBookName(event.target.closest('button').name);
+    const response2 = await searchAllChapters(event.target.closest('button').value);
     setAllChapters(response2);
   };
 
   const [allVerses, setAllVerses] = useState([]);
   const handleChpClick = async (event) => {
     event.preventDefault();
-    const response3 = await searchChapter(book, event.target.closest('button').value, version);
     setChapter(event.target.closest('button').value);
+    const response3 = await searchChapter(book, event.target.closest('button').value, version);
     setAllVerses(response3);
     setHolyBible(response3);
   };
@@ -58,9 +65,48 @@ const BibleApp = () => {
   
   const handleVerseClick = async (event) => {
     event.preventDefault();
-    const response4 = await searchVerse(book, chapter, event.target.closest('button').value, version);
     setVerse(event.target.closest('button').value);
+    setVerseNumber(event.target.closest('button').getAttribute('num'))
+    const response4 = await searchVerse(book, chapter, event.target.closest('button').value, version);
     setHolyBible([response4])
+  };
+
+  const [showLoadingModal, setShowLoadingModal] = useState(false); 
+
+  const handlerToShowLoadingModal = () => {
+    setShowLoadingModal(true);
+    console.log("opened loading modal")
+  };
+
+  const handlerToCloseLoadingModal = () => {
+    setShowLoadingModal(false);
+    console.log("closed loading modal")
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const text = document.querySelector('#bible-body').value;
+    if (!text) {
+      return;
+    }
+
+    handlerToShowLoadingModal();
+    try {
+      const userId = Auth.getReader().data._id;
+
+      const {data} = await addPassage({
+        variables: {
+          title: `${bookName} ${chapter}${verseNumber? `:${verseNumber}`: ''}`,
+          authorId: userId,
+          fullText: text,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    handlerToCloseLoadingModal();
+    document.querySelector('#bible-body').value = '';
+    props.refetch();  
   };
  
 
@@ -71,7 +117,7 @@ const BibleApp = () => {
   }, []);
 
   return (  
-    <Collapse className="bible-app" bordered title="Import a Bible Passage" subtitle={
+    <Collapse className="bible-app" bordered={true} title="Look Up a Bible Passage" subtitle={
       <>
      Click <Text b>Here</Text> to open/close
       </>
@@ -90,14 +136,7 @@ const BibleApp = () => {
             bordered
             aria-label="list-of-contributions"
             css={{
-              // display:'flex',
-              // flexDirection:'column',
-              // height: "auto",
-              // minWidth: "50%",
               width: "100%",
-              // justifyContent:"flex-start",
-              // alignSelf:'flex-start',
-              // flexWrap:'wrap',
             }}>
             <Collapse title="Version" subtitle={
               <>
@@ -176,7 +215,7 @@ const BibleApp = () => {
                     height: "auto",
                     width: "25%",
                     border: 'groove lightgrey'
-                  }} onClick={handleBookClick} value={id} > {name} </Button>
+                  }} onClick={handleBookClick} name={name} value={id} > {name} </Button>
                 )
                 })}
               </Container>
@@ -230,12 +269,13 @@ const BibleApp = () => {
               }}>{allVerses.map(function({id, verseId}, index) {
               return(
                 <Button 
+                bordered={id == verse}
                 key={index}
                 css={{
                   height: "auto",
                   width: "25%",
                   border: 'groove lightgrey'
-                }} onClick={handleVerseClick} value={id} > {verseId} </Button>
+                }} onClick={handleVerseClick} num={verseId} value={id} > {verseId} </Button>
               )
               })}
               </Container>
@@ -243,16 +283,9 @@ const BibleApp = () => {
           </Collapse.Group>
         </Grid>
       </Grid.Container>
-      <Container>
+      <Spacer></Spacer>
+      <Collapse expanded bordered title='Your Selected Scripture . . . .'>
         <Spacer y={1} />
-        <div className="submit-title-and-paste-button">
-          <Text h3>Your Selected Scripture . . . . </Text>
-          <Tooltip color="secondary" content="COPY to your clipboard">
-            <IconButton className="copy-button" data-clipboard-action="copy" data-clipboard-target="#bible-body" onClick={() => console.log("COPY button pressed")}>
-              <CopyIcon size={26} fill="#962bc4" />
-            </IconButton>
-          </Tooltip>
-        </div>
         <Textarea
           bordered
           color="secondary"
@@ -269,7 +302,26 @@ const BibleApp = () => {
           height: '100%',
           }}
           />
-      </Container>
+          <Button ghost onClick={handleFormSubmit} color="success">Submit Selected Passage</Button>
+      </Collapse>
+
+      <Modal noPadding open={showLoadingModal} onOpen={0} onClose={handlerToCloseLoadingModal}>
+        <Modal.Body>
+          <Container>
+            <Col css={{ display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+              <Spacer y={2} />
+              {/* <Loading size="xl" type="points-opacity"></Loading> */}
+              <Progress indeterminated striped color="primary" />
+              <Spacer y={1} />
+              <Progress value={50} color="success" />
+              <Spacer y={1} />
+              <Row justify="center"><Text h3>Loading</Text></Row>
+              <Row justify="center"><Text h4>Using Natural Language Processing (NLP) to Process Your Passage!</Text></Row>
+              <Spacer y={2} />
+            </Col>
+          </Container>
+        </Modal.Body>
+      </Modal>
     </Collapse>
   )
 }

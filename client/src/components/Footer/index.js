@@ -7,10 +7,7 @@ import '../../styles/Footer.css'
 
 const Footer = () => {
   return (
-      <Container fluid display="flex" wrap='wrap' direction="column" justify="center" alignItems = "center" className="footer">
-        <Spacer></Spacer>
-        <Spacer></Spacer>
-        <Spacer></Spacer>
+      <Container bordered={true} fluid display="flex" wrap='wrap' direction="column" justify="space-around" alignItems = "center" className="footer">
         <Text align="center">
           &copy; {new Date().getFullYear()}
         </Text>
