@@ -292,9 +292,10 @@ const BibleApp = (props) => {
         </Grid>
       </Grid.Container>
       <Spacer></Spacer>
-      <Collapse expanded bordered title='Your Selected Scripture . . . .'>
+      <Collapse expanded bordered title='Your Selected Verses . . . .'>
         <Spacer y={1} />
         <Textarea
+          fullWidth          
           bordered
           color="secondary"
           initialValue={holyBible.map(function({verse}) {
@@ -304,11 +305,8 @@ const BibleApp = (props) => {
           ).join('')
           }
           id="bible-body"
-          css={{
-          width: '100%',
-          height: '100%',
-          }}
           />
+          <Spacer></Spacer>
           <Button ghost onClick={handleFormSubmit} color="success">Submit Selected Passage</Button>
       </Collapse>
 

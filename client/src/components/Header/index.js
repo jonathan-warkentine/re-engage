@@ -14,6 +14,7 @@ const Header = () => {
   return (
     <Container align="center" display="flex" fluid className="header">
       <Container>
+        <Spacer></Spacer>
         <Text h1 css={{ textGradient: "45deg, $pink600 20%, $blue600 100%" }}>
           <Link to="/"><FontAwesomeIcon icon={faEye} />
             <FontAwesomeIcon icon={faBrain} /> 
@@ -22,6 +23,7 @@ const Header = () => {
         </Text>
         <Text h4>Slow down... Engage with what you read.</Text>
       </Container>
+      <Spacer/>
       <Container align="center" >
         <Spacer></Spacer>
         {Auth.loggedIn() ? (
