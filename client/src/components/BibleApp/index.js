@@ -9,9 +9,6 @@ import {
   Grid,
   Modal,
   Spacer,
-  Row,
-  Col,
-  Progress,
   Loading
 } from "@nextui-org/react";
 import "../../styles/Dashboard.css"
