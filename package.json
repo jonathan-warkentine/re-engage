@@ -2,6 +2,10 @@
   "name": "re-engage",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.19.2"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "node server --ignore client",
@@ -17,6 +21,7 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "nlpcloud": "^1.0.23"
+    "nlpcloud": "^1.0.23",
+    "react-scripts": "^2.1.3"
   }
 }
